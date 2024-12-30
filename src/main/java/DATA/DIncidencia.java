@@ -21,14 +21,14 @@ import java.util.List;
  *
  * @author fpl
  */
-public class DEquipoTrabajos {
+public class DIncidencia {
     
     int id;
-    int empleado_id; //responsable del Equipo
-    String nombre;
+    int cliente_id;
     String descripcion;
     String estado;
     LocalDateTime created_at;
+    LocalDateTime fecha_resolucion;
 
     public int getId() {
         return id;
@@ -38,20 +38,12 @@ public class DEquipoTrabajos {
         this.id = id;
     }
 
-    public int getEmpleado_id() {
-        return empleado_id;
+    public int getCliente_id() {
+        return cliente_id;
     }
 
-    public void setEmpleado_id(int empleado_id) {
-        this.empleado_id = empleado_id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public String getDescripcion() {
@@ -78,25 +70,32 @@ public class DEquipoTrabajos {
         this.created_at = created_at;
     }
 
-    public DEquipoTrabajos() {}
+    public LocalDateTime getFecha_resolucion() {
+        return fecha_resolucion;
+    }
 
-    public DEquipoTrabajos(int empleado_id, String nombre, String descripcion, String estado) {
-        this.empleado_id = empleado_id;
-        this.nombre = nombre;
+    public void setFecha_resolucion(LocalDateTime fecha_resolucion) {
+        this.fecha_resolucion = fecha_resolucion;
+    }
+
+    public DIncidencia() {}
+
+    public DIncidencia(int cliente_id, String descripcion, String estado) {
+        this.cliente_id = cliente_id;
         this.descripcion = descripcion;
         this.estado = estado;
     }
-    
-    private final String TABLE = "equipo_trabajos";
+
+    private final String TABLE = "incidencias";
     private final String QUERY_ID = "id";
-    //private final String Q_CI = "ci";
+    //private final String Q_PRODUCTO_ID = "producto_id";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (empleado_id, nombre, descripcion, estado, created_at) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (cliente_id, descripcion, estado, created_at) VALUES (?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET empleado_id=?, nombre=?, descripcion=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET cliente_id=?, descripcion=?, estado=?, fecha_resolucion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
+    //private final String QUERY_PRODUCTO_ID = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_PRODUCTO_ID);
     private final String QUERY_LIST = "SELECT * FROM " + TABLE;
     private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
     private SQLConnection connection;
@@ -106,22 +105,22 @@ public class DEquipoTrabajos {
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
             String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("empleado_id")),
-            String.valueOf(set.getString("nombre")),
+            String.valueOf(set.getString("cliente_id")),
             String.valueOf(set.getString("descripcion")),
             String.valueOf(set.getString("estado")),
-            String.valueOf(set.getTimestamp("created_at"))
+            String.valueOf(set.getTimestamp("created_at")),
+            String.valueOf(set.getTimestamp("fecha_resolucion"))
         };
     }
 
     void preparerState() throws SQLException {
         try {
             // Intentar establecer los valores
-            ps.setInt(1, getEmpleado_id());
-            ps.setString(2, getNombre());
-            ps.setString(3, getDescripcion());
-            ps.setString(4, getEstado());
+            ps.setInt(1, getCliente_id());
+            ps.setString(2, getDescripcion());
+            ps.setString(3, getEstado());
             ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
+            ps.setTimestamp(5, Timestamp.valueOf(getFecha_resolucion()));
         } catch (SQLException e) {
             // Manejar la excepción SQL
             System.out.println(MESSAGE_TRYCATCH + TABLE);
@@ -146,7 +145,7 @@ public class DEquipoTrabajos {
         String mensaje = "";
         //String[] exists = null;
         try {
-            /*exists = existe(getCi());
+            /*exists = existe(getNombre());
             if (exists != null) {
                 mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
                 return new Object[]{false, mensaje, null};
@@ -332,13 +331,13 @@ public class DEquipoTrabajos {
         return data;
     }
     
-    /*public String[] existe(String ci) throws SQLException {
+    /*public String[] existe(String nombre) throws SQLException {
         String[] data = null;
-        setCi(ci);
+        setNombre(nombre);
         try {
             init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CI);
-            ps.setString(1, getCi());
+            ps = connection.connect().prepareStatement(QUERY_NOMBRE);
+            ps.setString(1, getNombre());
             set = ps.executeQuery();
             if (set.next()) {
                 data = arrayData(set);

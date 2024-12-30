@@ -93,7 +93,7 @@ public class DInventario {
     private final String QUERY_INSERT = String.format(
             "INSERT INTO %s (producto_id, tipo_movimiento, cantidad, descripcion, created_at) VALUES (?,?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET producto_id=?, tipo_movimiento=?, cantidad=?, descripcion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET tipo_movimiento=?, cantidad=?, descripcion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_PRODUCTO_ID = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_PRODUCTO_ID);

@@ -21,13 +21,13 @@ import java.util.List;
  *
  * @author fpl
  */
-public class DEquipoTrabajos {
+public class DFacturas {
     
     int id;
-    int empleado_id; //responsable del Equipo
-    String nombre;
-    String descripcion;
+    int contrato_id;
+    double precio_total;
     String estado;
+    LocalDateTime fecha_pago;
     LocalDateTime created_at;
 
     public int getId() {
@@ -38,28 +38,20 @@ public class DEquipoTrabajos {
         this.id = id;
     }
 
-    public int getEmpleado_id() {
-        return empleado_id;
+    public int getContrato_id() {
+        return contrato_id;
     }
 
-    public void setEmpleado_id(int empleado_id) {
-        this.empleado_id = empleado_id;
+    public void setContrato_id(int contrato_id) {
+        this.contrato_id = contrato_id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public double getPrecio_total() {
+        return precio_total;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setPrecio_total(double precio_total) {
+        this.precio_total = precio_total;
     }
 
     public String getEstado() {
@@ -70,6 +62,14 @@ public class DEquipoTrabajos {
         this.estado = estado;
     }
 
+    public LocalDateTime getFecha_pago() {
+        return fecha_pago;
+    }
+
+    public void setFecha_pago(LocalDateTime fecha_pago) {
+        this.fecha_pago = fecha_pago;
+    }
+
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -78,22 +78,21 @@ public class DEquipoTrabajos {
         this.created_at = created_at;
     }
 
-    public DEquipoTrabajos() {}
+    public DFacturas() {}
 
-    public DEquipoTrabajos(int empleado_id, String nombre, String descripcion, String estado) {
-        this.empleado_id = empleado_id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
+    public DFacturas(int contrato_id, double precio_total, String estado) {
+        this.contrato_id = contrato_id;
+        this.precio_total = precio_total;
         this.estado = estado;
-    }
+    }    
     
-    private final String TABLE = "equipo_trabajos";
+    private final String TABLE = "facturas";
     private final String QUERY_ID = "id";
     //private final String Q_CI = "ci";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (empleado_id, nombre, descripcion, estado, created_at) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (contrato_id, precio_total, estado, fecha_pago, created_at) VALUES (?,?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET empleado_id=?, nombre=?, descripcion=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET precio_total=?, estado=?, fecha_pago=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
@@ -106,10 +105,10 @@ public class DEquipoTrabajos {
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
             String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("empleado_id")),
-            String.valueOf(set.getString("nombre")),
-            String.valueOf(set.getString("descripcion")),
+            String.valueOf(set.getString("contrat_id")),
+            String.valueOf(set.getString("precio_total")),
             String.valueOf(set.getString("estado")),
+            String.valueOf(set.getString("fecha_pago")),
             String.valueOf(set.getTimestamp("created_at"))
         };
     }
@@ -117,10 +116,10 @@ public class DEquipoTrabajos {
     void preparerState() throws SQLException {
         try {
             // Intentar establecer los valores
-            ps.setInt(1, getEmpleado_id());
-            ps.setString(2, getNombre());
-            ps.setString(3, getDescripcion());
-            ps.setString(4, getEstado());
+            ps.setInt(1, getContrato_id());
+            ps.setDouble(2, getPrecio_total());
+            ps.setString(3, getEstado());
+            ps.setTimestamp(4, Timestamp.valueOf(getFecha_pago()));
             ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
         } catch (SQLException e) {
             // Manejar la excepción SQL

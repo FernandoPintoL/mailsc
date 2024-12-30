@@ -21,12 +21,13 @@ import java.util.List;
  *
  * @author fpl
  */
-public class DEquipoTrabajos {
+public class DServicios {
     
     int id;
-    int empleado_id; //responsable del Equipo
     String nombre;
     String descripcion;
+    double precio;
+    String frecuencia;
     String estado;
     LocalDateTime created_at;
 
@@ -36,14 +37,6 @@ public class DEquipoTrabajos {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getEmpleado_id() {
-        return empleado_id;
-    }
-
-    public void setEmpleado_id(int empleado_id) {
-        this.empleado_id = empleado_id;
     }
 
     public String getNombre() {
@@ -62,6 +55,22 @@ public class DEquipoTrabajos {
         this.descripcion = descripcion;
     }
 
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getFrecuencia() {
+        return frecuencia;
+    }
+
+    public void setFrecuencia(String frecuencia) {
+        this.frecuencia = frecuencia;
+    }
+
     public String getEstado() {
         return estado;
     }
@@ -78,22 +87,23 @@ public class DEquipoTrabajos {
         this.created_at = created_at;
     }
 
-    public DEquipoTrabajos() {}
+    public DServicios() {}
 
-    public DEquipoTrabajos(int empleado_id, String nombre, String descripcion, String estado) {
-        this.empleado_id = empleado_id;
+    public DServicios(String nombre, String descripcion, double precio, String frecuencia, String estado) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.precio = precio;
+        this.frecuencia = frecuencia;
         this.estado = estado;
     }
     
-    private final String TABLE = "equipo_trabajos";
+    private final String TABLE = "servicios";
     private final String QUERY_ID = "id";
     //private final String Q_CI = "ci";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (empleado_id, nombre, descripcion, estado, created_at) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (nombre, descripcion, precio, frecuencia, estado, created_at) VALUES (?,?,?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET empleado_id=?, nombre=?, descripcion=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET nombre=?, descripcion=?, precio=?, frecuencia=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
@@ -106,9 +116,10 @@ public class DEquipoTrabajos {
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
             String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("empleado_id")),
             String.valueOf(set.getString("nombre")),
-            String.valueOf(set.getString("descripcion")),
+            String.valueOf(set.getString("descripcion")),      
+            String.valueOf(set.getString("precio")),
+            String.valueOf(set.getString("frecuencia")),
             String.valueOf(set.getString("estado")),
             String.valueOf(set.getTimestamp("created_at"))
         };
@@ -117,11 +128,12 @@ public class DEquipoTrabajos {
     void preparerState() throws SQLException {
         try {
             // Intentar establecer los valores
-            ps.setInt(1, getEmpleado_id());
-            ps.setString(2, getNombre());
-            ps.setString(3, getDescripcion());
-            ps.setString(4, getEstado());
-            ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
+            ps.setString(1, getNombre());
+            ps.setString(2, getDescripcion());
+            ps.setDouble(3, getPrecio());
+            ps.setString(4, getFrecuencia());
+            ps.setString(5, getEstado());
+            ps.setTimestamp(6, Timestamp.valueOf(getCreated_at()));
         } catch (SQLException e) {
             // Manejar la excepción SQL
             System.out.println(MESSAGE_TRYCATCH + TABLE);

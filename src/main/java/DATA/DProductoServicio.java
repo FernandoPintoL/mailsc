@@ -21,13 +21,13 @@ import java.util.List;
  *
  * @author fpl
  */
-public class DEquipoTrabajos {
+public class DProductoServicio {
     
     int id;
-    int empleado_id; //responsable del Equipo
-    String nombre;
+    int producto_id;
+    int servicio_id;
+    double cantidad;
     String descripcion;
-    String estado;
     LocalDateTime created_at;
 
     public int getId() {
@@ -38,20 +38,28 @@ public class DEquipoTrabajos {
         this.id = id;
     }
 
-    public int getEmpleado_id() {
-        return empleado_id;
+    public int getProducto_id() {
+        return producto_id;
     }
 
-    public void setEmpleado_id(int empleado_id) {
-        this.empleado_id = empleado_id;
+    public void setProducto_id(int producto_id) {
+        this.producto_id = producto_id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public int getServicio_id() {
+        return servicio_id;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setServicio_id(int servicio_id) {
+        this.servicio_id = servicio_id;
+    }
+
+    public double getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getDescripcion() {
@@ -62,14 +70,6 @@ public class DEquipoTrabajos {
         this.descripcion = descripcion;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -78,25 +78,25 @@ public class DEquipoTrabajos {
         this.created_at = created_at;
     }
 
-    public DEquipoTrabajos() {}
+    public DProductoServicio() {}
 
-    public DEquipoTrabajos(int empleado_id, String nombre, String descripcion, String estado) {
-        this.empleado_id = empleado_id;
-        this.nombre = nombre;
+    public DProductoServicio(int producto_id, int servicio_id, double cantidad, String descripcion) {
+        this.producto_id = producto_id;
+        this.servicio_id = servicio_id;
+        this.cantidad = cantidad;
         this.descripcion = descripcion;
-        this.estado = estado;
     }
-    
-    private final String TABLE = "equipo_trabajos";
+
+    private final String TABLE = "producto_servicios";
     private final String QUERY_ID = "id";
-    //private final String Q_CI = "ci";
+    private final String Q_NOMBRE = "nombre";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (empleado_id, nombre, descripcion, estado, created_at) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (producto_id, servicio_id, cantidad, descripcion, created_at) VALUES (?,?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET empleado_id=?, nombre=?, descripcion=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET cantidad=?, descripcion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
+    private final String QUERY_NOMBRE = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_NOMBRE);
     private final String QUERY_LIST = "SELECT * FROM " + TABLE;
     private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
     private SQLConnection connection;
@@ -106,10 +106,10 @@ public class DEquipoTrabajos {
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
             String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("empleado_id")),
-            String.valueOf(set.getString("nombre")),
+            String.valueOf(set.getString("producto_id")),
+            String.valueOf(set.getString("servicio_id")),
+            String.valueOf(set.getString("cantidad")),
             String.valueOf(set.getString("descripcion")),
-            String.valueOf(set.getString("estado")),
             String.valueOf(set.getTimestamp("created_at"))
         };
     }
@@ -117,10 +117,10 @@ public class DEquipoTrabajos {
     void preparerState() throws SQLException {
         try {
             // Intentar establecer los valores
-            ps.setInt(1, getEmpleado_id());
-            ps.setString(2, getNombre());
-            ps.setString(3, getDescripcion());
-            ps.setString(4, getEstado());
+            ps.setInt(1, getProducto_id());
+            ps.setInt(2, getServicio_id());
+            ps.setDouble(3, getCantidad());
+            ps.setString(4, getDescripcion());
             ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
         } catch (SQLException e) {
             // Manejar la excepción SQL
@@ -146,7 +146,7 @@ public class DEquipoTrabajos {
         String mensaje = "";
         //String[] exists = null;
         try {
-            /*exists = existe(getCi());
+            /*exists = existe(getNombre());
             if (exists != null) {
                 mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
                 return new Object[]{false, mensaje, null};
@@ -332,13 +332,13 @@ public class DEquipoTrabajos {
         return data;
     }
     
-    /*public String[] existe(String ci) throws SQLException {
+    /*public String[] existe(String nombre) throws SQLException {
         String[] data = null;
-        setCi(ci);
+        setNombre(nombre);
         try {
             init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CI);
-            ps.setString(1, getCi());
+            ps = connection.connect().prepareStatement(QUERY_NOMBRE);
+            ps.setString(1, getNombre());
             set = ps.executeQuery();
             if (set.next()) {
                 data = arrayData(set);
