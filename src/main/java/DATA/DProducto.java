@@ -21,13 +21,13 @@ import java.util.List;
  *
  * @author fpl
  */
-public class DProveedor {
+public class DProducto {
     
     int id;
-    String ci;
     String nombre;
-    String telefono;
-    String direccion;
+    String descripcion;
+    double precio;
+    double stock;
     LocalDateTime created_at;
 
     public int getId() {
@@ -38,14 +38,6 @@ public class DProveedor {
         this.id = id;
     }
 
-    public String getCi() {
-        return ci;
-    }
-
-    public void setCi(String ci) {
-        this.ci = ci;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -54,12 +46,28 @@ public class DProveedor {
         this.nombre = nombre;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public double getStock() {
+        return stock;
+    }
+
+    public void setStock(double stock) {
+        this.stock = stock;
     }
 
     public LocalDateTime getCreated_at() {
@@ -70,33 +78,25 @@ public class DProveedor {
         this.created_at = created_at;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
+    public DProducto() {}
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public DProveedor() {}
-
-    public DProveedor(String ci, String nombre, String telefono, String direccion) {
-        this.ci = ci;
+    public DProducto(String nombre, String descripcion, double precio, double stock) {
         this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
     }
 
-    private final String TABLE = "proveedors";
+    private final String TABLE = "productos";
     private final String QUERY_ID = "id";
-    private final String Q_CI = "ci";
+    private final String Q_NOMBRE = "nombre";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (ci, nombre, telefono, direccion, created_at) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (nombre, descripcion, precio, stock, created_at) VALUES (?,?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET ci=?, nombre=?, telefono=?, direccion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET nombre=?, descripcion=?, precio=?, stock=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
+    private final String QUERY_NOMBRE = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_NOMBRE);
     private final String QUERY_LIST = "SELECT * FROM " + TABLE;
     private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
     private SQLConnection connection;
@@ -106,11 +106,10 @@ public class DProveedor {
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
             String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("ci")),
             String.valueOf(set.getString("nombre")),
-            String.valueOf(set.getString("telefono")),
-            String.valueOf(set.getString("puesto")),
-            String.valueOf(set.getString("estado")),
+            String.valueOf(set.getString("descripcion")),
+            String.valueOf(set.getString("precio")),
+            String.valueOf(set.getString("stock")),
             String.valueOf(set.getTimestamp("created_at"))
         };
     }
@@ -118,10 +117,10 @@ public class DProveedor {
     void preparerState() throws SQLException {
         try {
             // Intentar establecer los valores
-            ps.setString(1, getCi());
-            ps.setString(2, getNombre());
-            ps.setString(3, getTelefono());
-            ps.setString(4, getDireccion());
+            ps.setString(1, getNombre());
+            ps.setString(2, getDescripcion());
+            ps.setDouble(3, getPrecio());
+            ps.setDouble(4, getStock());
             ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
         } catch (SQLException e) {
             // Manejar la excepción SQL
@@ -147,7 +146,7 @@ public class DProveedor {
         String mensaje = "";
         String[] exists = null;
         try {
-            exists = existe(getCi());
+            exists = existe(getNombre());
             if (exists != null) {
                 mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
                 return new Object[]{false, mensaje, null};
@@ -333,13 +332,13 @@ public class DProveedor {
         return data;
     }
     
-    public String[] existe(String ci) throws SQLException {
+    public String[] existe(String nombre) throws SQLException {
         String[] data = null;
-        setCi(ci);
+        setNombre(nombre);
         try {
             init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CI);
-            ps.setString(1, getCi());
+            ps = connection.connect().prepareStatement(QUERY_NOMBRE);
+            ps.setString(1, getNombre());
             set = ps.executeQuery();
             if (set.next()) {
                 data = arrayData(set);

@@ -1,6 +1,6 @@
 package NEGOCIO;
 
-import DATA.DCliente;
+import DATA.DProducto;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -11,22 +11,22 @@ import java.util.List;
  *
  * @author fpl
  */
-public class NCliente {
+public class NProducto {
 
-    private DCliente DATA;
+    private DProducto DATA;
 
-    public NCliente() {}
+    public NProducto() {}
 
-    public Object[] guardar(String ci, String nombre, String direccion, String telefono, String tipo_cliente) throws SQLException, ParseException {
-        DATA = new DCliente(ci, nombre, direccion, telefono, tipo_cliente);
+    public Object[] guardar(String nombre, String descripcion, Double precio, Double stock) throws SQLException, ParseException {
+        DATA = new DProducto(nombre, descripcion, precio, stock);
         Object[] response = DATA.guardar();
         System.out.println(Arrays.toString(response));
         DATA.desconectar();
         return response;
     }
 
-    public Object[] modificar(int id, String ci, String nombre, String direccion, String telefono, String tipo_cliente) throws SQLException, ParseException {
-        DATA = new DCliente(ci, nombre, direccion, telefono, tipo_cliente);
+    public Object[] modificar(int id, String nombre, String descripcion, Double precio, Double stock) throws SQLException, ParseException {
+        DATA = new DProducto(nombre, descripcion, precio, stock);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();
@@ -34,7 +34,7 @@ public class NCliente {
     }
 
     public boolean eliminar(int id) throws SQLException {
-        DATA = new DCliente();
+        DATA = new DProducto();
         DATA.setId(id);
         boolean response = DATA.eliminar();
         DATA.desconectar();
@@ -42,7 +42,7 @@ public class NCliente {
     }
     
     public String[] ver(int id) throws SQLException {
-        DATA = new DCliente();
+        DATA = new DProducto();
         DATA.setId(id);
         String[] data = DATA.ver();
         DATA.desconectar();
@@ -50,7 +50,7 @@ public class NCliente {
     }
 
     public List<String[]> listar() throws SQLException {
-        DATA = new DCliente();
+        DATA = new DProducto();
         ArrayList<String[]> categoria = (ArrayList<String[]>) DATA.listar();
         DATA.desconectar();
         return categoria;

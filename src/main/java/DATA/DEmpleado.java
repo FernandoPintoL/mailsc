@@ -89,6 +89,14 @@ public class DEmpleado {
 
     public DEmpleado() {}
 
+    public DEmpleado(String ci, String nombre, String telefono, String puesto, String estado) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.puesto = puesto;
+        this.estado = estado;
+    }   
+    
     private final String TABLE = "empleados";
     private final String QUERY_ID = "id";
     private final String Q_CI = "ci";
