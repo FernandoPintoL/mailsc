@@ -21,11 +21,19 @@ public class Help {
     public static final String END = "END";
 
     // List de todas las tablas
-    public static final String CLIENTE = "CLI";    
-    public static final String PROVEEDOR = "PRV";    
-    public static final String EMPLEADO = "EMP";    
-    public static final String PRODUCTO = "PRO";
+    public static final String CLIENTE = "CLI";
+    public static final String CONTRATOS = "CNTR";  
+    public static final String EMPLEADO_EQUIPO_TRABAJO = "EMP_EQP_TRA"; 
+    public static final String EMPLEADO = "EMP";
+    public static final String EQUIPO_TRABAJO_SERVICIO = "EQP_TRA_SRV"; 
+    public static final String EQUIPO_TRABAJO = "EQP_TRA"; 
+    public static final String FACTURAS = "FACT"; 
+    public static final String INCIDENCIAS = "INC";
     public static final String INVENTARIO = "INV";
+    public static final String PRODUCTO_SERVICIOS = "PRO_SRV";
+    public static final String PRODUCTO = "PRO";
+    public static final String PROVEEDOR = "PRV";
+    public static final String SERVICIO = "SRV";
 
 
     
@@ -45,11 +53,19 @@ public class Help {
     public static final int LENPARAM8 = 8;
     public static final int LENPARAM9 = 9;
     public static final int LENPARAM10 = 10;
-    public static final String[] clienteHeader = {"ID", "CI","NOMBRE","TELEFONO","DIRECCION","TIPO CLIENTE"};
+    public static final String[] clienteHeader = {"ID", "CI","NOMBRE","TELEFONO","DIRECCION","TIPO CLIENTE"};  
+    public static final String[] contratoHeader = {"ID", "DESCRIPCION","PRECIO TOTAL","ESTADO","FECHA INICIO","FECHA FIN"};
+    public static final String[] empleadoEquipoTrabajoHeader = {"ID", "EMPLEADO","EQUIPO TRABAJO","ESTADO"};
     public static final String[] empleadoHeader = {"ID", "CI","NOMBRE","TELEFONO","PUESTO","ESTADO"};
-    public static final String[] proveedorHeader = {"ID", "CI","NOMBRE","TELEFONO","DIRECCION"};
+    public static final String[] equipoTrabajoServicioHeader = {"ID","EQUIPO TRABAJO","SERVICIO","ESTADO"};
+    public static final String[] equipoTrabajoHeader = {"ID","EMPLEADO","NOMBRE","DESCRIPCION","ESTADO"};
+    public static final String[] facturasHeader = {"ID","CONTRATO","PRECIO TOTAL","ESTADO","FECHA PAGO"};
+    public static final String[] incidenciasHeader = {"ID","CLIENTE","DESCRIPCION","ESTADO"};
+    public static final String[] inventarioHeader = {"ID", "PRODUCTO","TIPO MOVIMIENTO","CANTIDAD","DESCRIPCION"};
+    public static final String[] productoServicioHeader = {"ID", "PRODUCTO","SERVICIO","CANTIDAD","DESCRIPCION"};
     public static final String[] productoHeader = {"ID", "NOMBRE","DESCRIPCION","PRECIO","STOCK"};
-    public static final String[] inventarioHeader = {"ID", "PRODUCTO_ID","TIPO_MOVIMIENTO","CANTIDAD","DESCRIPCION"};
+    public static final String[] proveedorHeader = {"ID", "CI","NOMBRE","TELEFONO","DIRECCION"};
+    public static final String[] servicioHeader = {"ID", "NOMBRE","DESCRIPCION","PRECIO","FRECUENCIA","ESTADO"};
 
 
     public static String ContenidoHelp() {
@@ -185,173 +201,92 @@ public class Help {
     private static List<CasosUso> getCasosUso() {
         List<CasosUso> casos = new LinkedList<>();
         
-        //CLIENTE #5
-        CasosUso cliente = new CasosUso("CU5. GESTIONAR CLIENTE ");
+        //CLIENTE #1
+        CasosUso cliente = new CasosUso("CU1. GESTIONAR CLIENTE ");
         cliente.addCaso(new Option("GUARDAR ", CLIENTE + "_ADD[ci,nombre,direccion,telefono,tipo_cliente]; | CLI_ADD[123456789,JOSE PEDRO,CALLE FALSA #3,123456789,('INSTITUCIONAL', 'OCASIONAL', 'CONTRATO')]"));
         cliente.addCaso(new Option("MODIFICAR ", CLIENTE + "_MOD[id,ci,nombre,direccion,telefono,tipo_cliente]; | CLI_ADD[1,123456789,JOSE PEDRO,CALLE FALSA #3,123456789,('INSTITUCIONAL', 'OCASIONAL', 'CONTRATO')]"));
         cliente.addCaso(new Option("ELIMINAR ", CLIENTE + "_DEL[id];"));
         cliente.addCaso(new Option("VER ", CLIENTE + "_VER[id];"));
         cliente.addCaso(new Option("LISTAR ", CLIENTE + "_LIS[];"));
         
-        //EMPLEADO #5
-        CasosUso empleado = new CasosUso("CU5. GESTIONAR EMPLEADO ");
-        cliente.addCaso(new Option("GUARDAR ", EMPLEADO + "_ADD[ci,nombre,telefono,puesto,estado]; | EMP_ADD[123456789,JOSE PEDRO,123456789,('OPERARIO DE LIMPIEZA', 'GERENTE GENERAL', 'SUPERVISOR DE LIMPIEZA'),('ACTIVO', 'INACTIVO', 'SUSPENDIDO')]"));
-        cliente.addCaso(new Option("MODIFICAR ", EMPLEADO + "_MOD[id,ci,nombre,direccion,telefono,tipo_cliente]; | EMP_ADD[1,123456789,JOSE PEDRO,123456789,('OPERARIO DE LIMPIEZA', 'GERENTE GENERAL', 'SUPERVISOR DE LIMPIEZA'),('ACTIVO', 'INACTIVO', 'SUSPENDIDO')]"));
-        cliente.addCaso(new Option("ELIMINAR " , EMPLEADO + "_DEL[id];"));
-        cliente.addCaso(new Option("VER ", EMPLEADO + "_VER[id];"));
-        cliente.addCaso(new Option("LISTAR ", EMPLEADO + "_LIS[];"));
+        //EMPLEADO #1
+        CasosUso empleado = new CasosUso("CU1. GESTIONAR EMPLEADO ");
+        empleado.addCaso(new Option("GUARDAR ", EMPLEADO + "_ADD[ci,nombre,telefono,puesto,estado]; | EMP_ADD[123456789,JOSE PEDRO,123456789,('OPERARIO DE LIMPIEZA', 'GERENTE GENERAL', 'SUPERVISOR DE LIMPIEZA'),('ACTIVO', 'INACTIVO', 'SUSPENDIDO')]"));
+        empleado.addCaso(new Option("MODIFICAR ", EMPLEADO + "_MOD[id,ci,nombre,direccion,telefono,tipo_cliente]; | EMP_ADD[1,123456789,JOSE PEDRO,123456789,('OPERARIO DE LIMPIEZA', 'GERENTE GENERAL', 'SUPERVISOR DE LIMPIEZA'),('ACTIVO', 'INACTIVO', 'SUSPENDIDO')]"));
+        empleado.addCaso(new Option("ELIMINAR " , EMPLEADO + "_DEL[id];"));
+        empleado.addCaso(new Option("VER ", EMPLEADO + "_VER[id];"));
+        empleado.addCaso(new Option("LISTAR ", EMPLEADO + "_LIS[];"));
         
-        //EMPLEADO #5
-        CasosUso proveedor = new CasosUso("CU5. GESTIONAR PROVEEDOR ");
-        cliente.addCaso(new Option("GUARDAR ", PROVEEDOR + "_ADD[ci,nombre,telefono,direccion]; | "+PROVEEDOR+"_ADD[123456789,JOSE PEDRO,123456789]"));
-        cliente.addCaso(new Option("MODIFICAR ", PROVEEDOR + "_MOD[id,ci,nombre,telefono,direccion]; | "+PROVEEDOR+"_ADD[1,123456789,JOSE PEDRO,123456789]"));
-        cliente.addCaso(new Option("ELIMINAR ", PROVEEDOR + "_DEL[id];"));
-        cliente.addCaso(new Option("VER ", PROVEEDOR + "_VER[id];"));
-        cliente.addCaso(new Option("LISTAR ", PROVEEDOR + "_LIS[];"));
+        //EMPLEADO #1
+        CasosUso proveedor = new CasosUso("CU1. GESTIONAR PROVEEDOR ");
+        proveedor.addCaso(new Option("GUARDAR ", PROVEEDOR + "_ADD[ci,nombre,telefono,direccion]; | "+PROVEEDOR+"_ADD[123456789,JOSE PEDRO,123456789]"));
+        proveedor.addCaso(new Option("MODIFICAR ", PROVEEDOR + "_MOD[id,ci,nombre,telefono,direccion]; | "+PROVEEDOR+"_ADD[1,123456789,JOSE PEDRO,123456789]"));
+        proveedor.addCaso(new Option("ELIMINAR ", PROVEEDOR + "_DEL[id];"));
+        proveedor.addCaso(new Option("VER ", PROVEEDOR + "_VER[id];"));
+        proveedor.addCaso(new Option("LISTAR ", PROVEEDOR + "_LIS[];"));
         
-        //PRODUCTO #5
-        CasosUso producto = new CasosUso("CU5. GESTIONAR PRODUCTO ");
-        cliente.addCaso(new Option("GUARDAR ", PRODUCTO + "_ADD[nombre,descripcion,precio,stock]; | "+PRODUCTO+"_ADD[PRODUCTO,DETALLE PRODUCTO,0,0]"));
-        cliente.addCaso(new Option("MODIFICAR ", PRODUCTO + "_MOD[id,nombre,descripcion,precio,stock]; | "+PRODUCTO+"_ADD[1,PRODUCTO,DETALLE PRODUCTO,0,0]"));
-        cliente.addCaso(new Option("ELIMINAR ", PRODUCTO + "_DEL[id];"));
-        cliente.addCaso(new Option("VER ", PRODUCTO + "_VER[id];"));
-        cliente.addCaso(new Option("LISTAR ", PRODUCTO + "_LIS[];"));
+        //PRODUCTO #2
+        CasosUso producto = new CasosUso("CU2. GESTIONAR PRODUCTO ");
+        producto.addCaso(new Option("GUARDAR ", PRODUCTO + "_ADD[nombre,descripcion,precio,stock]; | "+PRODUCTO+"_ADD[PRODUCTO,DETALLE PRODUCTO,0,0]"));
+        producto.addCaso(new Option("MODIFICAR ", PRODUCTO + "_MOD[id,nombre,descripcion,precio,stock]; | "+PRODUCTO+"_ADD[1,PRODUCTO,DETALLE PRODUCTO,0,0]"));
+        producto.addCaso(new Option("ELIMINAR ", PRODUCTO + "_DEL[id];"));
+        producto.addCaso(new Option("VER ", PRODUCTO + "_VER[id];"));
+        producto.addCaso(new Option("LISTAR ", PRODUCTO + "_LIS[];"));
         
         
-        //INVENTARIO #5
-        CasosUso inventario = new CasosUso("CU5. GESTIONAR INVENTARIO ");
-        cliente.addCaso(new Option("GUARDAR ", INVENTARIO + "_ADD[producto_id,tipo_movimiento,cantidad,descripcion]; | "+INVENTARIO+"_ADD[1,('INGRESO', 'SALIDA'),0, DESCRIPCION DEL INVENTARIO]"));
-        cliente.addCaso(new Option("MODIFICAR ", INVENTARIO + "_MOD[id,producto_id,tipo_movimiento,cantidad,descripcion]; | "+INVENTARIO+"_ADD[1,1,('INGRESO', 'SALIDA'),0, DESCRIPCION DEL INVENTARIO]"));
-        cliente.addCaso(new Option("ELIMINAR ", INVENTARIO + "_DEL[id];"));
-        cliente.addCaso(new Option("VER ", INVENTARIO + "_VER[id];"));
-        cliente.addCaso(new Option("LISTAR ", INVENTARIO + "_LIS[];"));
+        //INVENTARIO #3
+        CasosUso inventario = new CasosUso("CU3. GESTIONAR INVENTARIO ");
+        inventario.addCaso(new Option("GUARDAR ", INVENTARIO + "_ADD[producto_id,tipo_movimiento,cantidad,descripcion]; | "+INVENTARIO+"_ADD[1,('INGRESO', 'SALIDA'),0, DESCRIPCION DEL INVENTARIO]"));
+        inventario.addCaso(new Option("MODIFICAR ", INVENTARIO + "_MOD[id,producto_id,tipo_movimiento,cantidad,descripcion]; | "+INVENTARIO+"_ADD[1,1,('INGRESO', 'SALIDA'),0, DESCRIPCION DEL INVENTARIO]"));
+        inventario.addCaso(new Option("ELIMINAR ", INVENTARIO + "_DEL[id];"));
+        inventario.addCaso(new Option("VER ", INVENTARIO + "_VER[id];"));
+        inventario.addCaso(new Option("LISTAR ", INVENTARIO + "_LIS[];"));
+        
+        //SERVICIOS #4
+        CasosUso servicio = new CasosUso("CU4. GESTIONAR SERVICIO ");
+        servicio.addCaso(new Option("GUARDAR ", SERVICIO + "_ADD[nombre,descripcion,precio,frecuencia,estado];"+SERVICIO+"_ADD[SERVICIO #1,DESCRIPCION,0,('DIARIA', 'SEMANAL', 'MENSUAL'),0,('ACTIVO, 'DESACTIVO')]"));
+        servicio.addCaso(new Option("MODIFICAR ", SERVICIO + "_MOD[id,producto_id,tipo_movimiento,cantidad,descripcion]; | "+SERVICIO+"_ADD[1SERVICIO #1,DESCRIPCION,0,('DIARIA', 'SEMANAL', 'MENSUAL'),0,('ACTIVO, 'DESACTIVO')]"));
+        servicio.addCaso(new Option("ELIMINAR ", SERVICIO + "_DEL[id];"));
+        servicio.addCaso(new Option("VER ", SERVICIO + "_VER[id];"));
+        servicio.addCaso(new Option("LISTAR ", SERVICIO + "_LIS[];"));
+        
+        //CONTRATOS #5
+        CasosUso contratos = new CasosUso("CU5. GESTIONAR CONTRATOS ");
+        contratos.addCaso(new Option("GUARDAR ", CONTRATOS + "_ADD[descripcion, precio_total, estado, fecha_inicio, fecha_fin];"+CONTRATOS+"_ADD[DESCRIPCION CONTRATO,0,('DIARIA', 'SEMANAL', 'MENSUAL'),0,('ACTIVO, 'FINALIZADO','DESACTIVO'), yyyy-mm-dd, yyyy-mm-ddd]"));
+        contratos.addCaso(new Option("MODIFICAR ", CONTRATOS + "_MOD[id,descripcion, precio_total, estado, fecha_inicio, fecha_fin]; | "+CONTRATOS+"_ADD[1,DESCRIPCION CONTRATO,0,('DIARIA', 'SEMANAL', 'MENSUAL'),0,('ACTIVO, 'FINALIZADO','DESACTIVO'), yyyy-mm-dd, yyyy-mm-ddd]"));
+        contratos.addCaso(new Option("ELIMINAR ", CONTRATOS + "_DEL[id];"));
+        contratos.addCaso(new Option("VER ", CONTRATOS + "_VER[id];"));
+        contratos.addCaso(new Option("LISTAR ", CONTRATOS + "_LIS[];"));
+        
+        //FACTURACION #5
+        CasosUso factura = new CasosUso("CU5. GESTIONAR FACTURA ");
+        factura.addCaso(new Option("GUARDAR ", FACTURAS + "_ADD[contrato_id, precio_total, estado];"+CONTRATOS+"_ADD[1,1,0,('PENDIENTE', 'PAGADO', 'CANCELADO')]"));
+        factura.addCaso(new Option("MODIFICAR ", FACTURAS + "_MOD[id,contrato_id, precio_total, estado]; | "+CONTRATOS+"_ADD[1,1,0,('PENDIENTE', 'PAGADO', 'CANCELADO')]"));
+        factura.addCaso(new Option("ELIMINAR ", FACTURAS + "_DEL[id];"));
+        factura.addCaso(new Option("VER ", FACTURAS + "_VER[id];"));
+        factura.addCaso(new Option("LISTAR ", FACTURAS + "_LIS[];"));
+        
+        
+        //EQUIPOS DE TRABAJO #6
+        CasosUso equipo_trabajo = new CasosUso("CU6. GESTIONAR EQUIPO DE TRABAJO ");
+        equipo_trabajo.addCaso(new Option("GUARDAR ", EQUIPO_TRABAJO + "_ADD[empleado_id, nombre del equipo, descripcion, estado];"+EQUIPO_TRABAJO+"_ADD[1,LIMPIEZA 1,DESCRIPCION DEL GRUPO, ('ACTIVO', 'INACTIVO')]"));
+        equipo_trabajo.addCaso(new Option("MODIFICAR ", EQUIPO_TRABAJO + "_MOD[id,contrato_id, precio_total, estado]; | "+EQUIPO_TRABAJO+"_ADD[1,1,0,('PENDIENTE', 'PAGADO', 'CANCELADO')]"));
+        equipo_trabajo.addCaso(new Option("ELIMINAR ", EQUIPO_TRABAJO + "_DEL[id];"));
+        equipo_trabajo.addCaso(new Option("VER ", EQUIPO_TRABAJO + "_VER[id];"));
+        equipo_trabajo.addCaso(new Option("LISTAR ", EQUIPO_TRABAJO + "_LIS[];"));
+        
+        //INCIDENCIAS Y QUEJAS #7
+        CasosUso incidencias = new CasosUso("CU7. GESTIONAR INCIDENCIAS Y QUEJAS");
+        incidencias.addCaso(new Option("GUARDAR ", EQUIPO_TRABAJO + "_ADD[empleado_id, nombre del equipo, descripcion, estado];"+EQUIPO_TRABAJO+"_ADD[1,LIMPIEZA 1,DESCRIPCION DEL GRUPO, ('ACTIVO', 'INACTIVO')]"));
+        incidencias.addCaso(new Option("MODIFICAR ", EQUIPO_TRABAJO + "_MOD[id,contrato_id, precio_total, estado]; | "+EQUIPO_TRABAJO+"_ADD[1,1,0,('PENDIENTE', 'PAGADO', 'CANCELADO')]"));
+        incidencias.addCaso(new Option("ELIMINAR ", EQUIPO_TRABAJO + "_DEL[id];"));
+        incidencias.addCaso(new Option("VER ", EQUIPO_TRABAJO + "_VER[id];"));
+        incidencias.addCaso(new Option("LISTAR ", EQUIPO_TRABAJO + "_LIS[];"));
+        
         /* //REPORTES #1
         CasosUso reporte = new CasosUso("CU1. GESTIONAR REPORTES ");
         reporte.addCaso(new Option("CONTROL DE STOCK", STOCK + "_REP[];"));
-        reporte.addCaso(new Option("CANTIDAD Y MONTO DE PRODUCTOS VENDIDODOS", PRODUCTO_VENDIDO + "_REP[];"));
-
-        
-        //ALMACEN #2
-        CasosUso almacen = new CasosUso("CU2. GESTIONAR ALMACEN ");
-        almacen.addCaso(new Option("GUARDAR ALMACEN", ALMACEN + "_ADD[codigo,direccion];"));
-        almacen.addCaso(new Option("MODIFICAR ALMACEN", ALMACEN + "_MOD[id_almacen,codigo,direccion];"));
-        almacen.addCaso(new Option("ELIMINAR ALMACEN", ALMACEN + "_DEL[id_almacen];"));
-        almacen.addCaso(new Option("VER ALMACEN", ALMACEN + "_VER[id_almacen];"));
-        almacen.addCaso(new Option("LISTAR ALMACEN", ALMACEN + "_LIS[];"));
-
-        //INVENTARIO #3
-        CasosUso inventario = new CasosUso("CU3. GESTIONAR INVENTARIO ");
-        inventario.addCaso(new Option("GUARDAR INVENTARIO", INVENTARIO+"_ADD[producto_id,almacen_id,stock];"));
-        inventario.addCaso(new Option("MODIFICAR INVENTARIO", INVENTARIO+"_MOD[producto_id,almacen_id,stock,fecha];"));
-        inventario.addCaso(new Option("ELIMINAR INVENTARIO", INVENTARIO+"_DEL[producto_id,almacen_id];"));
-        inventario.addCaso(new Option("VER INVENTARIO", INVENTARIO+"_VER[producto_id,almacen_id];"));
-        inventario.addCaso(new Option("LISTAR INVENTARIO", INVENTARIO+"_LIS[];"));
-
-        //PAGO #4
-        CasosUso pago = new CasosUso("CU4. GESTIONAR PAGO ");
-        pago.addCaso(new Option("GUARDAR PAGO", PAGO + "_ADD[monto, moneda, estado_pago, compra_id, metodo_pago];"));
-        pago.addCaso(new Option("MODIFICAR PAGO", PAGO + "_MOD[id_pago, monto, moneda, estado_pago];"));
-        pago.addCaso(new Option("ELIMINAR PAGO", PAGO + "_DEL[id_pago];"));
-        pago.addCaso(new Option("LISTAR PAGO", PAGO + "_LIS[];"));
-        pago.addCaso(new Option("VER PAGO", PAGO + "_VER[id_pago];"));
-
-        //ADMINISTRATIVO #5
-        CasosUso administrativo = new CasosUso("CU5. GESTIONAR ADMINISTRATIVO ");
-        administrativo.addCaso(new Option("GUARDAR ADMINISTRATIVO " , ADMINISTRATIVO + "_ADD[nombre, direccion, telefono, correo, ci, cargo];"));
-        administrativo.addCaso(new Option("MODIFICAR ADMINISTRATIVO ", ADMINISTRATIVO + "_MOD[id_administrativo, nombre, direccion, telefono, correo, ci, cargo, fecha_ingreso];"));
-        administrativo.addCaso(new Option("ELIMINAR ADMINISTRATIVO ", ADMINISTRATIVO + "_DEL[id_administrativo];"));
-        administrativo.addCaso(new Option("VER ADMINISTRATIVO ", ADMINISTRATIVO + "_VER[id_administrativo];"));
-        administrativo.addCaso(new Option("LISTAR ADMINISTRATIVO ", ADMINISTRATIVO + "_LIS[];"));
-
-        
-
-        //PROVEEDOR #5
-        CasosUso proveedor = new CasosUso("CU5. GESTIONAR PROVEEDOR ");
-        proveedor.addCaso(new Option("GUARDAR PROVEEDOR", PROVEEDOR + "_ADD[nombre, direccion, telefono, correo, ci,tipo_proveedor, descripcion];"));
-        proveedor.addCaso(new Option("MODIFICAR PROVEEDOR", PROVEEDOR + "_MOD[id_proveedor,nombre, direccion, telefono, correo, ci, tipo_proveedor, descripcion];"));
-        proveedor.addCaso(new Option("ELIMINAR PROVEEDOR", PROVEEDOR + "_DEL[id_proveedor];"));
-        proveedor.addCaso(new Option("VER PROVEEDOR", PROVEEDOR + "_VER[id_proveedor];"));
-        proveedor.addCaso(new Option("LISTAR PROVEEDOR", PROVEEDOR + "_LIS[];"));
-
-        //PRODUCTO #6
-        CasosUso producto = new CasosUso("CU6. GESTIONAR PRODUCTO ");
-        producto.addCaso(new Option("GUARDAR PRODUCTO", PRODUCTO+"_ADD[nombre,codigo,descripcion,precio,categoria_id,medida_id,cantidad_stock];"));
-        producto.addCaso(new Option("MODIFICAR PRODUCTO", PRODUCTO+"_MOD[id_producto,nombre,codigo,descripcion,precio,categoria_id,medida_id];"));
-        producto.addCaso(new Option("ELIMINAR PRODUCTO", PRODUCTO+"_DEL[id_producto];"));
-        producto.addCaso(new Option("VER PRODUCTO", PRODUCTO+"_VER[id_producto];"));
-        producto.addCaso(new Option("LISTAR PRODUCTO", PRODUCTO+"_LIS[];"));
-
-        //CATEGORIA #6
-        CasosUso categoria = new CasosUso("CU6. GESTIONAR CATEGORIA ");
-        categoria.addCaso(new Option("GUARDAR CATEGORIA", CATEGORIA + "_ADD[nombre,descripcion];"));
-        categoria.addCaso(new Option("MODIFICAR CATEGORIA", CATEGORIA + "_MOD[id_catgoria,nombre,descripcion];"));
-        categoria.addCaso(new Option("ELIMINAR CATEGORIA", CATEGORIA + "_DEL[id_catgoria];"));
-        categoria.addCaso(new Option("VER CATEGORIA", CATEGORIA + "_VER[id_catgoria];"));
-        categoria.addCaso(new Option("LISTAR CATEGORIA", CATEGORIA + "_LIS[];"));
-
-        //MEDIDA #6
-        CasosUso medida = new CasosUso("CU6. GESTIONAR MEDIDA ");
-        medida.addCaso(new Option("GUARDAR MEDIDA", MEDIDA+"_ADD[detalle];"));
-        medida.addCaso(new Option("MODIFICAR MEDIDA", MEDIDA+"_MOD[id_medida,detalle];"));
-        medida.addCaso(new Option("ELIMINAR MEDIDA", MEDIDA+"_DEL[id_medida];"));
-        medida.addCaso(new Option("VER MEDIDA", MEDIDA+"_VER[id_medida];"));
-        medida.addCaso(new Option("LISTAR MEDIDA", MEDIDA+"_LIS[];"));
-
-        //COMPRA #7
-        CasosUso compra = new CasosUso("CU7. GESTIONAR COMPRA ");
-        compra.addCaso(new Option("GUARDAR COMPRA", COMPRA + "_ADD[cliente_id,administrativo_id];"));
-        compra.addCaso(new Option("FINALIZAR COMPRA", COMPRA + "_END[compra_id];"));
-        compra.addCaso(new Option("MODIFICAR COMPRA", COMPRA + "_MOD[id_compra,preciototal,fechacompra,estado];"));
-        compra.addCaso(new Option("ELIMINAR COMPRA", COMPRA + "_DEL[id_compra];"));
-        compra.addCaso(new Option("LISTAR COMPRA", COMPRA + "_LIS[];"));
-        compra.addCaso(new Option("VER COMPRA", COMPRA + "_VER[id_compra];"));
-
-        //DETALLECOMPRA #7
-        CasosUso detallecompra = new CasosUso("CU7. GESTIONAR DETALLE COMPRA ");
-        detallecompra.addCaso(new Option("GUARDAR DETALLE COMPRA", DETALLECOMPRA + "_ADD[compra_id, producto_id, cantidad];"));
-        detallecompra.addCaso(new Option("MODIFICAR DETALLE COMPRA", DETALLECOMPRA + "_MOD[id_detallecompra,cantidad];"));
-        detallecompra.addCaso(new Option("ELIMINAR DETALLE COMPRA", DETALLECOMPRA + "_DEL[id_detallecompra];"));
-        detallecompra.addCaso(new Option("VER DETALLE COMPRA", DETALLECOMPRA + "_VER[id_detallecompra];"));
-        detallecompra.addCaso(new Option("LISTAR DETALLE COMPRA", DETALLECOMPRA + "_LIS[];"));
-
-        //ENVIO #8
-        CasosUso envio = new CasosUso("CU8. GESTIONAR ENVIO ");
-        envio.addCaso(new Option("GUARDAR ENVIO", ENVIO + "_ADD[direccion_envio,ciudad_envio,pais_destino,estado_envio,fecha_entrega,metodo_envio,transporte,compra_id];"));
-        envio.addCaso(new Option("MODIFICAR ENVIO", ENVIO + "_MOD[id_envio,fecha_envio,direccion_envio,ciudad_envio,pais_destino,estado_envio,fecha_entrega,metodo_envio,transporte];"));
-        envio.addCaso(new Option("ELIMINAR ENVIO", ENVIO + "_DEL[id_envio];"));
-        envio.addCaso(new Option("VER ENVIO", ENVIO + "_VER[id_envio];"));
-        envio.addCaso(new Option("LISTAR ENVIO", ENVIO + "_LIS[];"));
-
-        //SEGUIMIENTO #6
-        CasosUso seguimiento = new CasosUso("CU8. GESTIONAR SEGUIMIENTO ");
-        seguimiento.addCaso(new Option("GUARDAR SEGUIMIENTO", SEGUIMIENTO + "_ADD[descripcion, ubicacion_actual, estado_actual, envio_id];"));
-        seguimiento.addCaso(new Option("MODIFICAR SEGUIMIENTO", SEGUIMIENTO + "_MOD[id_seguimiento, descripcion, ubicacion_actual, estado_actual];"));
-        seguimiento.addCaso(new Option("ELIMINAR SEGUIMIENTO", SEGUIMIENTO + "_DEL[id_seguimiento];"));
-        seguimiento.addCaso(new Option("VER SEGUIMIENTO", SEGUIMIENTO + "_VER[id_seguimiento];"));
-        seguimiento.addCaso(new Option("LISTAR SEGUIMIENTO", SEGUIMIENTO + "_LIS[];"));
-
-        //1
-        casos.add(reporte);
-        //2
-        casos.add(almacen);
-        //3
-        casos.add(inventario);
-        //4
-        casos.add(pago);
-        //5
-        casos.add(administrativo);
-        casos.add(cliente);
-        casos.add(proveedor);
-        //6
-        casos.add(producto);
-        casos.add(categoria);
-        casos.add(medida);
-        //7
-        casos.add(compra);
-        casos.add(detallecompra);
-        //8
-        casos.add(envio);
-        casos.add(seguimiento);*/
+        reporte.addCaso(new Option("CANTIDAD Y MONTO DE PRODUCTOS VENDIDODOS", PRODUCTO_VENDIDO + "_REP[];"));*/
         casos.add(cliente);        
         casos.add(empleado);
         casos.add(proveedor);        
