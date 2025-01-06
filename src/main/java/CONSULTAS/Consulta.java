@@ -1,19 +1,16 @@
 package CONSULTAS;
 
+import NEGOCIO.*;
 import UTILS.ConstGlobal;
 import UTILS.Help;
 import UTILS.Subject;
-import NEGOCIO.NCliente;
 import CONNECTION.Pop3;
 import CONNECTION.Smtp;
-import NEGOCIO.NEmpleado;
-import NEGOCIO.NInventario;
-import NEGOCIO.NProducto;
-import NEGOCIO.NProveedor;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,21 +25,34 @@ import java.time.format.DateTimeParseException;
 public class Consulta {
 
     private final NCliente NEGOCIO_CLIENTE;
+    private final NContrato NEGOCIO_CONTRATO;
     private final NEmpleado NEGOCIO_EMPLEADO;
-    private final NProveedor NEGOCIO_PROVEEDOR;
-    private final NProducto NEGOCIO_PRODUCTO;
+    private final NEmpleadoEquipoTrabajos NEGOCIO_EMPLEADO_EQUIPO_TRABAJO;
+    private final NEquipoTrabajos NEGOCIO_EQUIPO_TRABAJO;
+    private final NEquipoTrabajoServicio NEGOCIO_EQUIPO_TRABAJO_SERVICIO;
+    private final NFacturas NEGOCIO_FACTURAS;
+    private final NIncidencia NEGOCIO_INCIDENCIA;
     private final NInventario NEGOCIO_INVENTARIO;
+    private final NProducto NEGOCIO_PRODUCTO;
+    private final NProveedor NEGOCIO_PROVEEDOR;
+    private final NServicio NEGOCIO_SERVICIO;
     private Pop3 pop3;
 
     public Consulta() throws IOException {
         
         // negocio o bussinness
         NEGOCIO_CLIENTE = new NCliente();
+        NEGOCIO_CONTRATO= new NContrato();
         NEGOCIO_EMPLEADO = new NEmpleado();
-        NEGOCIO_PROVEEDOR = new NProveedor();
-        NEGOCIO_PRODUCTO = new NProducto();
+        NEGOCIO_EMPLEADO_EQUIPO_TRABAJO = new NEmpleadoEquipoTrabajos();
+        NEGOCIO_EQUIPO_TRABAJO = new NEquipoTrabajos();
+        NEGOCIO_EQUIPO_TRABAJO_SERVICIO = new NEquipoTrabajoServicio();
+        NEGOCIO_FACTURAS = new NFacturas();
+        NEGOCIO_INCIDENCIA = new NIncidencia();
         NEGOCIO_INVENTARIO = new NInventario();
-
+        NEGOCIO_PRODUCTO = new NProducto();
+        NEGOCIO_PROVEEDOR = new NProveedor();
+        NEGOCIO_SERVICIO = new NServicio();
     }
 
     public int getCantidadMails() throws IOException {
@@ -50,7 +60,7 @@ public class Consulta {
         pop3.login(ConstGlobal.USER, ConstGlobal.PASS);
         pop3.list();
         String number = pop3.number;
-        System.out.println("number:::: "+number);
+        //System.out.println("number:::: "+number);
         pop3.retr(Integer.parseInt(number));
         pop3.quit();
         pop3.close();
@@ -82,7 +92,7 @@ public class Consulta {
     private void negocioAction(Mensaje msj) throws IOException, SQLException, ParseException {
         String PARAMETROS_INCORRECTOS = "PARAMETROS INCORRECTOS | " + msj.getParametros();
         String DATE_INCORRECTO = "FECHA INCORRECTA | FORMATO CORRECTO (dd-MM-yyyy)";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDate fecha_actual = LocalDate.now();
         String tableAction = msj.tableAction();
         LocalTime horaActual = LocalTime.now();
@@ -96,6 +106,7 @@ public class Consulta {
                     String nombre = msj.getParametros().get(1);
                     String telefono = msj.getParametros().get(2);
                     String direccion = msj.getParametros().get(3);
+                    String tipo_cliente = msj.getParametros().get(4);
                     if (nombre == null || nombre.trim().isEmpty() || nombre.length() <= 1) {
                         sendMail(msj.getEmisor(), msj.evento(), " El nombre es requerido. || Mayor a 3 caracteres.".toUpperCase());
                         break;
@@ -104,7 +115,6 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), " El CI es requerido y debe ser mayor a 0. || Mayor a 3 caracteres".toUpperCase());
                         break;
                     }
-                    String tipo_cliente = msj.getParametros().get(4);
                     Object[] responsse = NEGOCIO_CLIENTE.guardar(ci, nombre, direccion, telefono, tipo_cliente);
                     String message = (String) responsse[1];
                     sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
@@ -120,6 +130,7 @@ public class Consulta {
                     String direccion = msj.getParametros().get(2);
                     String telefono = msj.getParametros().get(3);
                     String ci = msj.getParametros().get(4);
+                    String tipo_cliente = msj.getParametros().get(5);
                     if (nombre == null || nombre.trim().isEmpty() || nombre.length() <= 2) {
                         sendMail(msj.getEmisor(), msj.evento(), "Los datos para la tabla ".toUpperCase() + msj.getTable() + ": El nombre es requerido. || Mayor a 3 caracteres.");
                         break;
@@ -128,7 +139,6 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "Los datos para la tabla ".toUpperCase() + msj.getTable() + ": El CI es requerido y debe ser mayor a 0. || Mayor a 3 caracteres");
                         break;
                     }
-                    String tipo_cliente = msj.getParametros().get(5);
                     Object[] responsse = NEGOCIO_CLIENTE.modificar(id, ci, nombre, direccion, telefono, tipo_cliente);
                     String message = (String) responsse[1];
                     sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
@@ -171,7 +181,6 @@ public class Consulta {
                 break;
             }
             //END CLIENTE
-            
             //START EMPLEADO
             case Help.EMPLEADO + "_" + Help.ADD: {
                 if (msj.getParametros().size() == Help.LENPARAM5) {
@@ -179,6 +188,7 @@ public class Consulta {
                     String nombre = msj.getParametros().get(1);
                     String telefono = msj.getParametros().get(2);
                     String puesto = msj.getParametros().get(3);
+                    String estado = msj.getParametros().get(4);
                     if (nombre == null || nombre.trim().isEmpty() || nombre.length() <= 1) {
                         sendMail(msj.getEmisor(), msj.evento(), " El nombre es requerido. || Mayor a 3 caracteres.".toUpperCase());
                         break;
@@ -187,7 +197,6 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), " El CI es requerido y debe ser mayor a 0. || Mayor a 3 caracteres".toUpperCase());
                         break;
                     }
-                    String estado = msj.getParametros().get(4);
                     Object[] responsse = NEGOCIO_EMPLEADO.guardar(ci, nombre, telefono, puesto, estado);
                     String message = (String) responsse[1];
                     sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
@@ -203,6 +212,7 @@ public class Consulta {
                     String nombre = msj.getParametros().get(2);
                     String telefono = msj.getParametros().get(3);
                     String puesto = msj.getParametros().get(4);
+                    String estado = msj.getParametros().get(5);
                     if (nombre == null || nombre.trim().isEmpty() || nombre.length() <= 2) {
                         sendMail(msj.getEmisor(), msj.evento(), "Los datos para la tabla ".toUpperCase() + msj.getTable() + ": El nombre es requerido. || Mayor a 3 caracteres.");
                         break;
@@ -211,7 +221,6 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "Los datos para la tabla ".toUpperCase() + msj.getTable() + ": El CI es requerido y debe ser mayor a 0. || Mayor a 3 caracteres");
                         break;
                     }
-                    String estado = msj.getParametros().get(5);
                     Object[] responsse = NEGOCIO_EMPLEADO.modificar(id, ci, nombre, telefono, puesto, estado);
                     String message = (String) responsse[1];
                     sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
@@ -254,7 +263,6 @@ public class Consulta {
                 break;
             }
             //END EMPLEADO
-            
             //START PROVEEDOR
             case Help.PROVEEDOR + "_" + Help.ADD: {
                 if (msj.getParametros().size() == Help.LENPARAM4) {
@@ -470,6 +478,144 @@ public class Consulta {
             }
             case Help.INVENTARIO + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_INVENTARIO.listar();
+                list(Help.inventarioHeader, lista, msj);
+                break;
+            }
+            //END INVENTARIO
+            //START SERVICIOS
+            case Help.SERVICIO + "_" + Help.ADD: {
+                if (msj.getParametros().size() == Help.LENPARAM5) {
+                    String nombre = msj.getParametros().get(0);
+                    String descripcion = msj.getParametros().get(1);
+                    double precio = Double.parseDouble(msj.getParametros().get(2).trim());
+                    String frecuencia = msj.getParametros().get(3).trim();
+                    String estado = msj.getParametros().get(4);
+                    Object[] responsse = NEGOCIO_SERVICIO.guardar(nombre, descripcion, precio, frecuencia, estado);
+                    String message = (String) responsse[1];
+                    sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                }
+                break;
+            }
+            case Help.SERVICIO + "_" + Help.MOD: {
+                if (msj.getParametros().size() == Help.LENPARAM6) {
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
+                    String nombre = msj.getParametros().get(1);
+                    String descripcion = msj.getParametros().get(2);
+                    double precio = Double.parseDouble(msj.getParametros().get(3).trim());
+                    String frecuencia = msj.getParametros().get(4).trim();
+                    String estado = msj.getParametros().get(5);
+                    Object[] responsse = NEGOCIO_SERVICIO.modificar(id, nombre, descripcion, precio, frecuencia, estado);
+                    String message = (String) responsse[1];
+                    sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                }
+                break;
+            }
+            case Help.SERVICIO + "_" + Help.DEL: {
+                if (msj.getParametros().size() == Help.LENPARAM1) {
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
+                    boolean responsse = NEGOCIO_SERVICIO.eliminar(id);
+                    String message = responsse ? " se elimino con exito".toUpperCase() : " (ERROR AL ELIMNAR).".toUpperCase();
+                    sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                }
+                break;
+            }
+            case Help.SERVICIO + "_" + Help.VER: {
+                if (msj.getParametros().size() == Help.LENPARAM1) {
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
+                    String[] data = NEGOCIO_SERVICIO.ver(id);
+                    //sendMail(msj.getEmisor(), msj.evento(), "El dato de la tabla " + msj.getTable());
+                    if (data == null) {
+                        sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN CLIENTE CON ESTE ID: " + id);
+                        break;
+                    } else {
+                        ver(Help.inventarioHeader, data, msj);
+                        break;
+                    }
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                    break;
+                }
+            }
+            case Help.SERVICIO + "_" + Help.LIS: {
+                List<String[]> lista = NEGOCIO_SERVICIO.listar();
+                list(Help.inventarioHeader, lista, msj);
+                break;
+            }
+            //END INVENTARIO
+            //START CONTRATOS
+            case Help.CONTRATOS + "_" + Help.ADD: {
+                if (msj.getParametros().size() == Help.LENPARAM5) {
+                    String descripcion = msj.getParametros().get(0);
+                    double precio_total = Double.parseDouble(msj.getParametros().get(1).trim());
+                    String estado = msj.getParametros().get(2).trim();
+                    int cliente_id = Integer.parseInt(msj.getParametros().get(3).trim());
+                    int servicio_id = Integer.parseInt(msj.getParametros().get(4).trim());
+                    int equipo_trabajo_id = Integer.parseInt(msj.getParametros().get(5).trim());
+                    int empleado_id = Integer.parseInt(msj.getParametros().get(6).trim());
+                    LocalDateTime fecha_inicio = LocalDateTime.parse(msj.getParametros().get(7), formatter);
+                    LocalDateTime fecha_fin = LocalDateTime.parse(msj.getParametros().get(8), formatter);
+                    Object[] responsse = NEGOCIO_CONTRATO.guardar(cliente_id, servicio_id, equipo_trabajo_id, empleado_id, descripcion, precio_total, estado, fecha_inicio, fecha_fin);
+                    String message = (String) responsse[1];
+                    sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                }
+                break;
+            }
+            case Help.CONTRATOS + "_" + Help.MOD: {
+                if (msj.getParametros().size() == Help.LENPARAM6) {
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
+                    String descripcion = msj.getParametros().get(1);
+                    double precio_total = Double.parseDouble(msj.getParametros().get(2).trim());
+                    String estado = msj.getParametros().get(3).trim();
+                    int equipo_trabajo_id = Integer.parseInt(msj.getParametros().get(4).trim());
+                    int empleado_id = Integer.parseInt(msj.getParametros().get(5).trim());
+                    LocalDateTime fecha_inicio = LocalDateTime.parse(msj.getParametros().get(6), formatter);
+                    LocalDateTime fecha_fin = LocalDateTime.parse(msj.getParametros().get(7), formatter);
+                    Object[] responsse = NEGOCIO_CONTRATO.modificar(id, equipo_trabajo_id, empleado_id, descripcion, precio_total, estado, fecha_inicio, fecha_fin);
+                    String message = (String) responsse[1];
+                    sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                }
+                break;
+            }
+            case Help.CONTRATOS + "_" + Help.DEL: {
+                if (msj.getParametros().size() == Help.LENPARAM1) {
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
+                    boolean responsse = NEGOCIO_CONTRATO.eliminar(id);
+                    String message = responsse ? " se elimino con exito".toUpperCase() : " (ERROR AL ELIMNAR).".toUpperCase();
+                    sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                }
+                break;
+            }
+            case Help.CONTRATOS + "_" + Help.VER: {
+                if (msj.getParametros().size() == Help.LENPARAM1) {
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
+                    String[] data = NEGOCIO_CONTRATO.ver(id);
+                    //sendMail(msj.getEmisor(), msj.evento(), "El dato de la tabla " + msj.getTable());
+                    if (data == null) {
+                        sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN CLIENTE CON ESTE ID: " + id);
+                        break;
+                    } else {
+                        ver(Help.inventarioHeader, data, msj);
+                        break;
+                    }
+                } else {
+                    sendMail(msj.getEmisor(), PARAMETROS_INCORRECTOS, erorrLengthParametros(msj));
+                    break;
+                }
+            }
+            case Help.CONTRATOS + "_" + Help.LIS: {
+                List<String[]> lista = NEGOCIO_CONTRATO.listar();
                 list(Help.inventarioHeader, lista, msj);
                 break;
             }

@@ -7,6 +7,7 @@ package DATA;
 import UTILS.ConstGlobal;
 import UTILS.ConstPSQL;
 import CONNECTION.SQLConnection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,17 +19,21 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
  * @author fpl
  */
 public class DContrato {
-    
+
     int id;
-    int producto_id;
+    int cliente_id;
     int servicio_id;
-    double cantidad;
+    int equipo_trabajo_id;
+    int empleado_id;
     String descripcion;
+    double precio_total;
+    String estado;
     LocalDateTime created_at;
+    LocalDateTime fecha_inicio;
+    LocalDateTime fecha_fin;
 
     public int getId() {
         return id;
@@ -38,12 +43,12 @@ public class DContrato {
         this.id = id;
     }
 
-    public int getProducto_id() {
-        return producto_id;
+    public int getCliente_id() {
+        return cliente_id;
     }
 
-    public void setProducto_id(int producto_id) {
-        this.producto_id = producto_id;
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public int getServicio_id() {
@@ -54,12 +59,12 @@ public class DContrato {
         this.servicio_id = servicio_id;
     }
 
-    public double getCantidad() {
-        return cantidad;
+    public int getEquipo_trabajo_id() {
+        return equipo_trabajo_id;
     }
 
-    public void setCantidad(double cantidad) {
-        this.cantidad = cantidad;
+    public void setEquipo_trabajo_id(int equipo_trabajo_id) {
+        this.equipo_trabajo_id = equipo_trabajo_id;
     }
 
     public String getDescripcion() {
@@ -70,6 +75,22 @@ public class DContrato {
         this.descripcion = descripcion;
     }
 
+    public double getPrecio_total() {
+        return precio_total;
+    }
+
+    public void setPrecio_total(double precio_total) {
+        this.precio_total = precio_total;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -78,22 +99,50 @@ public class DContrato {
         this.created_at = created_at;
     }
 
-    public DContrato() {}
-
-    public DContrato(int producto_id, int servicio_id, double cantidad, String descripcion) {
-        this.producto_id = producto_id;
-        this.servicio_id = servicio_id;
-        this.cantidad = cantidad;
-        this.descripcion = descripcion;
+    public LocalDateTime getFecha_inicio() {
+        return fecha_inicio;
     }
-    
+
+    public void setFecha_inicio(LocalDateTime fecha_inicio) {
+        this.fecha_inicio = fecha_inicio;
+    }
+
+    public LocalDateTime getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(LocalDateTime fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    public int getEmpleado_id() {
+        return empleado_id;
+    }
+
+    public void setEmpleado_id(int empleado_id) {
+        this.empleado_id = empleado_id;
+    }
+
+    public DContrato() {
+    }
+
+    public DContrato(int cliente_id, int servicio_id, int equipo_trabajo_id, int empleado_id, String descripcion, double precio_total, String estado, LocalDateTime fecha_inicio, LocalDateTime fecha_fin) {
+        this.cliente_id = cliente_id;
+        this.servicio_id = servicio_id;
+        this.equipo_trabajo_id = equipo_trabajo_id;
+        this.empleado_id = empleado_id;
+        this.descripcion = descripcion;
+        this.precio_total = precio_total;
+        this.estado = estado;
+        this.fecha_inicio = fecha_inicio;
+        this.fecha_fin = fecha_fin;
+    }
+
     private final String TABLE = "contratos";
     private final String QUERY_ID = "id";
     //private final String Q_CI = "ci";
-    private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (producto_id, servcio_id, cantidad, descripcion, created_at) VALUES (?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET cantidad=?, descripcion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+    private final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, precio_total, estado, fecha_inicio, fecha_fin, created_at, cliente_id, servicio_id, equipo_trabajo_id, empleado_id) VALUES (?,?,?,?,?,?,?,?,?,?)", TABLE);
+    private final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, precio_total=?, estado=?, fecha_inicio=?, fecha_fin=?, updated_at=?, equipo_trabajo_id=?, empleado_id=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
@@ -105,23 +154,33 @@ public class DContrato {
 
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
-            String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("producto_id")),
-            String.valueOf(set.getString("servicio_id")),
-            String.valueOf(set.getString("cantidad")),
-            String.valueOf(set.getString("descripcion")),
-            String.valueOf(set.getTimestamp("created_at"))
+                String.valueOf(set.getInt("id")),
+                String.valueOf(set.getString("descripcion")),
+                String.valueOf(set.getString("precio_total")),
+                String.valueOf(set.getString("estado")),
+                String.valueOf(set.getString("fecha_inicio")),
+                String.valueOf(set.getString("fecha_fin")),
+                String.valueOf(set.getTimestamp("created_at")),
+                String.valueOf(set.getTimestamp("cliente_id")),
+                String.valueOf(set.getTimestamp("servicio_id")),
+                String.valueOf(set.getTimestamp("equipo_trabajo_id")),
+                String.valueOf(set.getTimestamp("empleado_id"))
         };
     }
 
     void preparerState() throws SQLException {
         try {
             // Intentar establecer los valores
-            ps.setInt(1, getProducto_id());
-            ps.setInt(2, getServicio_id());
-            ps.setDouble(3, getCantidad());
-            ps.setString(4, getDescripcion());
-            ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
+            ps.setString(1, getDescripcion());
+            ps.setDouble(2, getPrecio_total());
+            ps.setString(3, getEstado());
+            ps.setTimestamp(4, Timestamp.valueOf(getFecha_inicio()));
+            ps.setTimestamp(5, Timestamp.valueOf(getFecha_fin()));
+            ps.setTimestamp(6, Timestamp.valueOf(getCreated_at()));
+            ps.setInt(7, getCliente_id());
+            ps.setInt(8, getServicio_id());
+            ps.setInt(9, getEquipo_trabajo_id());
+            ps.setInt(10, getEmpleado_id());
         } catch (SQLException e) {
             // Manejar la excepción SQL
             System.out.println(MESSAGE_TRYCATCH + TABLE);
@@ -133,12 +192,7 @@ public class DContrato {
     }
 
     private void init_conexion() {
-        connection = new SQLConnection(
-                ConstPSQL.user,
-                ConstPSQL.pass,
-                ConstGlobal.SERVIDOR,
-                ConstGlobal.PORT_DB,
-                ConstPSQL.dbName);
+        connection = new SQLConnection(ConstPSQL.user, ConstPSQL.pass, ConstGlobal.SERVIDOR, ConstGlobal.PORT_DB, ConstPSQL.dbName);
     }
 
     public Object[] guardar() throws SQLException, ParseException {
@@ -157,14 +211,14 @@ public class DContrato {
             int execute = ps.executeUpdate();
             isSuccess = execute > 0;
             if (isSuccess) {
-                mensaje = TABLE+" Registro insertado exitosamente.".toUpperCase();
+                mensaje = TABLE + " Registro insertado exitosamente.".toUpperCase();
             } else {
-                mensaje = MESSAGE_TRYCATCH+" Error al intentar guardar los datos.".toUpperCase();
+                mensaje = MESSAGE_TRYCATCH + " Error al intentar guardar los datos.".toUpperCase();
                 //throw new SQLException("No se pudo insertar el registro en la base de datos.".toUpperCase());
             }
         } catch (SQLException e) {
             // Imprimir detalles del error SQLException
-            mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error en la base de datos: " + e.getMessage();
+            mensaje = MESSAGE_TRYCATCH + " (GUARDAR) Error en la base de datos: " + e.getMessage();
             System.out.println(MESSAGE_TRYCATCH + " GUARDAR");
             e.printStackTrace(); // Imprime toda la traza del error para depurar
             System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
@@ -178,7 +232,7 @@ public class DContrato {
                 }
             } catch (SQLException e) {
                 System.out.println("Error al cerrar PreparedStatement: " + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error al cerrar PreparedStatement: " + TABLE + e.getMessage();
+                mensaje = MESSAGE_TRYCATCH + " (GUARDAR) Error al cerrar PreparedStatement: " + TABLE + e.getMessage();
             }
         }
         return new Object[]{isSuccess, mensaje};
@@ -189,9 +243,9 @@ public class DContrato {
         String mensaje = "";
         try {
             String[] exists = ver();
-            if(exists == null){
-                System.out.println(MESSAGE_TRYCATCH+" NO EXISTE ");
-                return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: "+TABLE.toUpperCase()};
+            if (exists == null) {
+                System.out.println(MESSAGE_TRYCATCH + " NO EXISTE ");
+                return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: " + TABLE.toUpperCase()};
             }
             init_conexion();
             ps = connection.connect().prepareStatement(QUERY_UPDATE);
@@ -200,9 +254,9 @@ public class DContrato {
             int execute = ps.executeUpdate();
             isSuccess = execute > 0;
             if (isSuccess) {
-                mensaje = TABLE+" - (MODIFICAR) actualizacion exitosamente.".toUpperCase();
+                mensaje = TABLE + " - (MODIFICAR) actualizacion exitosamente.".toUpperCase();
             } else {
-                mensaje = MESSAGE_TRYCATCH+" - (MODIFICAR) Error al actualizar los datos.".toUpperCase();
+                mensaje = MESSAGE_TRYCATCH + " - (MODIFICAR) Error al actualizar los datos.".toUpperCase();
                 //throw new SQLException("No se pudo Error al actualizar los datos.".toUpperCase());
             }
         } catch (SQLException e) {
@@ -220,17 +274,17 @@ public class DContrato {
                 }
             } catch (SQLException e) {
                 System.out.println(" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage();
+                mensaje = MESSAGE_TRYCATCH + " (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage();
             }
         }
         return new Object[]{isSuccess, mensaje};
     }
-    
+
     public boolean eliminar() {
         boolean eliminado = false;
         try {
             String[] exists = ver();
-            if(exists == null){
+            if (exists == null) {
                 System.out.println("EL ADMINSITRATIVO NO EXISTE");
                 return false;
             }
@@ -366,7 +420,7 @@ public class DContrato {
         }
         return data;
     }*/
-    
+
     public void desconectar() {
         if (connection != null) {
             connection.closeConnection();

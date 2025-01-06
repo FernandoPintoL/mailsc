@@ -115,7 +115,7 @@ public class Pop3 extends Conexion{
         while (true) {
             anteriorLine = line;
             line = entrada.readLine();
-            System.out.println("LINE::" + line);
+            //System.out.println("LINE::" + line);
             if (line == null) {
                 throw new IOException(" S : Server unawares closed the connection.");
             }

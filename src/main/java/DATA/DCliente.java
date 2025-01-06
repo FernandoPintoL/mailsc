@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author fpl
  */
-public class DCliente {
+public class DCliente extends DataBaseHelper{
     
     int id;
     String ci;
@@ -110,9 +110,9 @@ public class DCliente {
     private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
     private final String QUERY_LIST = "SELECT * FROM " + TABLE;
     private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
-    private SQLConnection connection;
-    private PreparedStatement ps;
-    private ResultSet set;
+    //private SQLConnection connection;
+    //private PreparedStatement ps;
+    //private ResultSet set;
 
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
@@ -126,7 +126,8 @@ public class DCliente {
         };
     }
 
-    void preparerState() throws SQLException {
+    @Override
+    void prepareStatement(){
         try {
             // Intentar establecer los valores
             ps.setString(1, getCi());
@@ -145,55 +146,17 @@ public class DCliente {
         }
     }
 
-    private void init_conexion() {
-        connection = new SQLConnection(
-                ConstPSQL.user,
-                ConstPSQL.pass,
-                ConstGlobal.SERVIDOR,
-                ConstGlobal.PORT_DB,
-                ConstPSQL.dbName);
-    }
-
-    public Object[] guardar() throws SQLException, ParseException {
+    public Object[] guardar() throws SQLException {
         boolean isSuccess = false;
         String mensaje = "";
         String[] exists = null;
-        try {
-            exists = existe(getCi());
-            if (exists != null) {
-                mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
-                return new Object[]{false, mensaje, null};
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_INSERT);
-            preparerState();
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE+" Registro insertado exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH+" Error al intentar guardar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo insertar el registro en la base de datos.".toUpperCase());
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles del error SQLException
-            mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error en la base de datos: " + e.getMessage();
-            System.out.println(MESSAGE_TRYCATCH + " GUARDAR");
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar PreparedStatement: " + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error al cerrar PreparedStatement: " + TABLE + e.getMessage();
-            }
+        exists = existe(getCi());
+        if (exists != null) {
+            mensaje = "Estos datos ya se encuentran registrados ID: ".toUpperCase() + exists[0];
+            return new Object[]{isSuccess, mensaje, null};
         }
+        isSuccess = executeUpdate(QUERY_INSERT);
+        mensaje = isSuccess ? "Registro insertado exitosamente.".toUpperCase() : "Error al intentar guardar los datos.".toUpperCase();
         return new Object[]{isSuccess, mensaje};
     }
 
@@ -203,12 +166,11 @@ public class DCliente {
         try {
             String[] exists = ver();
             if(exists == null){
-                System.out.println(MESSAGE_TRYCATCH+" NO EXISTE ");
                 return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: "+TABLE.toUpperCase()};
             }
             init_conexion();
             ps = connection.connect().prepareStatement(QUERY_UPDATE);
-            preparerState();
+            prepareStatement();
             ps.setInt(7, getId());
             int execute = ps.executeUpdate();
             isSuccess = execute > 0;
@@ -285,7 +247,6 @@ public class DCliente {
             while (set.next()) {
                 datas.add(arrayData(set));
             }
-            System.out.println(datas);
         } catch (SQLException e) {
             // Imprimir el error en consola con detalles
             System.out.println(MESSAGE_TRYCATCH + " LISTAR");
