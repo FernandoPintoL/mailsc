@@ -26,8 +26,8 @@ public class NContrato {
         return response;
     }
 
-    public Object[] modificar(int id, int equipo_trabajo_id, int empleado_id, String descripcion, double precio_total, String estado, LocalDateTime fecha_inicio, LocalDateTime fecha_fin) throws SQLException, ParseException {
-        DATA = new DContrato(0, 0, equipo_trabajo_id, empleado_id, descripcion, precio_total, estado, fecha_inicio, fecha_fin);
+    public Object[] modificar(int id, String descripcion, double precio_total, String estado, LocalDateTime fecha_inicio, LocalDateTime fecha_fin) throws SQLException, ParseException {
+        DATA = new DContrato(0, 0, 0, 0, descripcion, precio_total, estado, fecha_inicio, fecha_fin);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();

@@ -28,8 +28,8 @@ public class NEquipoTrabajoServicio {
         return response;
     }
 
-    public Object[] modificar(int id, int equipo_id, int servicio_id, String estado) throws SQLException, ParseException {
-        DATA = new DEquipoTrabajoServicio(equipo_id, servicio_id, estado);
+    public Object[] modificar(int id, String estado) throws SQLException, ParseException {
+        DATA = new DEquipoTrabajoServicio(0, 0, estado);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();

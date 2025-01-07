@@ -110,9 +110,6 @@ public class DCliente extends DataBaseHelper{
     private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
     private final String QUERY_LIST = "SELECT * FROM " + TABLE;
     private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
-    //private SQLConnection connection;
-    //private PreparedStatement ps;
-    //private ResultSet set;
 
     private String[] arrayData(ResultSet set) throws SQLException {
         return new String[]{
@@ -153,11 +150,12 @@ public class DCliente extends DataBaseHelper{
         exists = existe(getCi());
         if (exists != null) {
             mensaje = "Estos datos ya se encuentran registrados ID: ".toUpperCase() + exists[0];
-            return new Object[]{isSuccess, mensaje, null};
+            return new Object[]{false, mensaje, null};
+        }else{
+            isSuccess = executeUpdate(QUERY_INSERT);
+            mensaje = isSuccess ? "Registro insertado exitosamente.".toUpperCase() : "Error al intentar guardar los datos.".toUpperCase();
+            return new Object[]{isSuccess, mensaje};
         }
-        isSuccess = executeUpdate(QUERY_INSERT);
-        mensaje = isSuccess ? "Registro insertado exitosamente.".toUpperCase() : "Error al intentar guardar los datos.".toUpperCase();
-        return new Object[]{isSuccess, mensaje};
     }
 
     public Object[] modificar() throws SQLException, ParseException {

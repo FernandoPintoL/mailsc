@@ -27,8 +27,8 @@ public class NEmpleadoEquipoTrabajos {
         return response;
     }
 
-    public Object[] modificar(int id, int empleado_id, int equipo_trabajo, String estado) throws SQLException, ParseException {
-        DATA = new DEmpleadoEquipoTrabajos(empleado_id, equipo_trabajo, estado);
+    public Object[] modificar(int id, String estado) throws SQLException, ParseException {
+        DATA = new DEmpleadoEquipoTrabajos(0, 0, estado);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();

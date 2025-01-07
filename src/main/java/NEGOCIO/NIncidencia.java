@@ -25,8 +25,8 @@ public class NIncidencia {
         return response;
     }
 
-    public Object[] modificar(int id, int cliente_id, String descripcion, String estado) throws SQLException, ParseException {
-        DATA = new DIncidencia(cliente_id, descripcion, estado);
+    public Object[] modificar(int id, String descripcion, String estado) throws SQLException, ParseException {
+        DATA = new DIncidencia(0, descripcion, estado);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();
