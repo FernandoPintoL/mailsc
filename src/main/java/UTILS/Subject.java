@@ -49,7 +49,7 @@ public class Subject {
                 lista.add(part);
             }
         }
-        System.out.println("start: "+start + " end : " + end + " cadena: " + cadena);
+        //System.out.println("start: "+start + " end : " + end + " cadena: " + cadena);
         return lista;
     }
 

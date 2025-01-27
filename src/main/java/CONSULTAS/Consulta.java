@@ -40,7 +40,6 @@ public class Consulta {
     private Pop3 pop3;
 
     public Consulta() throws IOException {
-        
         // negocio o bussinness
         NEGOCIO_CLIENTE = new NCliente();
         NEGOCIO_CONTRATO= new NContrato();
@@ -532,7 +531,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.productoServicioHeader, data, msj);
                         break;
                     }
                 } else {
@@ -542,7 +541,7 @@ public class Consulta {
             }
             case Help.PRODUCTO_SERVICIOS + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_PRODUCTO_SERVICIO.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.productoServicioHeader, lista, msj);
                 break;
             }
             //END PRODCUTO SERVICIO
@@ -598,7 +597,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.servicioHeader, data, msj);
                         break;
                     }
                 } else {
@@ -608,7 +607,7 @@ public class Consulta {
             }
             case Help.SERVICIO + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_SERVICIO.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.servicioHeader, lista, msj);
                 break;
             }
             //END SERVICIO
@@ -658,7 +657,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.equipoTrabajoServicioHeader, data, msj);
                         break;
                     }
                 } else {
@@ -668,13 +667,13 @@ public class Consulta {
             }
             case Help.EQUIPO_TRABAJO_SERVICIO + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_EQUIPO_TRABAJO_SERVICIO.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.equipoTrabajoServicioHeader, lista, msj);
                 break;
             }
             //END EQUIPO TRABAJO SERVICIO
             //START CONTRATOS
             case Help.CONTRATOS + "_" + Help.ADD: {
-                if (msj.getParametros().size() == Help.LENPARAM8) {
+                if (msj.getParametros().size() == Help.LENPARAM9) {
                     String descripcion = msj.getParametros().get(0);
                     double precio_total = Double.parseDouble(msj.getParametros().get(1).trim());
                     String estado = msj.getParametros().get(2).trim();
@@ -728,7 +727,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.contratoHeader, data, msj);
                         break;
                     }
                 } else {
@@ -738,7 +737,7 @@ public class Consulta {
             }
             case Help.CONTRATOS + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_CONTRATO.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.contratoHeader, lista, msj);
                 break;
             }
             //END CONTRATOS
@@ -790,7 +789,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.facturasHeader, data, msj);
                         break;
                     }
                 } else {
@@ -800,7 +799,7 @@ public class Consulta {
             }
             case Help.FACTURAS + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_FACTURAS.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.facturasHeader, lista, msj);
                 break;
             }
             //END FACTURAS
@@ -853,7 +852,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.equipoTrabajoHeader, data, msj);
                         break;
                     }
                 } else {
@@ -863,14 +862,14 @@ public class Consulta {
             }
             case Help.EQUIPO_TRABAJO + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_EQUIPO_TRABAJO.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.equipoTrabajoHeader, lista, msj);
                 break;
             }
             //END EQUIPO TRABAJO
 
             //START EMPLEADO EQUIPO TRABAJO
             case Help.EMPLEADO_EQUIPO_TRABAJO + "_" + Help.ADD: {
-                if (msj.getParametros().size() == Help.LENPARAM4) {
+                if (msj.getParametros().size() == Help.LENPARAM3) {
                     int empleado_id = Integer.parseInt(msj.getParametros().get(0).trim());
                     int equipo_trabajo_id = Integer.parseInt(msj.getParametros().get(1).trim());
                     String estado = msj.getParametros().get(2).trim();
@@ -884,7 +883,7 @@ public class Consulta {
             }
             case Help.EMPLEADO_EQUIPO_TRABAJO + "_" + Help.MOD: {
                 if (msj.getParametros().size() == Help.LENPARAM4) {
-                    int id = Integer.parseInt(msj.getParametros().get(2).trim());
+                    int id = Integer.parseInt(msj.getParametros().get(0).trim());
                     String estado = msj.getParametros().get(1).trim();
                     Object[] responsse = NEGOCIO_EMPLEADO_EQUIPO_TRABAJO.modificar(id, estado);
                     String message = (String) responsse[1];
@@ -914,7 +913,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.empleadoEquipoTrabajoHeader, data, msj);
                         break;
                     }
                 } else {
@@ -924,7 +923,7 @@ public class Consulta {
             }
             case Help.EMPLEADO_EQUIPO_TRABAJO + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_EMPLEADO_EQUIPO_TRABAJO.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.empleadoEquipoTrabajoHeader, lista, msj);
                 break;
             }
             //END EMPLEADO EQUIPO TRABAJO
@@ -944,7 +943,7 @@ public class Consulta {
                 break;
             }
             case Help.INCIDENCIAS + "_" + Help.MOD: {
-                if (msj.getParametros().size() == Help.LENPARAM6) {
+                if (msj.getParametros().size() == Help.LENPARAM3) {
                     int id = Integer.parseInt(msj.getParametros().get(0).trim());
                     String descripcion = msj.getParametros().get(1).trim();
                     String estado = msj.getParametros().get(2).trim();
@@ -976,7 +975,7 @@ public class Consulta {
                         sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCONTRO NINGUN DATO CON ESTE ID: " + id);
                         break;
                     } else {
-                        ver(Help.inventarioHeader, data, msj);
+                        ver(Help.incidenciasHeader, data, msj);
                         break;
                     }
                 } else {
@@ -986,7 +985,7 @@ public class Consulta {
             }
             case Help.INCIDENCIAS + "_" + Help.LIS: {
                 List<String[]> lista = NEGOCIO_INCIDENCIA.listar();
-                list(Help.inventarioHeader, lista, msj);
+                list(Help.incidenciasHeader, lista, msj);
                 break;
             }
             // END INCIDENCIAS
@@ -2094,7 +2093,7 @@ public class Consulta {
     }
 
     private void sendMail(String rcpt, String titulo, String mensaje) throws IOException {
-        System.out.println("rcpt: " + rcpt + "titulo: " + titulo + "mensaje: " + mensaje);
+        System.out.println("rcpt: " + rcpt + " , titulo: " + titulo + " , mensaje: " + mensaje);
         Smtp smtp = new Smtp(ConstGlobal.SERVIDOR, ConstGlobal.PORT_SMPT);
         smtp.sendMail(ConstGlobal.EMAIL, "<" + rcpt + ">", titulo, mensaje);
     }
