@@ -27,7 +27,6 @@ public class DFacturas {
     int contrato_id;
     double precio_total;
     String estado;
-    LocalDateTime fecha_pago;
     LocalDateTime created_at;
 
     public int getId() {
@@ -60,14 +59,6 @@ public class DFacturas {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public LocalDateTime getFecha_pago() {
-        return fecha_pago;
-    }
-
-    public void setFecha_pago(LocalDateTime fecha_pago) {
-        this.fecha_pago = fecha_pago;
     }
 
     public LocalDateTime getCreated_at() {
@@ -119,8 +110,7 @@ public class DFacturas {
             ps.setInt(1, getContrato_id());
             ps.setDouble(2, getPrecio_total());
             ps.setString(3, getEstado());
-            ps.setTimestamp(4, Timestamp.valueOf(getFecha_pago()));
-            ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
+            ps.setTimestamp(4, Timestamp.valueOf(getCreated_at()));
         } catch (SQLException e) {
             // Manejar la excepción SQL
             System.out.println(MESSAGE_TRYCATCH + TABLE);

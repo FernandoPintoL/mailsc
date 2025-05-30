@@ -30,73 +30,56 @@ public class DEmpleado {
     String puesto;
     String estado;
     LocalDateTime created_at;
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public String getCi() {
         return ci;
     }
-
     public void setCi(String ci) {
         this.ci = ci;
     }
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
     public String getPuesto() {
         return puesto;
     }
-
     public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
-
     public String getEstado() {
         return estado;
     }
-
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
     public LocalDateTime getCreated_at() {
         return created_at;
     }
-
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
-
     public DEmpleado() {}
-
     public DEmpleado(String ci, String nombre, String telefono, String puesto, String estado) {
         this.ci = ci;
         this.nombre = nombre;
         this.telefono = telefono;
         this.puesto = puesto;
         this.estado = estado;
-    }   
-    
+    }
     private final String TABLE = "empleados";
     private final String QUERY_ID = "id";
     private final String Q_CI = "ci";

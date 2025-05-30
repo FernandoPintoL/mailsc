@@ -27,7 +27,6 @@ public class DProductoServicio {
     int producto_id;
     int servicio_id;
     double cantidad;
-    String descripcion;
     LocalDateTime created_at;
 
     public int getId() {
@@ -62,14 +61,6 @@ public class DProductoServicio {
         this.cantidad = cantidad;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     public LocalDateTime getCreated_at() {
         return created_at;
     }
@@ -80,20 +71,19 @@ public class DProductoServicio {
 
     public DProductoServicio() {}
 
-    public DProductoServicio(int producto_id, int servicio_id, double cantidad, String descripcion) {
+    public DProductoServicio(int producto_id, int servicio_id, double cantidad) {
         this.producto_id = producto_id;
         this.servicio_id = servicio_id;
         this.cantidad = cantidad;
-        this.descripcion = descripcion;
     }
 
     private final String TABLE = "producto_servicios";
     private final String QUERY_ID = "id";
     private final String Q_NOMBRE = "nombre";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (producto_id, servicio_id, cantidad, descripcion, created_at) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (producto_id, servicio_id, cantidad, created_at) VALUES (?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET cantidad=?, descripcion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET cantidad=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_NOMBRE = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_NOMBRE);
@@ -109,7 +99,6 @@ public class DProductoServicio {
             String.valueOf(set.getString("producto_id")),
             String.valueOf(set.getString("servicio_id")),
             String.valueOf(set.getString("cantidad")),
-            String.valueOf(set.getString("descripcion")),
             String.valueOf(set.getTimestamp("created_at"))
         };
     }
@@ -120,8 +109,7 @@ public class DProductoServicio {
             ps.setInt(1, getProducto_id());
             ps.setInt(2, getServicio_id());
             ps.setDouble(3, getCantidad());
-            ps.setString(4, getDescripcion());
-            ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
+            ps.setTimestamp(4, Timestamp.valueOf(getCreated_at()));
         } catch (SQLException e) {
             // Manejar la excepción SQL
             System.out.println(MESSAGE_TRYCATCH + TABLE);

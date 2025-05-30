@@ -20,7 +20,7 @@ public class Help {
     public static final String REP = "REP";
     public static final String END = "END";
 
-    // List de todas las tablas
+    // List de todos las tablas
     public static final String CLIENTE = "CLI";
     public static final String CONTRATOS = "CNTR";  
     public static final String EMPLEADO_EQUIPO_TRABAJO = "EMP_EQP_TRA"; 
@@ -34,15 +34,8 @@ public class Help {
     public static final String PRODUCTO = "PRO";
     public static final String PROVEEDOR = "PRV";
     public static final String SERVICIO = "SRV";
-
-
-    
-    public static final String PATH = "/home/fpl/NetBeansProjects/proyectosc";
-
-
-    //help
+    public static final String PATH = "D:\\PROYECTOSC\\proyectosc"; //NO OLVIDAR CAMBIAR EN PRODUCCION
     public static final String HELP = "HELP";
-
     public static final int LENPARAM1 = 1;
     public static final int LENPARAM2 = 2;
     public static final int LENPARAM3 = 3;
@@ -54,24 +47,40 @@ public class Help {
     public static final int LENPARAM9 = 9;
     public static final int LENPARAM10 = 10;
     public static final String[] clienteHeader = {"ID", "CI","NOMBRE","TELEFONO","DIRECCION","TIPO CLIENTE", "USUARIO ASIGNADO","CREADO", "ACTUALIZADO"};
-    public static final String[] contratoHeader = {"ID", "DESCRIPCION","PRECIO TOTAL","ESTADO","FECHA INICIO","FECHA FIN"};
+    public static final String[] contratoHeader = {
+            "ID CONTRATO",
+            "FECHA INICIO",
+            "FECHA FIN",
+            "CONTRATO MONTO",
+            "CONTRATO ESTADO",
+            "NOMBRE CLIENTE",
+            "CI CLIENTE",
+            "TELEFONO CLIENTE",
+            "DIRECCION CLIENTE",
+            "TIPO CLIENTE",
+            "NOMBRE SERVICIO",
+            "DESCRIPCION SERVICIO",
+            "PRECIO SERVICIO",
+            "FRECUENCIA SERVICIO",
+            "ESTADO SERVICIO",
+            "NOMBRE EQUIPO DE TRABAJO",
+            "CI EMPLEADO",
+            "NOMBRE DEL EMPLEADO"
+    };
     public static final String[] empleadoEquipoTrabajoHeader = {"ID", "EMPLEADO","EQUIPO TRABAJO","ESTADO"};
     public static final String[] empleadoHeader = {"ID", "CI","NOMBRE","TELEFONO","PUESTO","ESTADO", "CREADO"};
     public static final String[] equipoTrabajoServicioHeader = {"ID","EQUIPO TRABAJO","SERVICIO","ESTADO"};
     public static final String[] equipoTrabajoHeader = {"ID","EMPLEADO","NOMBRE","DESCRIPCION","ESTADO"};
     public static final String[] facturasHeader = {"ID","CONTRATO","PRECIO TOTAL","ESTADO","FECHA PAGO"};
-    public static final String[] incidenciasHeader = {"ID","CLIENTE","DESCRIPCION","ESTADO"};
+    public static final String[] incidenciasHeader = {"ID","CLIENTE","CONTRATO","DESCRIPCION","ESTADO"};
     public static final String[] inventarioHeader = {"ID", "PRODUCTO","TIPO MOVIMIENTO","CANTIDAD","DESCRIPCION"};
     public static final String[] productoServicioHeader = {"ID", "PRODUCTO","SERVICIO","CANTIDAD","DESCRIPCION"};
     public static final String[] productoHeader = {"ID", "NOMBRE","DESCRIPCION","PRECIO","STOCK"};
     public static final String[] proveedorHeader = {"ID", "CI","NOMBRE","TELEFONO","DIRECCION"};
     public static final String[] servicioHeader = {"ID", "NOMBRE","DESCRIPCION","PRECIO","FRECUENCIA","ESTADO"};
-
-
     public static String ContenidoHelp() {
         return table();
     }
-
     public static String errorMensaje(String title, String error, String comando) {
         return "Content-Type: text/html; charset=\"UTF-8\" \r\n\r\n"
                 + "<h1 >!!! OCURRIO UN ERROR !!! </h1>"
@@ -90,7 +99,6 @@ public class Help {
                 + "</table>"
                 + "<h3 style=\"color:red\"> PARA MAS AYUDA ENVIE UN CORREO CON LA PALABRA <b> HELP </b> </h3>";
     }
-    
     public static String listMensajeToPdf(String title, String[] header, List<String[]> listaObject) {
         String response = "<h1>" + title.toUpperCase() + " - HELP</h1>"
                 + "<table style=\" border-collapse: collapse; width: 100%; border: 1px solid black;\"> \r\n\r\n";
@@ -112,8 +120,6 @@ public class Help {
         response += footerTable();
         return response;
     }
-    
-
     public static String listMensaje(String title, String[] header, List<String[]> listaObject) {
         String response = "Content-Type: text/html; charset=\"UTF-8\" \r\n\r\n"
                 + "<table style=\" border-collapse: collapse; width: 100%; border: 1px solid black;\"> \r\n\r\n";
@@ -133,7 +139,30 @@ public class Help {
         response += footerTable();
         return response;
     }
-
+    public static String verWithReport(String title, String[] data) {
+        String response = "<h1>" + title.toUpperCase() + " - HELP</h1>"
+                + "<table style=\" border-collapse: collapse; width: 100%; border: 1px solid black;\"> \r\n\r\n";
+        for (String d : data) {
+            response += "<p>"+d+"</p>";
+        }
+        return response;
+    }
+    public static String verListWithReport(String title, String[] header, String[] cad) {
+        String response = "<h1>" + title.toUpperCase() + " - HELP</h1>"
+                + "<table style=\" border-collapse: collapse; width: 100%; border: 1px solid black;\"> \r\n\r\n";
+        response += trStart;
+        for (String head : header) {
+            response += thHeader(head);
+        }
+        response += trEnd;
+        response += trStart;
+        for (String c : cad) {
+            response += td(c);
+        }
+        response += trEnd;
+        response += footerTable();
+        return response;
+    }
     public static String ver(String title, String[] header, String[] cad) {
         String response = "Content-Type: text/html; charset=\"UTF-8\" \r\n\r\n"
                 + "<h1>" + title.toUpperCase() + " - HELP</h1>"
@@ -151,11 +180,9 @@ public class Help {
         response += footerTable();
         return response;
     }
-
     private static String thHeader(String title) {
         return "<th style=\"text-align: center; padding: 8px; background-color: green; color: white; border: 1px solid black;\"> " + title + " </th> \r\n\r\n";
     }
-
     private static String headerTable(String title) {
         return "Content-Type: text/html; charset=\"UTF-8\" \r\n\r\n"
                 + "<h1>" + title.toUpperCase() + " - HELP</h1>"
@@ -166,10 +193,8 @@ public class Help {
                 + "<th style=\"text-align: center; padding: 8px; background-color: green; color: white; border: 1px solid black;\"> COMANDOS </th> \r\n\r\n"
                 + "</tr> \r\n\r\n";
     }
-
     private static String trStart = "<tr> \r\n\r\n";
     private static String trEnd = "</tr> \r\n\r\n";
-
     private static String table() {
         String header = headerTable("SISTEMA VIA EMAIL".toUpperCase());
         List<CasosUso> listCasosUso = getCasosUso();
@@ -188,16 +213,13 @@ public class Help {
         header += footerTable();
         return header;
     }
-
     private static String td(String content) {
         return "<td style=\"text-align: left; padding: 8px; border: 1px solid black;\"> " + content + " </td> \r\n\r\n";
     }
-
     private static String footerTable() {
         return "<tr> \r\n\r\n"
                 + "</table>";
     }
-
     private static List<CasosUso> getCasosUso() {
         List<CasosUso> casos = new LinkedList<>();
         
@@ -218,12 +240,12 @@ public class Help {
         empleado.addCaso(new Option("LISTAR EMPLEADOS", EMPLEADO + "_LIS[];"));
         
         //PROVEEDOR #1
-        CasosUso proveedor = new CasosUso("CU1. GESTIONAR PROVEEDOR ");
+        /*CasosUso proveedor = new CasosUso("CU1. GESTIONAR PROVEEDOR ");
         proveedor.addCaso(new Option("<b>GUARDAR PROVEEDOR</b> ", PROVEEDOR + "_ADD[ci,nombre,telefono,direccion]; | Ej.: "+PROVEEDOR+"_ADD[123456789,JOSE PEDRO,123456789,CALLE FALSA #1]"));
         proveedor.addCaso(new Option("MODIFICAR PROVEEDOR", PROVEEDOR + "_MOD[id,ci,nombre,telefono,direccion]; | Ej.:"+PROVEEDOR+"_MOD[1,123456789,JOSE PEDRO,123456789,CALLE FALSA #1]"));
         proveedor.addCaso(new Option("ELIMINAR PROVEEDOR", PROVEEDOR + "_DEL[id];"));
         proveedor.addCaso(new Option("VER PROVEEDOR", PROVEEDOR + "_VER[id];"));
-        proveedor.addCaso(new Option("LISTAR PROVEEDOR", PROVEEDOR + "_LIS[];"));
+        proveedor.addCaso(new Option("LISTAR PROVEEDOR", PROVEEDOR + "_LIS[];"));*/
         
         //PRODUCTO #2
         CasosUso producto = new CasosUso("CU2. GESTIONAR PRODUCTO ");
@@ -298,19 +320,19 @@ public class Help {
         
         //INCIDENCIAS Y QUEJAS #7
         CasosUso incidencias = new CasosUso("CU7. GESTIONAR INCIDENCIAS Y QUEJAS");
-        incidencias.addCaso(new Option("<b>GUARDAR INCIDENCIAS Y QUEJAS</b> ", INCIDENCIAS + "_ADD[cliente_id, descripcion, estado];"+EQUIPO_TRABAJO+"_ADD[1,DESCRIPCION DEL INCIDENTE, (PENDIENTE, RESUELTA)]"));
+        incidencias.addCaso(new Option("<b>GUARDAR INCIDENCIAS Y QUEJAS</b> ", INCIDENCIAS + "_ADD[cliente_id, contrato_id, descripcion, estado];"+EQUIPO_TRABAJO+"_ADD[1,1,DESCRIPCION DEL INCIDENTE, (PENDIENTE, RESUELTA)]"));
         incidencias.addCaso(new Option("MODIFICAR INCIDENCIAS   Y QUEJAS", INCIDENCIAS + "_MOD[id, descripcion, estado, fecha_resolucion]; | "+EQUIPO_TRABAJO+"_MOD[1,1,DESCRIPCION DEL INCIDENTE, (PENDIENTE, RESUELTA)]"));
         incidencias.addCaso(new Option("ELIMINAR INCIDENCIAS Y QUEJAS", INCIDENCIAS + "_DEL[id];"));
         incidencias.addCaso(new Option("VER INCIDENCIAS Y QUEJAS", INCIDENCIAS + "_VER[id];"));
         incidencias.addCaso(new Option("LISTAR INCIDENCIAS Y QUEJAS", INCIDENCIAS + "_LIS[];"));
-        
-        /* //REPORTES #1
-        CasosUso reporte = new CasosUso("CU1. GESTIONAR REPORTES ");
-        reporte.addCaso(new Option("CONTROL DE STOCK", STOCK + "_REP[];"));
-        reporte.addCaso(new Option("CANTIDAD Y MONTO DE PRODUCTOS VENDIDODOS", PRODUCTO_VENDIDO + "_REP[];"));*/
+
+        //REPORTES #8
+        CasosUso reporte = new CasosUso("CU8. GESTIONAR REPORTES ");
+        reporte.addCaso(new Option("<b>GENERAR CONTRATO</b>", "REP_CONTRATOS[ID_CONTRATO];"));
+
         casos.add(cliente);        
         casos.add(empleado);
-        casos.add(proveedor);        
+//        casos.add(proveedor);
         casos.add(producto);
         casos.add(producto_servicio);
         casos.add(inventario);
@@ -321,6 +343,7 @@ public class Help {
         casos.add(equipo_trabajo);
         casos.add(empleado_equipo_trabajo);
         casos.add(incidencias);
+        casos.add(reporte);
         return casos;
     }
 

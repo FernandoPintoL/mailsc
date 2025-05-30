@@ -141,7 +141,40 @@ public class ReportGenerator {
             e.printStackTrace();
         }
     }
-    
+
+
+    public void generarDocumento(String title_documento, String[] data, String name_pdfFilePath) {
+        try {
+            // Crear el documento y el escritor de PDF
+            writer = PdfWriter.getInstance(document, new FileOutputStream(name_pdfFilePath));
+            // Agregar el evento de pie de página
+            footerPageEvent = new FooterPageEvent();
+            writer.setPageEvent(footerPageEvent);
+            document.open();
+            // Agregar título al documento
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.BLUE);
+            Paragraph title = new Paragraph(title_documento, titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(new Paragraph("\n"));
+            if (data == null) {
+                document.add(new Paragraph("NO HAY DATOS DISPONIBLES"));
+            } else {
+                // AGREGAR POR PARAGRAPH CADA ELEMENTO DEL ARRAY
+                for (String cellData : data) {
+                    Paragraph cellDatas = new Paragraph(cellData);
+                    cellDatas.setAlignment(Element.ALIGN_LEFT);
+                    document.add(cellDatas);
+                }
+            }
+            // Cerrar el documento
+            document.close();
+            System.out.println("PDF generado: " + name_pdfFilePath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     
     
     public void generatePdfReport(ArrayList<String[]> data, String name_pdfFilePath, String chartFilePath) {

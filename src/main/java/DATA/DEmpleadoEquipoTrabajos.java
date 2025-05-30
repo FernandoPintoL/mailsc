@@ -27,6 +27,7 @@ public class DEmpleadoEquipoTrabajos {
     int empleado_id;
     int equipo_trabajo_id;
     String estado;
+    String ocupacion;
     LocalDateTime created_at;
 
     public int getId() {
@@ -71,19 +72,20 @@ public class DEmpleadoEquipoTrabajos {
 
     public DEmpleadoEquipoTrabajos() {}
 
-    public DEmpleadoEquipoTrabajos(int empleado_id, int equipo_trabajo_id, String estado) {
+    public DEmpleadoEquipoTrabajos(int empleado_id, int equipo_trabajo_id, String estado, String ocupacion) {
         this.empleado_id = empleado_id;
         this.equipo_trabajo_id = equipo_trabajo_id;
         this.estado = estado;
+        this.ocupacion = ocupacion;
     }
     
     private final String TABLE = "empleado_equipo_trabajos";
     private final String QUERY_ID = "id";
     //private final String Q_CI = "ci";
     private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (empleado_id, equipo_trabajo_id, estado, created_at) VALUES (?,?,?,?)", TABLE);
+            "INSERT INTO %s (empleado_id, equipo_trabajo_id, estado, ocupacion, created_at) VALUES (?,?,?,?)", TABLE);
     private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET estado=?, ocupacion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
@@ -98,7 +100,8 @@ public class DEmpleadoEquipoTrabajos {
             String.valueOf(set.getInt("id")),
             String.valueOf(set.getString("empleado_id")),
             String.valueOf(set.getString("equipo_trabajo_id")),
-            String.valueOf(set.getString("estado")),
+                String.valueOf(set.getString("estado")),
+                String.valueOf(set.getString("ocupacion")),
             String.valueOf(set.getTimestamp("created_at"))
         };
     }

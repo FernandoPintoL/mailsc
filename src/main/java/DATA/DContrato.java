@@ -26,14 +26,12 @@ public class DContrato {
     int id;
     int cliente_id;
     int servicio_id;
-    int equipo_trabajo_id;
-    int empleado_id;
     String descripcion;
     double precio_total;
     String estado;
-    LocalDateTime created_at;
-    LocalDateTime fecha_inicio;
-    LocalDateTime fecha_fin;
+    Timestamp created_at;
+    Timestamp fecha_inicio;
+    Timestamp fecha_fin;
 
     public int getId() {
         return id;
@@ -42,29 +40,17 @@ public class DContrato {
     public void setId(int id) {
         this.id = id;
     }
-
     public int getCliente_id() {
         return cliente_id;
     }
-
     public void setCliente_id(int cliente_id) {
         this.cliente_id = cliente_id;
     }
-
     public int getServicio_id() {
         return servicio_id;
     }
-
     public void setServicio_id(int servicio_id) {
         this.servicio_id = servicio_id;
-    }
-
-    public int getEquipo_trabajo_id() {
-        return equipo_trabajo_id;
-    }
-
-    public void setEquipo_trabajo_id(int equipo_trabajo_id) {
-        this.equipo_trabajo_id = equipo_trabajo_id;
     }
 
     public String getDescripcion() {
@@ -74,11 +60,9 @@ public class DContrato {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
     public double getPrecio_total() {
         return precio_total;
     }
-
     public void setPrecio_total(double precio_total) {
         this.precio_total = precio_total;
     }
@@ -91,46 +75,35 @@ public class DContrato {
         this.estado = estado;
     }
 
-    public LocalDateTime getCreated_at() {
+    public Timestamp getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
+    public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
     }
 
-    public LocalDateTime getFecha_inicio() {
+    public Timestamp getFecha_inicio() {
         return fecha_inicio;
     }
 
-    public void setFecha_inicio(LocalDateTime fecha_inicio) {
+    public void setFecha_inicio(Timestamp fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
 
-    public LocalDateTime getFecha_fin() {
+    public Timestamp getFecha_fin() {
         return fecha_fin;
     }
 
-    public void setFecha_fin(LocalDateTime fecha_fin) {
+    public void setFecha_fin(Timestamp fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
-
-    public int getEmpleado_id() {
-        return empleado_id;
-    }
-
-    public void setEmpleado_id(int empleado_id) {
-        this.empleado_id = empleado_id;
-    }
-
     public DContrato() {
     }
 
-    public DContrato(int cliente_id, int servicio_id, int equipo_trabajo_id, int empleado_id, String descripcion, double precio_total, String estado, LocalDateTime fecha_inicio, LocalDateTime fecha_fin) {
+    public DContrato(int cliente_id, int servicio_id, String descripcion, double precio_total, String estado, Timestamp fecha_inicio, Timestamp fecha_fin) {
         this.cliente_id = cliente_id;
         this.servicio_id = servicio_id;
-        this.equipo_trabajo_id = equipo_trabajo_id;
-        this.empleado_id = empleado_id;
         this.descripcion = descripcion;
         this.precio_total = precio_total;
         this.estado = estado;
@@ -141,8 +114,8 @@ public class DContrato {
     private final String TABLE = "contratos";
     private final String QUERY_ID = "id";
     //private final String Q_CI = "ci";
-    private final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, precio_total, estado, fecha_inicio, fecha_fin, created_at, cliente_id, servicio_id, equipo_trabajo_id, empleado_id) VALUES (?,?,?,?,?,?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, precio_total=?, estado=?, fecha_inicio=?, fecha_fin=?, updated_at=?, equipo_trabajo_id=?, empleado_id=? WHERE %s=?", TABLE, QUERY_ID);
+    private final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, precio_total, estado, fecha_inicio, fecha_fin, created_at, cliente_id, servicio_id) VALUES (?,?,?,?,?,?,?,?)", TABLE);
+    private final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, precio_total=?, estado=?, fecha_inicio=?, fecha_fin=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
@@ -162,9 +135,7 @@ public class DContrato {
                 String.valueOf(set.getString("fecha_fin")),
                 String.valueOf(set.getTimestamp("created_at")),
                 String.valueOf(set.getTimestamp("cliente_id")),
-                String.valueOf(set.getTimestamp("servicio_id")),
-                String.valueOf(set.getTimestamp("equipo_trabajo_id")),
-                String.valueOf(set.getTimestamp("empleado_id"))
+                String.valueOf(set.getTimestamp("servicio_id"))
         };
     }
 
@@ -174,13 +145,11 @@ public class DContrato {
             ps.setString(1, getDescripcion());
             ps.setDouble(2, getPrecio_total());
             ps.setString(3, getEstado());
-            ps.setTimestamp(4, Timestamp.valueOf(getFecha_inicio()));
-            ps.setTimestamp(5, Timestamp.valueOf(getFecha_fin()));
-            ps.setTimestamp(6, Timestamp.valueOf(getCreated_at()));
+            ps.setTimestamp(4, getFecha_inicio());
+            ps.setTimestamp(5, getFecha_fin());
+            ps.setTimestamp(6, getCreated_at());
             ps.setInt(7, getCliente_id());
             ps.setInt(8, getServicio_id());
-            ps.setInt(9, getEquipo_trabajo_id());
-            ps.setInt(10, getEmpleado_id());
         } catch (SQLException e) {
             // Manejar la excepción SQL
             System.out.println(MESSAGE_TRYCATCH + TABLE);
@@ -384,6 +353,22 @@ public class DContrato {
             }
         }
         return data;
+    }
+
+    public int obtenerUltimoId() throws SQLException {
+        int ultimoId = -1;
+        String query = "SELECT id FROM contratos ORDER BY id DESC LIMIT 1";
+        try {
+            ps = connection.connect().prepareStatement(query);
+            set = ps.executeQuery();
+            if (set.next()) {
+                ultimoId = set.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el último ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return ultimoId;
     }
     
     /*public String[] existe(String ci) throws SQLException {

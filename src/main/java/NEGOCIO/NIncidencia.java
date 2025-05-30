@@ -17,8 +17,8 @@ public class NIncidencia {
 
     public NIncidencia() {}
 
-    public Object[] guardar(int cliente_id, String descripcion, String estado) throws SQLException, ParseException {
-        DATA = new DIncidencia(cliente_id, descripcion, estado);
+    public Object[] guardar(int cliente_id, int contrato_id, String descripcion, String estado) throws SQLException, ParseException {
+        DATA = new DIncidencia(cliente_id, contrato_id,descripcion, estado);
         Object[] response = DATA.guardar();
         System.out.println(Arrays.toString(response));
         DATA.desconectar();
@@ -26,8 +26,7 @@ public class NIncidencia {
     }
 
     public Object[] modificar(int id, String descripcion, String estado) throws SQLException, ParseException {
-        DATA = new DIncidencia(0, descripcion, estado);
-        DATA.setId(id);
+        DATA = new DIncidencia(id, descripcion, estado);
         Object[] response = DATA.modificar();
         DATA.desconectar();
         return response;
