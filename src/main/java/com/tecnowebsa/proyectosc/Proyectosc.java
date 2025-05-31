@@ -4,7 +4,7 @@
 
 package com.tecnowebsa.proyectosc;
 
-import CONSULTAS.Consulta;
+import PRESENTACION.Consulta;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +18,9 @@ public class Proyectosc {
 
     public static void main(String[] args) {
         try {
+            // Probar la conexión a la base de datos antes de iniciar la aplicación
+//            CONNECTION.TestDBConnection.main(null);
+            System.out.println("\n--- Iniciando la aplicación principal ---\n");
             Consulta manage = new Consulta();
             int cantidadMail = manage.getCantidadMails();
             while (true) {
@@ -41,28 +44,5 @@ public class Proyectosc {
             System.err.println("Error inesperado: " + ex.getMessage());
             Logger.getLogger(Proyectosc.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*try {
-            Consulta manage = new Consulta();
-            int cantidadMail = manage.getCantidadMails();
-            while (true) {
-                int newCantidadEmail = manage.getCantidadMails();
-                if (cantidadMail != newCantidadEmail) { 
-                    System.out.println("Se encontro un nuevo Mensaje".toUpperCase());
-                    cantidadMail = newCantidadEmail;
-                    manage.newMensaje();
-                } else {
-                    System.out.println("...");
-                }
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    System.out.println(e.toString());
-                    Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, e);
-                }
-            }
-        } catch (IOException ex) {
-            System.out.println(ex);
-            //Logger.getLogger(CORPEGRANOS.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
 }

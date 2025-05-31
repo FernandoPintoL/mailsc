@@ -62,7 +62,7 @@ public class DReporte extends DataBaseHelper{
         List<String[]> datas = new ArrayList<>();
         try {
             init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CONTRATO);
+            ps = connection.prepareStatement(QUERY_CONTRATO);
             ps.setInt(1, id);
             resultSet = ps.executeQuery();
             if (resultSet.next()) {
@@ -102,7 +102,7 @@ public class DReporte extends DataBaseHelper{
 
         } finally {
             // Cerrar recursos para evitar fugas de memoria
-            closeConnections();
+            closeResources(true);
         }
         return data;
     }

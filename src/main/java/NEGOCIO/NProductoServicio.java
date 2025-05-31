@@ -1,5 +1,6 @@
 package NEGOCIO;
 
+import DATA.DEquipoTrabajoServicio;
 import DATA.DProducto;
 import DATA.DProductoServicio;
 
@@ -19,28 +20,27 @@ public class NProductoServicio {
 
     public NProductoServicio() {}
 
-    public Object[] guardar(int producto_id, int servicio_id, Double cantidad, String descripcion) throws SQLException, ParseException {
-        DATA = new DProductoServicio(producto_id, servicio_id, cantidad, descripcion);
+    public Object[] guardar(int producto_id, int servicio_id, Double cantidad) throws SQLException, ParseException {
+        DATA = new DProductoServicio(producto_id, servicio_id, cantidad);
         Object[] response = DATA.guardar();
         System.out.println(Arrays.toString(response));
         DATA.desconectar();
         return response;
     }
 
-    public Object[] modificar(int id, Double cantidad, String descripcion) throws SQLException, ParseException {
-        DATA = new DProductoServicio(0, 0, cantidad, descripcion);
+    public Object[] modificar(int id, Double cantidad) throws SQLException, ParseException {
+        DATA = new DProductoServicio(0, 0, cantidad);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();
         return response;
     }
 
-    public boolean eliminar(int id) throws SQLException {
-        DATA = new DProductoServicio();
-        DATA.setId(id);
-        boolean response = DATA.eliminar();
-        DATA.desconectar();
-        return response;
+    public Object[] eliminar(int id) throws SQLException {
+        try (DProductoServicio modelo = new DProductoServicio()) {
+            modelo.setId(id);
+            return modelo.eliminar();
+        }
     }
     
     public String[] ver(int id) throws SQLException {

@@ -1,35 +1,61 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DATA;
 
-import UTILS.ConstGlobal;
-import UTILS.ConstPSQL;
-import CONNECTION.SQLConnection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Clase de acceso a datos para la entidad Producto
  *
  * @author fpl
  */
-public class DProducto {
-    
-    int id;
-    String nombre;
-    String descripcion;
-    double precio;
-    double stock;
-    LocalDateTime created_at;
+public class DProducto extends BaseDAO<DProducto> {
+    private int id;
+    private String nombre;
+    private String descripcion;
+    private double precio;
+    private double stock;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
+    private static final String TABLE = "productos";
+    private static final String QUERY_ID = "id";
+    private static final String Q_NOMBRE = "nombre";
+    private static final String QUERY_INSERT =
+            "INSERT INTO productos (nombre, descripcion, precio, stock, created_at) VALUES (?,?,?,?,?)";
+    private static final String QUERY_UPDATE =
+            "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=?, updated_at=? WHERE id=?";
+    private static final String QUERY_DELETE = "DELETE FROM productos WHERE id=?";
+    private static final String QUERY_FIND_BY_ID = "SELECT * FROM productos WHERE id=?";
+    private static final String QUERY_FIND_BY_NOMBRE = "SELECT * FROM productos WHERE nombre=?";
+    private static final String QUERY_LIST_ALL = "SELECT * FROM productos";
+    /**
+     * Constructor por defecto
+     */
+    public DProducto() {
+        super(TABLE);
+        this.created_at = LocalDateTime.now();
+    }
+    /**
+     * Constructor con parámetros
+     *
+     * @param nombre      Nombre del producto
+     * @param descripcion Descripción del producto
+     * @param precio      Precio del producto
+     * @param stock       Stock disponible
+     */
+    public DProducto(String nombre, String descripcion, double precio, double stock) {
+        super(TABLE);
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+        this.created_at = LocalDateTime.now();
+    }
 
+    // Getters y setters
     public int getId() {
         return id;
     }
@@ -78,298 +104,223 @@ public class DProducto {
         this.created_at = created_at;
     }
 
-    public DProducto() {}
-
-    public DProducto(String nombre, String descripcion, double precio, double stock) {
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-        this.stock = stock;
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
     }
 
-    private final String TABLE = "productos";
-    private final String QUERY_ID = "id";
-    private final String Q_NOMBRE = "nombre";
-    private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (nombre, descripcion, precio, stock, created_at) VALUES (?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET nombre=?, descripcion=?, precio=?, stock=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_NOMBRE = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_NOMBRE);
-    private final String QUERY_LIST = "SELECT * FROM " + TABLE;
-    private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
-    private SQLConnection connection;
-    private PreparedStatement ps;
-    private ResultSet set;
+    public void setUpdated_at(LocalDateTime updated_at) {
+        this.updated_at = updated_at;
+    }
 
-    private String[] arrayData(ResultSet set) throws SQLException {
+    @Override
+    protected String[] entityToStringArray(DProducto entity) {
+        String createdAtStr = (entity.getCreated_at() != null) ? entity.getCreated_at().toString() : "";
+        String updatedAtStr = (entity.getUpdated_at() != null) ? entity.getUpdated_at().toString() : "";
         return new String[]{
-            String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("nombre")),
-            String.valueOf(set.getString("descripcion")),
-            String.valueOf(set.getString("precio")),
-            String.valueOf(set.getString("stock")),
-            String.valueOf(set.getTimestamp("created_at"))
+                String.valueOf(entity.getId()),
+                entity.getNombre(),
+                entity.getDescripcion(),
+                String.valueOf(entity.getPrecio()),
+                String.valueOf(entity.getStock()),
+                createdAtStr,
+                updatedAtStr
         };
     }
 
-    void preparerState() throws SQLException {
+    @Override
+    protected DProducto stringArrayToEntity(String[] data) {
+        DProducto producto = new DProducto();
         try {
-            // Intentar establecer los valores
-            ps.setString(1, getNombre());
-            ps.setString(2, getDescripcion());
-            ps.setDouble(3, getPrecio());
-            ps.setDouble(4, getStock());
-            ps.setTimestamp(5, Timestamp.valueOf(getCreated_at()));
-        } catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
+            producto.setId(Integer.parseInt(data[0]));
+            producto.setNombre(data[1]);
+            producto.setDescripcion(data[2]);
+            producto.setPrecio(Double.parseDouble(data[3]));
+            producto.setStock(Double.parseDouble(data[4]));
+            producto.setCreated_at(toLocalDateTime(data[5]));
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir datos de producto: " + e.getMessage());
+        }
+        return producto;
+    }
+
+    @Override
+    protected String getInsertQuery() {
+        return QUERY_INSERT;
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return QUERY_UPDATE;
+    }
+
+    @Override
+    protected String getDeleteQuery() {
+        return QUERY_DELETE;
+    }
+
+    @Override
+    protected String getFindByIdQuery() {
+        return QUERY_FIND_BY_ID;
+    }
+
+    @Override
+    protected String getListAllQuery() {
+        return QUERY_LIST_ALL;
+    }
+
+    @Override
+    protected void prepareStatementForEntity(DProducto entity) throws SQLException {
+        if (ps == null) {
+            return;
+        }
+        // Para INSERT
+        ps.setString(1, entity.getNombre());
+        ps.setString(2, entity.getDescripcion());
+        ps.setDouble(3, entity.getPrecio());
+        ps.setDouble(4, entity.getStock());
+
+        // Para UPDATE, el último parámetro es el ID
+        if (ps.getParameterMetaData().getParameterCount() > 5) {
+            entity.setUpdated_at(LocalDateTime.now());
+            ps.setTimestamp(5, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(6, entity.getId());
+        } else {
+            // Para INSERT, el último parámetro es created_at
+            ps.setTimestamp(5, toTimestamp(entity.getCreated_at()));
         }
     }
 
-    private void init_conexion() {
-        connection = new SQLConnection(
-                ConstPSQL.user,
-                ConstPSQL.pass,
-                ConstGlobal.SERVIDOR,
-                ConstGlobal.PORT_DB,
-                ConstPSQL.dbName);
+    @Override
+    protected void prepareStatementForId(int id) throws SQLException {
+        if (ps != null) {
+            ps.setInt(1, id);
+        }
     }
 
+    /**
+     * Método para preparar una consulta por nombre
+     *
+     * @param nombre Nombre a buscar
+     * @throws SQLException Si ocurre un error al preparar la consulta
+     */
+    protected void prepareStatementForNombre(String nombre) throws SQLException {
+        if (ps != null) {
+            ps.setString(1, nombre);
+        }
+    }
+
+    /**
+     * Guarda un producto en la base de datos
+     *
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException   Si ocurre un error de SQL
+     * @throws ParseException Si ocurre un error al parsear fechas
+     */
     public Object[] guardar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        String[] exists = null;
-        try {
-            exists = existe(getNombre());
-            if (exists != null) {
-                mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
-                return new Object[]{false, mensaje, null};
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_INSERT);
-            preparerState();
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE+" Registro insertado exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH+" Error al intentar guardar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo insertar el registro en la base de datos.".toUpperCase());
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles del error SQLException
-            mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error en la base de datos: " + e.getMessage();
-            System.out.println(MESSAGE_TRYCATCH + " GUARDAR");
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar PreparedStatement: " + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error al cerrar PreparedStatement: " + TABLE + e.getMessage();
-            }
+        // Verificar si ya existe un producto con el mismo nombre
+        DProducto existente = findByNombre(this.nombre);
+        if (existente != null) {
+            return new Object[]{false, "El producto ya está registrado con ID: " + existente.getId()};
         }
-        return new Object[]{isSuccess, mensaje};
+
+        return save(this);
     }
 
+    /**
+     * Modifica un producto en la base de datos
+     *
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException   Si ocurre un error de SQL
+     * @throws ParseException Si ocurre un error al parsear fechas
+     */
     public Object[] modificar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        try {
-            String[] exists = ver();
-            if(exists == null){
-                System.out.println(MESSAGE_TRYCATCH+" NO EXISTE ");
-                return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: "+TABLE.toUpperCase()};
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_UPDATE);
-            preparerState();
-            ps.setInt(7, getId());
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE+" - (MODIFICAR) actualizacion exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH+" - (MODIFICAR) Error al actualizar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo Error al actualizar los datos.".toUpperCase());
-            }
-        } catch (SQLException e) {
-            System.out.println(MESSAGE_TRYCATCH + " MODIFICAR");
-            mensaje = MESSAGE_TRYCATCH + " MODIFICAR";
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage();
-            }
+        // Verificar si existe el producto
+        DProducto existente = findById(this.id);
+        if (existente == null) {
+            return new Object[]{false, "El producto con ID " + this.id + " no existe"};
         }
-        return new Object[]{isSuccess, mensaje};
-    }
-    
-    public boolean eliminar() {
-        boolean eliminado = false;
-        try {
-            String[] exists = ver();
-            if(exists == null){
-                System.out.println("EL ADMINSITRATIVO NO EXISTE");
-                return false;
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_ELIMINAR);
-            ps.setInt(1, getId());
-            if (ps.executeUpdate() == 0) {
-                eliminado = false;
-                System.err.println(MESSAGE_TRYCATCH + " No se pudo eliminar la persona");
-                //throw new SQLException("Error al intentar eliminar el registro.");
-            }
-            eliminado = true; // Si el executeUpdate tuvo éxito, se actualiza el valor
-        } catch (SQLException e) {
-            eliminado = false;
-            // Muestra detalles de la excepción SQL
-            System.err.println("Error de SQL: " + e.getMessage());
-            System.err.println("Estado SQL: " + e.getSQLState());
-            System.err.println("Código de Error: " + e.getErrorCode());
-            e.printStackTrace(); // Imprime la pila de llamadas para más detalles
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                eliminado = false;
-                System.err.println("Error al cerrar recursos: " + e.getMessage());
-            }
-        }
-        return eliminado;
+
+        return update(this);
     }
 
-    public List<String[]> listar() throws SQLException {
-        List<String[]> datas = new ArrayList<>();
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_LIST);
-            set = ps.executeQuery();
-            while (set.next()) {
-                datas.add(arrayData(set));
-            }
-            System.out.println(datas);
-        } catch (SQLException e) {
-            // Imprimir el error en consola con detalles
-            System.out.println(MESSAGE_TRYCATCH + " LISTAR");
-            e.printStackTrace(); // Esto imprime toda la traza del error, útil para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje del error SQL
-            System.out.println("Estado SQL: " + e.getSQLState()); // Estado SQL asociado al error
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.toString() + TABLE);
-                e.printStackTrace(); // Imprimir cualquier error al cerrar recursos
-            }
-        }
-        return datas;
+    /**
+     * Elimina un producto de la base de datos
+     *
+     * @return true si se eliminó correctamente, false en caso contrario
+     */
+    public Object[] eliminar() {
+        return delete(this.id);
     }
 
+    /**
+     * Busca un producto por su ID
+     *
+     * @return Array de strings con los datos del producto o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public String[] ver() throws SQLException {
-        String[] data = null;
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_VER);
-            ps.setInt(1, getId());
-            set = ps.executeQuery();
-            if (set.next()) {
-                data = arrayData(set);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " VER");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
+        DProducto producto = findById(this.id);
+        return producto != null ? entityToStringArray(producto) : null;
+    }
 
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + TABLE + e.getMessage());
-            }
-        }
-        return data;
-    }
-    
+    /**
+     * Busca un producto por su nombre
+     *
+     * @param nombre Nombre del producto a buscar
+     * @return Array de strings con los datos del producto o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public String[] existe(String nombre) throws SQLException {
-        String[] data = null;
-        setNombre(nombre);
+        DProducto producto = findByNombre(nombre);
+        return producto != null ? entityToStringArray(producto) : null;
+    }
+
+    /**
+     * Busca un producto por su nombre
+     *
+     * @param nombre Nombre del producto a buscar
+     * @return Producto encontrado o null si no existe
+     */
+    public DProducto findByNombre(String nombre) {
+        DProducto producto = null;
+
         try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_NOMBRE);
-            ps.setString(1, getNombre());
-            set = ps.executeQuery();
-            if (set.next()) {
-                data = arrayData(set);
-                System.out.println(Arrays.toString(data));
+            if (connection == null || connection.isClosed()) {
+                init_conexion();
+            }
+
+            ps = connection.prepareStatement(QUERY_FIND_BY_NOMBRE);
+            prepareStatementForNombre(nombre);
+
+            resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                String[] data = arrayData(resultSet);
+                producto = stringArrayToEntity(data);
             }
         } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " EXISTE ");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
+            logSQLException("Error al buscar producto por nombre", e);
         } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + TABLE + e.getMessage());
-            }
+            closeResources(false);
         }
-        return data;
+
+        return producto;
     }
-    
-    public void desconectar() {
-        if (connection != null) {
-            connection.closeConnection();
+
+    /**
+     * Lista todos los productos
+     *
+     * @return Lista de arrays de strings con los datos de los productos
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public List<String[]> listar() throws SQLException {
+        List<DProducto> productos = findAll();
+        List<String[]> result = new ArrayList<>();
+
+        for (DProducto producto : productos) {
+            result.add(entityToStringArray(producto));
         }
+
+        return result;
     }
 }

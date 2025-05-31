@@ -4,32 +4,25 @@
  */
 package DATA;
 
-import UTILS.ConstGlobal;
-import UTILS.ConstPSQL;
-import CONNECTION.SQLConnection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  *
  * @author fpl
  */
-public class DEmpleado {
-    
-    int id;
-    String ci;
-    String nombre;
-    String telefono;
-    String puesto;
-    String estado;
-    LocalDateTime created_at;
+public class DEmpleado extends BaseDAO<DEmpleado> {
+    private int id;
+    private String ci;
+    private String nombre;
+    private String telefono;
+    private String puesto;
+    private String estado;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
     public int getId() {
         return id;
     }
@@ -72,299 +65,222 @@ public class DEmpleado {
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
-    public DEmpleado() {}
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
+    }
+    public void setUpdated_at(LocalDateTime updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    private static final String TABLE = "empleados";
+    private static final String QUERY_ID = "id";
+    private static final String Q_CI = "ci";
+    private static final String QUERY_INSERT = String.format(
+            "INSERT INTO %s (ci, nombre, telefono, puesto, estado, created_at) VALUES (?,?,?,?,?,?)", TABLE);
+    private static final String QUERY_UPDATE = String.format(
+            "UPDATE %s SET ci=?, nombre=?, telefono=?, puesto=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+    private static final String QUERY_DELETE = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
+    private static final String QUERY_FIND_BY_ID = "SELECT * FROM "+TABLE+" WHERE id=?";
+    private static final String QUERY_LIST_ALL = "SELECT * FROM "+TABLE;
+    private static final String QUERY_FIND_BY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
+    public DEmpleado() {
+        super(TABLE);
+        this.created_at = LocalDateTime.now();
+    }
     public DEmpleado(String ci, String nombre, String telefono, String puesto, String estado) {
+        super(TABLE);
         this.ci = ci;
         this.nombre = nombre;
         this.telefono = telefono;
         this.puesto = puesto;
         this.estado = estado;
+        this.created_at = LocalDateTime.now();
     }
-    private final String TABLE = "empleados";
-    private final String QUERY_ID = "id";
-    private final String Q_CI = "ci";
-    private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (ci, nombre, telefono, puesto, estado, created_at) VALUES (?,?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET ci=?, nombre=?, telefono=?, puesto=?, estado=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
-    private final String QUERY_LIST = "SELECT * FROM " + TABLE;
-    private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
-    private SQLConnection connection;
-    private PreparedStatement ps;
-    private ResultSet set;
-
-    private String[] arrayData(ResultSet set) throws SQLException {
+    @Override
+    protected String[] entityToStringArray(DEmpleado entity) {
+        String createdAtStr = (entity.getCreated_at() != null) ? entity.getCreated_at().toString() : "";
+        String updatedAtStr = (entity.getUpdated_at() != null) ? entity.getUpdated_at().toString() : "";
         return new String[]{
-            String.valueOf(set.getInt("id")),
-            String.valueOf(set.getString("ci")),
-            String.valueOf(set.getString("nombre")),
-            String.valueOf(set.getString("telefono")),
-            String.valueOf(set.getString("puesto")),
-            String.valueOf(set.getString("estado")),
-            String.valueOf(set.getTimestamp("created_at"))
+                String.valueOf(entity.getId()),
+                entity.getCi(),
+                entity.getNombre(),
+                entity.getTelefono(),
+                entity.getPuesto(),
+                entity.getEstado(),
+                createdAtStr,
+                updatedAtStr
         };
     }
-
-    void preparerState() throws SQLException {
+    @Override
+    protected DEmpleado stringArrayToEntity(String[] data) {
+        DEmpleado modelo = new DEmpleado();
         try {
-            // Intentar establecer los valores
-            ps.setString(1, getCi());
-            ps.setString(2, getNombre());
-            ps.setString(3, getTelefono());
-            ps.setString(4, getPuesto());
-            ps.setString(5, getEstado());
-            ps.setTimestamp(6, Timestamp.valueOf(getCreated_at()));
-        } catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
+            modelo.setId(Integer.parseInt(data[0]));
+            modelo.setCi(data[1]);
+            modelo.setNombre(data[2]);
+            modelo.setTelefono(data[3]);
+            modelo.setPuesto(data[4]);
+            modelo.setEstado(data[5]);
+            modelo.setCreated_at(toLocalDateTime(data[7]));
+            modelo.setUpdated_at(toLocalDateTime(data[8]));
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir datos del modelo: " + e.getMessage());
+        }
+        return modelo;
+    }
+    @Override
+    protected String getInsertQuery() {
+        return QUERY_INSERT;
+    }
+    @Override
+    protected String getUpdateQuery() {
+        return QUERY_UPDATE;
+    }
+    @Override
+    protected String getDeleteQuery() {
+        return QUERY_DELETE;
+    }
+    @Override
+    protected String getFindByIdQuery() {
+        return QUERY_FIND_BY_ID;
+    }
+    @Override
+    protected String getListAllQuery() {
+        return QUERY_LIST_ALL;
+    }
+    @Override
+    protected void prepareStatementForEntity(DEmpleado entity) throws SQLException {
+        if (ps == null) {
+            return;
+        }
+        // Para INSERT y UPDATE
+        ps.setString(1, entity.getCi());
+        ps.setString(2, entity.getNombre());
+        ps.setString(3, entity.getTelefono());
+        ps.setString(4, entity.getPuesto());
+        ps.setString(5, entity.getEstado());
+        // Para UPDATE, el último parámetro es el ID
+        if (ps.getParameterMetaData().getParameterCount() > 6) {
+            entity.setUpdated_at(LocalDateTime.now());
+            ps.setTimestamp(6, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(7, entity.getId());
+        } else {
+            // Para INSERT, el último parámetro es created_at
+            ps.setTimestamp(6, toTimestamp(entity.getCreated_at()));
         }
     }
-
-    private void init_conexion() {
-        connection = new SQLConnection(
-                ConstPSQL.user,
-                ConstPSQL.pass,
-                ConstGlobal.SERVIDOR,
-                ConstGlobal.PORT_DB,
-                ConstPSQL.dbName);
+    @Override
+    protected void prepareStatementForId(int id) throws SQLException {
+        if (ps != null) {
+            ps.setInt(1, id);
+        }
     }
-
-    public Object[] guardar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        String[] exists = null;
+    /**
+     * Método para preparar una consulta por CI
+     *
+     * @param ci CI a buscar
+     * @throws SQLException Si ocurre un error al preparar la consulta
+     */
+    protected void prepareStatementForCi(String ci) throws SQLException {
+        if (ps != null) {
+            ps.setString(1, ci);
+        }
+    }
+    /**
+     * Busca un cliente por su CI
+     *
+     * @param ci CI del cliente a buscar
+     * @return Cliente encontrado o null si no existe
+     */
+    public DEmpleado findByCi(String ci) {
+        DEmpleado modelo = null;
         try {
-            exists = existe(getCi());
-            if (exists != null) {
-                mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
-                return new Object[]{false, mensaje, null};
+            if (connection == null || connection.isClosed()) {
+                init_conexion();
             }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_INSERT);
-            preparerState();
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE+" Registro insertado exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH+" Error al intentar guardar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo insertar el registro en la base de datos.".toUpperCase());
+
+            ps = connection.prepareStatement(QUERY_FIND_BY_CI);
+            prepareStatementForCi(ci);
+
+            resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                String[] data = arrayData(resultSet);
+                modelo = stringArrayToEntity(data);
             }
         } catch (SQLException e) {
-            // Imprimir detalles del error SQLException
-            mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error en la base de datos: " + e.getMessage();
-            System.out.println(MESSAGE_TRYCATCH + " GUARDAR");
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
+            logSQLException("Error al buscar empleado por CI", e);
         } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar PreparedStatement: " + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error al cerrar PreparedStatement: " + TABLE + e.getMessage();
-            }
+            closeResources(false);
         }
-        return new Object[]{isSuccess, mensaje};
-    }
 
+        return modelo;
+    }
+    /**
+     * Guarda un cliente en la base de datos
+     *
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public Object[] guardar() throws SQLException {
+        // Verificar si ya existe un cliente con la misma CI
+        DEmpleado existente = findByCi(this.ci);
+        if (existente != null) {
+            return new Object[]{false, "El modelo ya está registrado con ID: " + existente.getId()};
+        }
+        return save(this);
+    }
+    /**
+     * Modifica un cliente en la base de datos
+     *
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException   Si ocurre un error de SQL
+     * @throws ParseException Si ocurre un error al parsear fechas
+     */
     public Object[] modificar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        try {
-            String[] exists = ver();
-            if(exists == null){
-                System.out.println(MESSAGE_TRYCATCH+" NO EXISTE ");
-                return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: "+TABLE.toUpperCase()};
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_UPDATE);
-            preparerState();
-            ps.setInt(7, getId());
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE+" - (MODIFICAR) actualizacion exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH+" - (MODIFICAR) Error al actualizar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo Error al actualizar los datos.".toUpperCase());
-            }
-        } catch (SQLException e) {
-            System.out.println(MESSAGE_TRYCATCH + " MODIFICAR");
-            mensaje = MESSAGE_TRYCATCH + " MODIFICAR";
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH+" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage();
-            }
-        }
-        return new Object[]{isSuccess, mensaje};
+        return update(this);
     }
-    
-    public boolean eliminar() {
-        boolean eliminado = false;
-        try {
-            String[] exists = ver();
-            if(exists == null){
-                System.out.println("EL ADMINSITRATIVO NO EXISTE");
-                return false;
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_ELIMINAR);
-            ps.setInt(1, getId());
-            if (ps.executeUpdate() == 0) {
-                eliminado = false;
-                System.err.println(MESSAGE_TRYCATCH + " No se pudo eliminar la persona");
-                //throw new SQLException("Error al intentar eliminar el registro.");
-            }
-            eliminado = true; // Si el executeUpdate tuvo éxito, se actualiza el valor
-        } catch (SQLException e) {
-            eliminado = false;
-            // Muestra detalles de la excepción SQL
-            System.err.println("Error de SQL: " + e.getMessage());
-            System.err.println("Estado SQL: " + e.getSQLState());
-            System.err.println("Código de Error: " + e.getErrorCode());
-            e.printStackTrace(); // Imprime la pila de llamadas para más detalles
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                eliminado = false;
-                System.err.println("Error al cerrar recursos: " + e.getMessage());
-            }
-        }
-        return eliminado;
+    /**
+     * Elimina un cliente de la base de datos
+     *
+     * @return true si se eliminó correctamente, false en caso contrario
+     */
+    public Object[] eliminar() throws SQLException {
+        return delete(this.id);
     }
-
-    public List<String[]> listar() throws SQLException {
-        List<String[]> datas = new ArrayList<>();
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_LIST);
-            set = ps.executeQuery();
-            while (set.next()) {
-                datas.add(arrayData(set));
-            }
-            System.out.println(datas);
-        } catch (SQLException e) {
-            // Imprimir el error en consola con detalles
-            System.out.println(MESSAGE_TRYCATCH + " LISTAR");
-            e.printStackTrace(); // Esto imprime toda la traza del error, útil para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje del error SQL
-            System.out.println("Estado SQL: " + e.getSQLState()); // Estado SQL asociado al error
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.toString() + TABLE);
-                e.printStackTrace(); // Imprimir cualquier error al cerrar recursos
-            }
-        }
-        return datas;
-    }
-
+    /**
+     * Busca un cliente por su ID
+     *
+     * @return Array de strings con los datos del cliente o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public String[] ver() throws SQLException {
-        String[] data = null;
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_VER);
-            ps.setInt(1, getId());
-            set = ps.executeQuery();
-            if (set.next()) {
-                data = arrayData(set);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " VER");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
-
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + TABLE + e.getMessage());
-            }
-        }
-        return data;
+        DEmpleado modelo = findById(this.id);
+        return modelo != null ? entityToStringArray(modelo) : null;
     }
-    
+    /**
+     * Busca un cliente por su CI
+     *
+     * @param ci CI del cliente a buscar
+     * @return Array de strings con los datos del cliente o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public String[] existe(String ci) throws SQLException {
-        String[] data = null;
-        setCi(ci);
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CI);
-            ps.setString(1, getCi());
-            set = ps.executeQuery();
-            if (set.next()) {
-                data = arrayData(set);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " EXISTE ");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + TABLE + e.getMessage());
-            }
-        }
-        return data;
+        DEmpleado modelo = findByCi(ci);
+        return modelo != null ? entityToStringArray(modelo) : null;
     }
-    
-    public void desconectar() {
-        if (connection != null) {
-            connection.closeConnection();
+    /**
+     * Lista todos los clientes
+     *
+     * @return Lista de arrays de strings con los datos de los clientes
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public List<String[]> listar() throws SQLException {
+        List<DEmpleado> modelos = findAll();
+        List<String[]> result = new ArrayList<>();
+        for (DEmpleado modelo : modelos) {
+            result.add(entityToStringArray(modelo));
         }
+        return result;
     }
 }

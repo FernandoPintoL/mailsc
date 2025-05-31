@@ -1,5 +1,6 @@
 package NEGOCIO;
 
+import DATA.DCliente;
 import DATA.DIncidencia;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -17,27 +18,27 @@ public class NIncidencia {
 
     public NIncidencia() {}
 
-    public Object[] guardar(int cliente_id, int contrato_id, String descripcion, String estado) throws SQLException, ParseException {
-        DATA = new DIncidencia(cliente_id, contrato_id,descripcion, estado);
+    public Object[] guardar(String nombre, String descripcion) throws SQLException, ParseException {
+        DATA = new DIncidencia(nombre, descripcion);
         Object[] response = DATA.guardar();
         System.out.println(Arrays.toString(response));
         DATA.desconectar();
         return response;
     }
 
-    public Object[] modificar(int id, String descripcion, String estado) throws SQLException, ParseException {
-        DATA = new DIncidencia(id, descripcion, estado);
+    public Object[] modificar(int id, String nombre, String descripcion) throws SQLException, ParseException {
+        DATA = new DIncidencia(nombre, descripcion);
+        DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();
         return response;
     }
 
-    public boolean eliminar(int id) throws SQLException {
-        DATA = new DIncidencia();
-        DATA.setId(id);
-        boolean response = DATA.eliminar();
-        DATA.desconectar();
-        return response;
+    public Object[] eliminar(int id) throws SQLException {
+        try (DIncidencia modelo = new DIncidencia()) {
+            modelo.setId(id);
+            return modelo.eliminar();
+        }
     }
     
     public String[] ver(int id) throws SQLException {

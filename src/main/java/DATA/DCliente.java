@@ -1,34 +1,61 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DATA;
-
-import UTILS.ConstGlobal;
-import UTILS.ConstPSQL;
-import CONNECTION.SQLConnection;
 
 import java.sql.*;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Clase de acceso a datos para la entidad Cliente
  *
  * @author fpl
  */
-public class DCliente extends DataBaseHelper{
-    
-    int id;
-    String ci;
-    String nombre;
-    String telefono;
-    String direccion;
-    String tipo_cliente;
-    LocalDateTime created_at;
-
+public class DCliente extends BaseDAO<DCliente> {
+    private int id;
+    private String ci;
+    private String nombre;
+    private String telefono;
+    private String direccion;
+    private String tipo_cliente;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
+    // Constantes para consultas SQL
+    private static final String TABLE_NAME = "clientes";
+    private static final String QUERY_INSERT =
+            "INSERT INTO "+TABLE_NAME+" (ci, nombre, telefono, direccion, tipo_cliente, created_at) VALUES (?,?,?,?,?,?)";
+    private static final String QUERY_UPDATE =
+            "UPDATE "+TABLE_NAME+" SET ci=?, nombre=?, telefono=?, direccion=?, tipo_cliente=?, updated_at=? WHERE id=?";
+    private static final String QUERY_DELETE = "DELETE FROM "+TABLE_NAME+" WHERE id=?";
+    private static final String QUERY_FIND_BY_ID = "SELECT * FROM "+TABLE_NAME+" WHERE id=?";
+    private static final String QUERY_FIND_BY_CI = "SELECT * FROM "+TABLE_NAME+" WHERE ci=?";
+    private static final String QUERY_LIST_ALL = "SELECT * FROM "+TABLE_NAME;
+    /**
+     * Constructor por defecto
+     */
+    public DCliente() {
+        super(TABLE_NAME);
+        this.created_at = LocalDateTime.now();
+    }
+    /**
+     * Constructor con parámetros
+     *
+     * @param ci           Cédula de identidad del cliente
+     * @param nombre       Nombre del cliente
+     * @param telefono     Teléfono del cliente
+     * @param direccion    Dirección del cliente
+     * @param tipo_cliente Tipo de cliente
+     */
+    public DCliente(String ci, String nombre, String telefono, String direccion, String tipo_cliente) {
+        super(TABLE_NAME);
+        this.ci = ci;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.tipo_cliente = tipo_cliente;
+        this.created_at = LocalDateTime.now();
+    }
+    // Getters y setters
     public int getId() {
         return id;
     }
@@ -65,178 +92,205 @@ public class DCliente extends DataBaseHelper{
     public void setTipo_cliente(String tipo_cliente) {
         this.tipo_cliente = tipo_cliente;
     }
-    public LocalDateTime getCreated_at() {return created_at;}
+    public LocalDateTime getCreated_at() {
+        return created_at;
+    }
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
-
-    public DCliente(String ci, String nombre, String telefono, String direccion, String tipo_cliente) {
-        this.ci = ci;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.tipo_cliente = tipo_cliente;
-        this.created_at = LocalDateTime.now();
+    public LocalDateTime getUpdated_at() {
+        return updated_at;
     }
-    public DCliente() {}
-
-    private final String TABLE = "clientes";
-    private final String QUERY_ID = "id";
-    private final String Q_CI = "ci";
-    private final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (ci, nombre, telefono, direccion, tipo_cliente, created_at) VALUES (?,?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET ci=?, nombre=?, telefono=?, direccion=?, tipo_cliente=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
-    private final String QUERY_LIST = "SELECT * FROM " + TABLE;
-    private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
+    public void setUpdated_at(LocalDateTime updated_at) {
+        this.updated_at = updated_at;
+    }
+    // extends
     @Override
-    void prepareStatement(){
+    protected String[] entityToStringArray(DCliente entity) {
+        String createdAtStr = (entity.getCreated_at() != null) ? entity.getCreated_at().toString() : "";
+        String updatedAtStr = (entity.getUpdated_at() != null) ? entity.getUpdated_at().toString() : "";
+        return new String[]{
+                String.valueOf(entity.getId()),
+                entity.getCi(),
+                entity.getNombre(),
+                entity.getTelefono(),
+                entity.getDireccion(),
+                entity.getTipo_cliente(),
+                createdAtStr,
+                updatedAtStr
+        };
+    }
+    @Override
+    protected DCliente stringArrayToEntity(String[] data) {
+        DCliente cliente = new DCliente();
         try {
-            // Intentar establecer los valores
-            ps.setString(1, getCi());
-            ps.setString(2, getNombre());
-            ps.setString(3, getTelefono());
-            ps.setString(4, getDireccion());
-            ps.setString(5, getTipo_cliente());
-            ps.setTimestamp(6, Timestamp.valueOf(getCreated_at()));
-            if(getId() != 0){
-                ps.setInt(7, getId());
+            cliente.setId(Integer.parseInt(data[0]));
+            cliente.setCi(data[1]);
+            cliente.setNombre(data[2]);
+            cliente.setTelefono(data[3]);
+            cliente.setDireccion(data[4]);
+            cliente.setTipo_cliente(data[5]);
+            cliente.setCreated_at(toLocalDateTime(data[7]));
+            cliente.setUpdated_at(toLocalDateTime(data[8]));
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir datos de cliente: " + e.getMessage());
+        }
+        return cliente;
+    }
+    @Override
+    protected String getInsertQuery() {
+        return QUERY_INSERT;
+    }
+    @Override
+    protected String getUpdateQuery() {
+        return QUERY_UPDATE;
+    }
+    @Override
+    protected String getDeleteQuery() {
+        return QUERY_DELETE;
+    }
+    @Override
+    protected String getFindByIdQuery() {
+        return QUERY_FIND_BY_ID;
+    }
+    @Override
+    protected String getListAllQuery() {
+        return QUERY_LIST_ALL;
+    }
+    @Override
+    protected void prepareStatementForEntity(DCliente entity) throws SQLException {
+        if (ps == null) {
+            return;
+        }
+        // Para INSERT y UPDATE
+        ps.setString(1, entity.getCi());
+        ps.setString(2, entity.getNombre());
+        ps.setString(3, entity.getTelefono());
+        ps.setString(4, entity.getDireccion());
+        ps.setString(5, entity.getTipo_cliente());
+        // Para UPDATE, el último parámetro es el ID
+        if (ps.getParameterMetaData().getParameterCount() > 6) {
+            entity.setUpdated_at(LocalDateTime.now());
+            ps.setTimestamp(6, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(7, entity.getId());
+        } else {
+            // Para INSERT, el último parámetro es created_at
+            ps.setTimestamp(6, toTimestamp(entity.getCreated_at()));
+        }
+    }
+    @Override
+    protected void prepareStatementForId(int id) throws SQLException {
+        if (ps != null) {
+            ps.setInt(1, id);
+        }
+    }
+    /**
+     * Método para preparar una consulta por CI
+     *
+     * @param ci CI a buscar
+     * @throws SQLException Si ocurre un error al preparar la consulta
+     */
+    protected void prepareStatementForCi(String ci) throws SQLException {
+        if (ps != null) {
+            ps.setString(1, ci);
+        }
+    }
+    /**
+     * Busca un cliente por su CI
+     *
+     * @param ci CI del cliente a buscar
+     * @return Cliente encontrado o null si no existe
+     */
+    public DCliente findByCi(String ci) {
+        DCliente cliente = null;
+
+        try {
+            if (connection == null || connection.isClosed()) {
+                init_conexion();
+            }
+
+            ps = connection.prepareStatement(QUERY_FIND_BY_CI);
+            prepareStatementForCi(ci);
+
+            resultSet = ps.executeQuery();
+
+            if (resultSet.next()) {
+                String[] data = arrayData(resultSet);
+                cliente = stringArrayToEntity(data);
             }
         } catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
+            logSQLException("Error al buscar cliente por CI", e);
+        } finally {
+            closeResources(false);
         }
+
+        return cliente;
     }
-    @Override
-    void prepareStatementForId(){
-        try {
-            // Intentar establecer los valores
-            ps.setInt(1, getId());
-        } catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
-        }
-    }
+    /**
+     * Guarda un cliente en la base de datos
+     *
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public Object[] guardar() throws SQLException {
-        String[] exists = existe(getCi());
-        String mensaje = "";
-        boolean isSuccess = false;
-        if (exists != null) {
-            mensaje = "Estos datos ya se encuentran registrados ID: ".toUpperCase() + exists[0];
-            return new Object[]{isSuccess, mensaje, null};
-        }else{
-            isSuccess = executeCreateUpdate(QUERY_INSERT);
-            mensaje = isSuccess ? "Registro insertado exitosamente.".toUpperCase() : "Error al intentar guardar los datos.".toUpperCase();
-            return new Object[]{isSuccess, mensaje};
+        // Verificar si ya existe un cliente con la misma CI
+        DCliente existente = findByCi(this.ci);
+        if (existente != null) {
+            return new Object[]{false, "El cliente ya está registrado con ID: " + existente.getId()};
         }
-    }
-    public Object[] modificar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        String[] exists = ver();
-        if(exists == null){
-            return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: "+TABLE.toUpperCase()};
-        }else{
-            isSuccess = executeCreateUpdate(QUERY_UPDATE);
-            if (isSuccess) {
-                mensaje = TABLE+" - (MODIFICAR) actualizacion exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH+" - (MODIFICAR) Error al actualizar los datos.".toUpperCase();
-            }
-            return new Object[]{isSuccess, mensaje};
-        }
-    }
-    public boolean eliminar() throws SQLException {
-        boolean eliminado = false;
-        String[] exists = ver();
-        if(exists == null){
-            System.out.println("EL ADMINSITRATIVO NO EXISTE");
-            return false;
-        }
-        eliminado = executeDelete(QUERY_ELIMINAR);
-        return eliminado;
-    }
-    public List<String[]> listar() throws SQLException {
-        List<String[]> datas = new ArrayList<>();
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_LIST);
-            resultSet = ps.executeQuery();
-            while (resultSet.next()) {
-                datas.add(arrayData(resultSet));
-            }
-        } catch (SQLException e) {
-            // Imprimir el error en consola con detalles
-            System.out.println(MESSAGE_TRYCATCH + " LISTAR");
-            e.printStackTrace(); // Esto imprime toda la traza del error, útil para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje del error SQL
-            System.out.println("Estado SQL: " + e.getSQLState()); // Estado SQL asociado al error
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            closeConnections();
-        }
-        return datas;
-    }
-    public String[] ver() throws SQLException {
-        String[] data = null;
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_VER);
-            ps.setInt(1, getId());
-            resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                data = arrayData(resultSet);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " VER");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
 
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            closeConnections();
-        }
-        return data;
+        return save(this);
     }
+    /**
+     * Modifica un cliente en la base de datos
+     *
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException   Si ocurre un error de SQL
+     * @throws ParseException Si ocurre un error al parsear fechas
+     */
+    public Object[] modificar() throws SQLException, ParseException {return update(this);
+    }
+    /**
+     * Elimina un cliente de la base de datos
+     *
+     * @return true si se eliminó correctamente, false en caso contrario
+     */
+    public Object[] eliminar() throws SQLException {
+        return delete(this.id);
+    }
+    /**
+     * Busca un cliente por su ID
+     *
+     * @return Array de strings con los datos del cliente o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public String[] ver() throws SQLException {
+        DCliente cliente = findById(this.id);
+        return cliente != null ? entityToStringArray(cliente) : null;
+    }
+    /**
+     * Busca un cliente por su CI
+     *
+     * @param ci CI del cliente a buscar
+     * @return Array de strings con los datos del cliente o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public String[] existe(String ci) throws SQLException {
-        String[] data = null;
-        setCi(ci);
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CI);
-            ps.setString(1, getCi());
-            resultSet = ps.executeQuery();
-            if (resultSet.next()) {
-                data = arrayData(resultSet);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " EXISTE ");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            closeConnections();
+        DCliente cliente = findByCi(ci);
+        return cliente != null ? entityToStringArray(cliente) : null;
+    }
+    /**
+     * Lista todos los clientes
+     *
+     * @return Lista de arrays de strings con los datos de los clientes
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public List<String[]> listar() throws SQLException {
+        List<DCliente> clientes = findAll();
+        List<String[]> result = new ArrayList<>();
+        for (DCliente cliente : clientes) {
+            result.add(entityToStringArray(cliente));
         }
-        return data;
+        return result;
     }
 }

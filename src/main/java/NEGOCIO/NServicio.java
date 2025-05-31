@@ -1,8 +1,6 @@
 package NEGOCIO;
 
-import DATA.DEmpleado;
-import DATA.DEquipoTrabajos;
-import DATA.DFacturas;
+import DATA.DProductoServicio;
 import DATA.DServicios;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -36,12 +34,11 @@ public class NServicio {
         return response;
     }
 
-    public boolean eliminar(int id) throws SQLException {
-        DATA = new DServicios();
-        DATA.setId(id);
-        boolean response = DATA.eliminar();
-        DATA.desconectar();
-        return response;
+    public Object[] eliminar(int id) throws SQLException {
+        try (DServicios modelo = new DServicios()) {
+            modelo.setId(id);
+            return modelo.eliminar();
+        }
     }
     
     public String[] ver(int id) throws SQLException {

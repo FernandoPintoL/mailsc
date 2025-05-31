@@ -3,56 +3,107 @@ package NEGOCIO;
 import DATA.DProducto;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Clase de negocio para la gestión de productos
+ * Implementa la lógica de negocio relacionada con productos
+ * 
  * @author fpl
  */
 public class NProducto {
 
-    private DProducto DATA;
-
+    /**
+     * Constructor por defecto
+     */
     public NProducto() {}
 
+    /**
+     * Guarda un nuevo producto en la base de datos
+     * 
+     * @param nombre Nombre del producto
+     * @param descripcion Descripción del producto
+     * @param precio Precio del producto
+     * @param stock Cantidad en stock
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException Si ocurre un error de SQL
+     * @throws ParseException Si ocurre un error al parsear fechas
+     */
     public Object[] guardar(String nombre, String descripcion, Double precio, Double stock) throws SQLException, ParseException {
-        DATA = new DProducto(nombre, descripcion, precio, stock);
-        Object[] response = DATA.guardar();
-        System.out.println(Arrays.toString(response));
-        DATA.desconectar();
-        return response;
+        try (DProducto producto = new DProducto(nombre, descripcion, precio, stock)) {
+            return producto.guardar();
+        }
     }
 
+    /**
+     * Modifica un producto existente en la base de datos
+     * 
+     * @param id ID del producto a modificar
+     * @param nombre Nuevo nombre del producto
+     * @param descripcion Nueva descripción del producto
+     * @param precio Nuevo precio del producto
+     * @param stock Nueva cantidad en stock
+     * @return Objeto con el resultado [boolean éxito, String mensaje]
+     * @throws SQLException Si ocurre un error de SQL
+     * @throws ParseException Si ocurre un error al parsear fechas
+     */
     public Object[] modificar(int id, String nombre, String descripcion, Double precio, Double stock) throws SQLException, ParseException {
-        DATA = new DProducto(nombre, descripcion, precio, stock);
-        DATA.setId(id);
-        Object[] response = DATA.modificar();
-        DATA.desconectar();
-        return response;
+        try (DProducto producto = new DProducto(nombre, descripcion, precio, stock)) {
+            producto.setId(id);
+            return producto.modificar();
+        }
     }
 
-    public boolean eliminar(int id) throws SQLException {
-        DATA = new DProducto();
-        DATA.setId(id);
-        boolean response = DATA.eliminar();
-        DATA.desconectar();
-        return response;
+    /**
+     * Elimina un producto de la base de datos
+     * 
+     * @param id ID del producto a eliminar
+     * @return true si se eliminó correctamente, false en caso contrario
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public Object[] eliminar(int id) throws SQLException {
+        try (DProducto producto = new DProducto()) {
+            producto.setId(id);
+            return producto.eliminar();
+        }
     }
-    
+
+    /**
+     * Busca un producto por su ID
+     * 
+     * @param id ID del producto a buscar
+     * @return Array de strings con los datos del producto o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public String[] ver(int id) throws SQLException {
-        DATA = new DProducto();
-        DATA.setId(id);
-        String[] data = DATA.ver();
-        DATA.desconectar();
-        return data;
+        try (DProducto producto = new DProducto()) {
+            producto.setId(id);
+            return producto.ver();
+        }
     }
 
+    /**
+     * Lista todos los productos
+     * 
+     * @return Lista de arrays de strings con los datos de los productos
+     * @throws SQLException Si ocurre un error de SQL
+     */
     public List<String[]> listar() throws SQLException {
-        DATA = new DProducto();
-        ArrayList<String[]> categoria = (ArrayList<String[]>) DATA.listar();
-        DATA.desconectar();
-        return categoria;
-    }    
+        try (DProducto producto = new DProducto()) {
+            return producto.listar();
+        }
+    }
+
+    /**
+     * Busca un producto por su nombre
+     * 
+     * @param nombre Nombre del producto a buscar
+     * @return Array de strings con los datos del producto o null si no existe
+     * @throws SQLException Si ocurre un error de SQL
+     */
+    public String[] buscarPorNombre(String nombre) throws SQLException {
+        try (DProducto producto = new DProducto()) {
+            return producto.existe(nombre);
+        }
+    }
 }

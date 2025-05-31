@@ -1,6 +1,8 @@
 package NEGOCIO;
 
 import DATA.DEmpleado;
+import DATA.DIncidencia;
+
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -33,12 +35,11 @@ public class NEmpleado {
         return response;
     }
 
-    public boolean eliminar(int id) throws SQLException {
-        DATA = new DEmpleado();
-        DATA.setId(id);
-        boolean response = DATA.eliminar();
-        DATA.desconectar();
-        return response;
+    public Object[] eliminar(int id) throws SQLException {
+        try (DEmpleado modelo = new DEmpleado()) {
+            modelo.setId(id);
+            return modelo.eliminar();
+        }
     }
     
     public String[] ver(int id) throws SQLException {

@@ -21,22 +21,20 @@ import java.util.List;
 /**
  * @author fpl
  */
-public class DContrato {
-
-    int id;
-    int cliente_id;
-    int servicio_id;
-    String descripcion;
-    double precio_total;
-    String estado;
-    Timestamp created_at;
-    Timestamp fecha_inicio;
-    Timestamp fecha_fin;
-
+public class DContrato extends BaseDAO<DContrato> {
+    private int id;
+    private int cliente_id;
+    private int servicio_id;
+    private String descripcion;
+    private double precio_total;
+    private String estado;
+    private Timestamp fecha_inicio;
+    private Timestamp fecha_fin;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -52,11 +50,9 @@ public class DContrato {
     public void setServicio_id(int servicio_id) {
         this.servicio_id = servicio_id;
     }
-
     public String getDescripcion() {
         return descripcion;
     }
-
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
@@ -66,42 +62,49 @@ public class DContrato {
     public void setPrecio_total(double precio_total) {
         this.precio_total = precio_total;
     }
-
     public String getEstado() {
         return estado;
     }
-
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public Timestamp getCreated_at() {
+    public LocalDateTime getCreated_at() {
         return created_at;
     }
-
-    public void setCreated_at(Timestamp created_at) {
+    public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
-
     public Timestamp getFecha_inicio() {
         return fecha_inicio;
     }
-
     public void setFecha_inicio(Timestamp fecha_inicio) {
         this.fecha_inicio = fecha_inicio;
     }
-
     public Timestamp getFecha_fin() {
         return fecha_fin;
     }
-
     public void setFecha_fin(Timestamp fecha_fin) {
         this.fecha_fin = fecha_fin;
     }
+    public LocalDateTime getUpdated_at() {return updated_at;}
+    public void setUpdated_at(LocalDateTime updated_at) {this.updated_at = updated_at;}
+    private static final String TABLE = "contratos";
+    private static final String QUERY_ID = "id";
+    private static final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, precio_total, estado, fecha_inicio, fecha_fin, created_at, cliente_id, servicio_id) VALUES (?,?,?,?,?,?,?,?)", TABLE);
+    private static final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, precio_total=?, estado=?, fecha_inicio=?, fecha_fin=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+    private static final String QUERY_DELETE = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
+    private static final String QUERY_FIND_BY_ID = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
+    private static final String QUERY_LIST_ALL = "SELECT * FROM " + TABLE;
     public DContrato() {
+        super(TABLE);
+        this.created_at = LocalDateTime.now();
+        this.updated_at = LocalDateTime.now();
+        this.fecha_inicio = new Timestamp(System.currentTimeMillis());
+        this.fecha_fin = new Timestamp(System.currentTimeMillis());
     }
 
     public DContrato(int cliente_id, int servicio_id, String descripcion, double precio_total, String estado, Timestamp fecha_inicio, Timestamp fecha_fin) {
+        super(TABLE);
         this.cliente_id = cliente_id;
         this.servicio_id = servicio_id;
         this.descripcion = descripcion;
@@ -109,306 +112,117 @@ public class DContrato {
         this.estado = estado;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
+        this.created_at = LocalDateTime.now();
+        this.updated_at = LocalDateTime.now();
     }
-
-    private final String TABLE = "contratos";
-    private final String QUERY_ID = "id";
-    //private final String Q_CI = "ci";
-    private final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, precio_total, estado, fecha_inicio, fecha_fin, created_at, cliente_id, servicio_id) VALUES (?,?,?,?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, precio_total=?, estado=?, fecha_inicio=?, fecha_fin=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    //private final String QUERY_CI = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_CI);
-    private final String QUERY_LIST = "SELECT * FROM " + TABLE;
-    private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
-    private SQLConnection connection;
-    private PreparedStatement ps;
-    private ResultSet set;
-
-    private String[] arrayData(ResultSet set) throws SQLException {
+    @Override
+    protected String[] entityToStringArray(DContrato entity) {
+        String createdAtStr = (entity.getCreated_at() != null) ? entity.getCreated_at().toString() : "";
+        String updatedAtStr = (entity.getUpdated_at() != null) ? entity.getUpdated_at().toString() : "";
         return new String[]{
-                String.valueOf(set.getInt("id")),
-                String.valueOf(set.getString("descripcion")),
-                String.valueOf(set.getString("precio_total")),
-                String.valueOf(set.getString("estado")),
-                String.valueOf(set.getString("fecha_inicio")),
-                String.valueOf(set.getString("fecha_fin")),
-                String.valueOf(set.getTimestamp("created_at")),
-                String.valueOf(set.getTimestamp("cliente_id")),
-                String.valueOf(set.getTimestamp("servicio_id"))
+                String.valueOf(entity.getId()),
+                entity.getDescripcion(),
+                String.valueOf(entity.getPrecio_total()),
+                entity.getEstado(),
+                entity.getFecha_inicio().toString(),
+                entity.getFecha_fin().toString(),
+                createdAtStr,
+                updatedAtStr,
+                String.valueOf(entity.getCliente_id()),
+                String.valueOf(entity.getServicio_id())
         };
     }
-
-    void preparerState() throws SQLException {
+    @Override
+    protected DContrato stringArrayToEntity(String[] data) {
+        DContrato modelo = new DContrato();
         try {
-            // Intentar establecer los valores
-            ps.setString(1, getDescripcion());
-            ps.setDouble(2, getPrecio_total());
-            ps.setString(3, getEstado());
-            ps.setTimestamp(4, getFecha_inicio());
-            ps.setTimestamp(5, getFecha_fin());
-            ps.setTimestamp(6, getCreated_at());
-            ps.setInt(7, getCliente_id());
-            ps.setInt(8, getServicio_id());
-        } catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
+            modelo.setId(Integer.parseInt(data[0]));
+            modelo.setDescripcion(data[1]);
+            modelo.setPrecio_total(Double.parseDouble(data[2]));
+            modelo.setEstado(data[3]);
+            modelo.setFecha_inicio(Timestamp.valueOf(data[4]));
+            modelo.setFecha_fin(Timestamp.valueOf(data[5]));
+            modelo.setCreated_at(toLocalDateTime(data[6]));
+            modelo.setUpdated_at(toLocalDateTime(data[7]));
+            modelo.setCliente_id(Integer.parseInt(data[8]));
+            modelo.setServicio_id(Integer.parseInt(data[9]));
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir datos del modelo: " + e.getMessage());
+        }
+        return modelo;
+    }
+    @Override
+    protected String getInsertQuery() {
+        return QUERY_INSERT;
+    }
+    @Override
+    protected String getUpdateQuery() {
+        return QUERY_UPDATE;
+    }
+    @Override
+    protected String getDeleteQuery() {
+        return QUERY_DELETE;
+    }
+    @Override
+    protected String getFindByIdQuery() {
+        return QUERY_FIND_BY_ID;
+    }
+    @Override
+    protected String getListAllQuery() {
+        return QUERY_LIST_ALL;
+    }
+    @Override
+    protected void prepareStatementForEntity(DContrato entity) throws SQLException {
+        if (ps == null) {
+            return;
+        }
+        // Para INSERT y UPDATE
+        ps.setString(1, entity.getDescripcion());
+        ps.setString(2, String.valueOf(entity.getPrecio_total()));
+        ps.setString(3, entity.getEstado());
+        ps.setTimestamp(4, entity.getFecha_inicio());
+        ps.setTimestamp(5, entity.getFecha_fin());
+        // Para UPDATE, el último parámetro es el ID
+        if (ps.getParameterMetaData().getParameterCount() == 7) {
+            entity.setUpdated_at(LocalDateTime.now());
+            ps.setTimestamp(6, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(7, entity.getId());
+        } else {
+            // Para INSERT, el último parámetro es created_at
+            ps.setTimestamp(6, toTimestamp(entity.getCreated_at()));
+            ps.setInt(7, entity.getCliente_id());
+            ps.setInt(8, entity.getServicio_id());
         }
     }
-
-    private void init_conexion() {
-        connection = new SQLConnection(ConstPSQL.user, ConstPSQL.pass, ConstGlobal.SERVIDOR, ConstGlobal.PORT_DB, ConstPSQL.dbName);
-    }
-
-    public Object[] guardar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        //String[] exists = null;
-        try {
-            /*exists = existe(getCi());
-            if (exists != null) {
-                mensaje = "La persona ya está registrada. ID: ".toUpperCase()+exists[0];
-                return new Object[]{false, mensaje, null};
-            }*/
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_INSERT);
-            preparerState();
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE + " Registro insertado exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH + " Error al intentar guardar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo insertar el registro en la base de datos.".toUpperCase());
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles del error SQLException
-            mensaje = MESSAGE_TRYCATCH + " (GUARDAR) Error en la base de datos: " + e.getMessage();
-            System.out.println(MESSAGE_TRYCATCH + " GUARDAR");
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar PreparedStatement: " + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH + " (GUARDAR) Error al cerrar PreparedStatement: " + TABLE + e.getMessage();
-            }
+    @Override
+    protected void prepareStatementForId(int id) throws SQLException {
+        if (ps != null) {
+            ps.setInt(1, id);
         }
-        return new Object[]{isSuccess, mensaje};
     }
-
+    public Object[] guardar() throws SQLException {
+        return save(this);
+    }
     public Object[] modificar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje = "";
-        try {
-            String[] exists = ver();
-            if (exists == null) {
-                System.out.println(MESSAGE_TRYCATCH + " NO EXISTE ");
-                return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: " + TABLE.toUpperCase()};
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_UPDATE);
-            preparerState();
-            ps.setInt(7, getId());
-            int execute = ps.executeUpdate();
-            isSuccess = execute > 0;
-            if (isSuccess) {
-                mensaje = TABLE + " - (MODIFICAR) actualizacion exitosamente.".toUpperCase();
-            } else {
-                mensaje = MESSAGE_TRYCATCH + " - (MODIFICAR) Error al actualizar los datos.".toUpperCase();
-                //throw new SQLException("No se pudo Error al actualizar los datos.".toUpperCase());
-            }
-        } catch (SQLException e) {
-            System.out.println(MESSAGE_TRYCATCH + " MODIFICAR");
-            mensaje = MESSAGE_TRYCATCH + " MODIFICAR";
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        } finally {
-            // Cerrar el PreparedStatement
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(" (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage());
-                mensaje = MESSAGE_TRYCATCH + " (MODIFICAR) Error al cerrar PreparedStatement: ".toUpperCase() + TABLE + e.getMessage();
-            }
-        }
-        return new Object[]{isSuccess, mensaje};
+        return update(this);
     }
-
-    public boolean eliminar() {
-        boolean eliminado = false;
-        try {
-            String[] exists = ver();
-            if (exists == null) {
-                System.out.println("EL ADMINSITRATIVO NO EXISTE");
-                return false;
-            }
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_ELIMINAR);
-            ps.setInt(1, getId());
-            if (ps.executeUpdate() == 0) {
-                eliminado = false;
-                System.err.println(MESSAGE_TRYCATCH + " No se pudo eliminar la persona");
-                //throw new SQLException("Error al intentar eliminar el registro.");
-            }
-            eliminado = true; // Si el executeUpdate tuvo éxito, se actualiza el valor
-        } catch (SQLException e) {
-            eliminado = false;
-            // Muestra detalles de la excepción SQL
-            System.err.println("Error de SQL: " + e.getMessage());
-            System.err.println("Estado SQL: " + e.getSQLState());
-            System.err.println("Código de Error: " + e.getErrorCode());
-            e.printStackTrace(); // Imprime la pila de llamadas para más detalles
-        } finally {
-            try {
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                eliminado = false;
-                System.err.println("Error al cerrar recursos: " + e.getMessage());
-            }
-        }
-        return eliminado;
+    public Object[] eliminar() throws SQLException {
+        return delete(this.id);
     }
-
-    public List<String[]> listar() throws SQLException {
-        List<String[]> datas = new ArrayList<>();
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_LIST);
-            set = ps.executeQuery();
-            while (set.next()) {
-                datas.add(arrayData(set));
-            }
-            System.out.println(datas);
-        } catch (SQLException e) {
-            // Imprimir el error en consola con detalles
-            System.out.println(MESSAGE_TRYCATCH + " LISTAR");
-            e.printStackTrace(); // Esto imprime toda la traza del error, útil para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje del error SQL
-            System.out.println("Estado SQL: " + e.getSQLState()); // Estado SQL asociado al error
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.toString() + TABLE);
-                e.printStackTrace(); // Imprimir cualquier error al cerrar recursos
-            }
-        }
-        return datas;
-    }
-
     public String[] ver() throws SQLException {
-        String[] data = null;
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_VER);
-            ps.setInt(1, getId());
-            set = ps.executeQuery();
-            if (set.next()) {
-                data = arrayData(set);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " VER");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
-
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + TABLE + e.getMessage());
-            }
-        }
-        return data;
+        DContrato modelo = findById(this.id);
+        return modelo != null ? entityToStringArray(modelo) : null;
     }
-
-    public int obtenerUltimoId() throws SQLException {
-        int ultimoId = -1;
-        String query = "SELECT id FROM contratos ORDER BY id DESC LIMIT 1";
-        try {
-            ps = connection.connect().prepareStatement(query);
-            set = ps.executeQuery();
-            if (set.next()) {
-                ultimoId = set.getInt(1);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error al obtener el último ID: " + e.getMessage());
-            e.printStackTrace();
-        }
-        return ultimoId;
+    public String[] existe() throws SQLException {
+        DContrato modelo = findById(this.id);
+        return modelo != null ? entityToStringArray(modelo) : null;
     }
-    
-    /*public String[] existe(String ci) throws SQLException {
-        String[] data = null;
-        setCi(ci);
-        try {
-            init_conexion();
-            ps = connection.connect().prepareStatement(QUERY_CI);
-            ps.setString(1, getCi());
-            set = ps.executeQuery();
-            if (set.next()) {
-                data = arrayData(set);
-                System.out.println(Arrays.toString(data));
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " EXISTE ");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
-        } finally {
-            // Cerrar recursos para evitar fugas de memoria
-            try {
-                if (set != null) {
-                    set.close();
-                }
-                if (ps != null) {
-                    ps.close();
-                }
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar recursos: " + TABLE + e.getMessage());
-            }
+    public List<String[]> listar() throws SQLException {
+        List<DContrato> modelos = findAll();
+        List<String[]> result = new ArrayList<>();
+        for (DContrato modelo : modelos) {
+            result.add(entityToStringArray(modelo));
         }
-        return data;
-    }*/
-
-    public void desconectar() {
-        if (connection != null) {
-            connection.closeConnection();
-        }
+        return result;
     }
 }

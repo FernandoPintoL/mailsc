@@ -4,27 +4,23 @@
  */
 package DATA;
 
-import UTILS.ConstGlobal;
-import UTILS.ConstPSQL;
-import CONNECTION.SQLConnection;
-
 import java.sql.*;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  *
  * @author fpl
  */
-public class DIncidencia {
+public class DIncidencia extends BaseDAO<DIncidencia> {
     
-    int id;
-    String nombre;
-    String descripcion;
-    LocalDateTime created_at;
+    private int id;
+    private String nombre;
+    private String descripcion;
+    private LocalDateTime created_at;
+    private LocalDateTime updated_at;
     public int getId() {
         return id;
     }
@@ -43,186 +39,123 @@ public class DIncidencia {
     public void setCreated_at(LocalDateTime created_at) {
         this.created_at = created_at;
     }
-    public DIncidencia() {}
-    public DIncidencia(String descripcion, String nombre) {
-        this.descripcion = descripcion;
-        this.nombre = nombre;
-    }
-    public DIncidencia(int id,String descripcion, String nombre) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.nombre = nombre;
-    }
+    public LocalDateTime getUpdated_at() {return updated_at;}
+    public void setUpdated_at(LocalDateTime updated_at) {this.updated_at = updated_at;}
+    public String getNombre() {return nombre;}
+    public void setNombre(String nombre) {this.nombre = nombre;}
 
-    private final String TABLE = "incidencias";
-    private final String QUERY_ID = "id";
-    private final String QUERY_INSERT = String.format(
+    private static final String TABLE = "incidencias";
+    private static final String QUERY_ID = "id";
+    private static final String QUERY_INSERT = String.format(
             "INSERT INTO %s ( nombre, descripcion, , created_at) VALUES (?,?,?,?,?)", TABLE);
-    private final String QUERY_UPDATE = String.format(
+    private static final String QUERY_UPDATE = String.format(
             "UPDATE %s SET nombre=?, descripcion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_ELIMINAR = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    private final String QUERY_VER = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
-    //private final String QUERY_PRODUCTO_ID = String.format("SELECT * FROM %s WHERE %s=?", TABLE, Q_PRODUCTO_ID);
-    private final String QUERY_LIST = "SELECT * FROM " + TABLE;
-    private final String MESSAGE_TRYCATCH = " ERROR MODELO: " + TABLE.toUpperCase() + " ";
-    private SQLConnection connection;
-    private String[] arrayData(ResultSet set) throws SQLException {
+    private static final String QUERY_FIND_BY_ID = "SELECT * FROM "+TABLE+" WHERE id=?";
+    private static final String QUERY_LIST_ALL = "SELECT * FROM "+TABLE;
+    private static final String QUERY_DELETE = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
+    public DIncidencia() {
+        super(TABLE);
+        this.created_at = LocalDateTime.now();
+    }
+    public DIncidencia(String nombre, String descripcion) {
+        super(TABLE);
+        this.descripcion = descripcion;
+        this.nombre = nombre;
+        this.created_at = LocalDateTime.now();
+    }
+    @Override
+    protected String[] entityToStringArray(DIncidencia entity) {
+        String createdAtStr = (entity.getCreated_at() != null) ? entity.getCreated_at().toString() : "";
+        String updatedAtStr = (entity.getUpdated_at() != null) ? entity.getUpdated_at().toString() : "";
         return new String[]{
-            String.valueOf(set.getInt("id")),
-            String.valueOf(set.getInt("cliente_id")),
-            String.valueOf(set.getInt("contrato_id")),
-            String.valueOf(set.getString("descripcion")),
-            String.valueOf(set.getString("estado")),
-            String.valueOf(set.getTimestamp("created_at")),
-            String.valueOf(set.getTimestamp("fecha_resolucion"))
+                String.valueOf(entity.getId()),
+                entity.getNombre(),
+                entity.getDescripcion(),
+                createdAtStr,
+                updatedAtStr
         };
     }
-    private void prepareInsert(PreparedStatement ps) throws SQLException {
+    @Override
+    protected DIncidencia stringArrayToEntity(String[] data) {
+        DIncidencia modelo = new DIncidencia();
         try {
-            // Intentar establecer los valores
-            ps.setString(1, nombre);
-            ps.setString(2, getDescripcion());
-            ps.setTimestamp(3, Timestamp.valueOf(getCreated_at() != null ? getCreated_at() : LocalDateTime.now()));
-        } catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
+            modelo.setId(Integer.parseInt(data[0]));
+            modelo.setNombre(data[1]);
+            modelo.setDescripcion(data[2]);
+            modelo.setCreated_at(toLocalDateTime(data[3]));
+            modelo.setUpdated_at(toLocalDateTime(data[4]));
+        } catch (NumberFormatException e) {
+            System.err.println("Error al convertir datos del modelo: " + e.getMessage());
+        }
+        return modelo;
+    }
+    @Override
+    protected String getInsertQuery() {
+        return QUERY_INSERT;
+    }
+    @Override
+    protected String getUpdateQuery() {
+        return QUERY_UPDATE;
+    }
+    @Override
+    protected String getDeleteQuery() {
+        return QUERY_DELETE;
+    }
+    @Override
+    protected String getFindByIdQuery() {
+        return QUERY_FIND_BY_ID;
+    }
+    @Override
+    protected String getListAllQuery() {
+        return QUERY_LIST_ALL;
+    }
+    @Override
+    protected void prepareStatementForEntity(DIncidencia entity) throws SQLException {
+        if (ps == null) {
+            return;
+        }
+        // Para INSERT y UPDATE
+        ps.setString(1, entity.getNombre());
+        ps.setString(2, entity.getDescripcion());
+        // Para UPDATE, el último parámetro es el ID
+        if (ps.getParameterMetaData().getParameterCount() > 3) {
+            entity.setUpdated_at(LocalDateTime.now());
+            ps.setTimestamp(3, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(4, entity.getId());
+        } else {
+            // Para INSERT, el último parámetro es created_at
+            ps.setTimestamp(3, toTimestamp(entity.getCreated_at()));
         }
     }
-    private void prepareUpdate(PreparedStatement ps) throws SQLException {
-        try{
-            ps.setString(1, nombre);
-            ps.setString(2, getDescripcion());
-            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setInt(4, getId());
-        }catch (SQLException e) {
-            // Manejar la excepción SQL
-            System.out.println(MESSAGE_TRYCATCH + TABLE);
-            e.printStackTrace(); // Imprimir la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());
-            System.out.println("Estado SQL: " + e.getSQLState());
-            System.out.println("Código de error SQL: " + e.getErrorCode());
+    @Override
+    protected void prepareStatementForId(int id) throws SQLException {
+        if (ps != null) {
+            ps.setInt(1, id);
         }
     }
-    private void init_conexion() {
-        connection = new SQLConnection(
-                ConstPSQL.user,
-                ConstPSQL.pass,
-                ConstGlobal.SERVIDOR,
-                ConstGlobal.PORT_DB,
-                ConstPSQL.dbName);
-    }
-    public Object[] guardar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje;
-        init_conexion();
-        try (PreparedStatement ps = connection.connect().prepareStatement(QUERY_INSERT)) {
-            prepareInsert(ps);
-            isSuccess = ps.executeUpdate() > 0;
-            mensaje = isSuccess ? TABLE + " REGISTRO INSERTADO EXITOSAMENTE." : MESSAGE_TRYCATCH + " ERROR AL GUARDAR.";
-        } catch (SQLException e) {
-            // Imprimir detalles del error SQLException
-            mensaje = MESSAGE_TRYCATCH+" (GUARDAR) Error en la base de datos: " + e.getMessage();
-            System.out.println(MESSAGE_TRYCATCH + " GUARDAR");
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        }
-        return new Object[]{isSuccess, mensaje};
+    public Object[] guardar() throws SQLException {
+        return save(this);
     }
     public Object[] modificar() throws SQLException, ParseException {
-        boolean isSuccess = false;
-        String mensaje;
-        init_conexion();
-        try {
-            String[] exists = ver();
-            if(exists == null){
-                System.out.println(MESSAGE_TRYCATCH+" NO EXISTE ");
-                return new Object[]{false, " IDS INGRESADOS NO SE ENCUENTRAN REGISTRADADAS EN LA TABLA: "+TABLE.toUpperCase()};
-            }
-            try (PreparedStatement ps = connection.connect().prepareStatement(QUERY_UPDATE)) {
-                prepareUpdate(ps);
-                isSuccess = ps.executeUpdate() > 0;
-                mensaje = isSuccess ? TABLE + " ACTUALIZADO EXITOSAMENTE." : MESSAGE_TRYCATCH + " ERROR AL ACTUALIZAR.";
-            }
-        } catch (SQLException e) {
-            System.out.println(MESSAGE_TRYCATCH + " MODIFICAR");
-            mensaje = MESSAGE_TRYCATCH + " MODIFICAR";
-            e.printStackTrace(); // Imprime toda la traza del error para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje detallado del error
-            System.out.println("Estado SQL: " + e.getSQLState()); // Código de estado SQL
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor de la BD
-        }
-        return new Object[]{isSuccess, mensaje};
+        return update(this);
     }
-    public boolean eliminar() {
-        boolean eliminado = false;
-        init_conexion();
-        try {
-            String[] exists = ver();
-            if(exists == null){
-                System.out.println("EL ADMINSITRATIVO NO EXISTE");
-                return false;
-            }
-            try (PreparedStatement ps = connection.connect().prepareStatement(QUERY_ELIMINAR)) {
-                ps.setInt(1, getId());
-                eliminado = ps.executeUpdate() > 0;
-            }
-        } catch (SQLException e) {
-            // Muestra detalles de la excepción SQL
-            System.err.println("Error de SQL: " + e.getMessage());
-            System.err.println("Estado SQL: " + e.getSQLState());
-            System.err.println("Código de Error: " + e.getErrorCode());
-            e.printStackTrace(); // Imprime la pila de llamadas para más detalles
-        }
-        return eliminado;
-    }
-    public List<String[]> listar() throws SQLException {
-        List<String[]> datas = new ArrayList<>();
-        init_conexion();
-        try (PreparedStatement ps = connection.connect().prepareStatement(QUERY_LIST);
-             ResultSet set = ps.executeQuery()) {
-            while (set.next()) {
-                datas.add(arrayData(set));
-            }
-        } catch (SQLException e) {
-            // Imprimir el error en consola con detalles
-            System.out.println(MESSAGE_TRYCATCH + " LISTAR");
-            e.printStackTrace(); // Esto imprime toda la traza del error, útil para depurar
-            System.out.println("Mensaje: " + e.getMessage()); // Mensaje del error SQL
-            System.out.println("Estado SQL: " + e.getSQLState()); // Estado SQL asociado al error
-            System.out.println("Código de error: " + e.getErrorCode()); // Código de error del proveedor
-        }
-        return datas;
+    public Object[] eliminar() throws SQLException {
+        return delete(this.id);
     }
     public String[] ver() throws SQLException {
-        String[] data = null;
-        init_conexion();
-        try (PreparedStatement ps = connection.connect().prepareStatement(QUERY_VER)) {
-            ps.setInt(1, getId());
-            try (ResultSet set = ps.executeQuery()) {
-                if (set.next()) {
-                    data = arrayData(set);
-                }
-            }
-        } catch (SQLException e) {
-            // Imprimir detalles de la excepción SQLException
-            System.out.println(MESSAGE_TRYCATCH + " VER");
-            e.printStackTrace();  // Muestra la traza completa del error
-            System.out.println("Mensaje de error: " + e.getMessage());  // Mensaje detallado del error
-            System.out.println("Código de estado SQL: " + e.getSQLState());  // Código SQL estándar del error
-            System.out.println("Código de error del proveedor: " + e.getErrorCode());  // Código de error específico del proveedor de la base de datos
-
-        }
-        return data;
+        DIncidencia modelo = findById(this.id);
+        return modelo != null ? entityToStringArray(modelo) : null;
     }
-    public void desconectar() {
-        if (connection != null) {
-            connection.closeConnection();
+    public String[] existe() throws SQLException {
+        DIncidencia modelo = findById(this.id);
+        return modelo != null ? entityToStringArray(modelo) : null;
+    }
+    public List<String[]> listar() throws SQLException {
+        List<DIncidencia> modelos = findAll();
+        List<String[]> result = new ArrayList<>();
+        for (DIncidencia modelo : modelos) {
+            result.add(entityToStringArray(modelo));
         }
+        return result;
     }
 }

@@ -36,12 +36,11 @@ public class NEquipoTrabajoServicio {
         return response;
     }
 
-    public boolean eliminar(int id) throws SQLException {
-        DATA = new DEquipoTrabajoServicio();
-        DATA.setId(id);
-        boolean response = DATA.eliminar();
-        DATA.desconectar();
-        return response;
+    public Object[] eliminar(int id) throws SQLException {
+        try (DEquipoTrabajoServicio modelo = new DEquipoTrabajoServicio()) {
+            modelo.setId(id);
+            return modelo.eliminar();
+        }
     }
     
     public String[] ver(int id) throws SQLException {
