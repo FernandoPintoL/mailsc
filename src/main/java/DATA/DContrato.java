@@ -26,10 +26,13 @@ public class DContrato extends BaseDAO<DContrato> {
     private int cliente_id;
     private int servicio_id;
     private String descripcion;
-    private double precio_total;
+    private double costo_total;
     private String estado;
     private Timestamp fecha_inicio;
     private Timestamp fecha_fin;
+    private String estado_pago;
+    private double monto_pagado;
+    private double monto_saldo;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
     public int getId() {
@@ -55,12 +58,6 @@ public class DContrato extends BaseDAO<DContrato> {
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-    public double getPrecio_total() {
-        return precio_total;
-    }
-    public void setPrecio_total(double precio_total) {
-        this.precio_total = precio_total;
     }
     public String getEstado() {
         return estado;
@@ -88,10 +85,43 @@ public class DContrato extends BaseDAO<DContrato> {
     }
     public LocalDateTime getUpdated_at() {return updated_at;}
     public void setUpdated_at(LocalDateTime updated_at) {this.updated_at = updated_at;}
+
+    public double getCosto_total() {
+        return costo_total;
+    }
+
+    public void setCosto_total(double costo_total) {
+        this.costo_total = costo_total;
+    }
+
+    public String getEstado_pago() {
+        return estado_pago;
+    }
+
+    public void setEstado_pago(String estado_pago) {
+        this.estado_pago = estado_pago;
+    }
+
+    public double getMonto_pagado() {
+        return monto_pagado;
+    }
+
+    public void setMonto_pagado(double monto_pagado) {
+        this.monto_pagado = monto_pagado;
+    }
+
+    public double getMonto_saldo() {
+        return monto_saldo;
+    }
+
+    public void setMonto_saldo(double monto_saldo) {
+        this.monto_saldo = monto_saldo;
+    }
+
     private static final String TABLE = "contratos";
     private static final String QUERY_ID = "id";
-    private static final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, precio_total, estado, fecha_inicio, fecha_fin, created_at, cliente_id, servicio_id) VALUES (?,?,?,?,?,?,?,?)", TABLE);
-    private static final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, precio_total=?, estado=?, fecha_inicio=?, fecha_fin=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+    private static final String QUERY_INSERT = String.format("INSERT INTO %s (descripcion, costo_total, estado, fecha_inicio, fecha_fin, estado_pago, monto_pagado, monto_saldo, created_at, cliente_id, servicio_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)", TABLE);
+    private static final String QUERY_UPDATE = String.format("UPDATE %s SET descripcion=?, costo_total=?, estado=?, fecha_inicio=?, fecha_fin=?, estado_pago=?, monto_pagado=?, monto_saldo=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private static final String QUERY_DELETE = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private static final String QUERY_FIND_BY_ID = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private static final String QUERY_LIST_ALL = "SELECT * FROM " + TABLE;
@@ -103,15 +133,18 @@ public class DContrato extends BaseDAO<DContrato> {
         this.fecha_fin = new Timestamp(System.currentTimeMillis());
     }
 
-    public DContrato(int cliente_id, int servicio_id, String descripcion, double precio_total, String estado, Timestamp fecha_inicio, Timestamp fecha_fin) {
+    public DContrato(int cliente_id, int servicio_id, String descripcion, double precio_total, String estado, Timestamp fecha_inicio, Timestamp fecha_fin, String estado_pago, double monto_pagado, double monto_saldo) {
         super(TABLE);
         this.cliente_id = cliente_id;
         this.servicio_id = servicio_id;
         this.descripcion = descripcion;
-        this.precio_total = precio_total;
+        this.costo_total = precio_total;
         this.estado = estado;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
+        this.estado_pago = estado_pago;
+        this.monto_pagado = monto_pagado;
+        this.monto_saldo = monto_saldo;
         this.created_at = LocalDateTime.now();
         this.updated_at = LocalDateTime.now();
     }
@@ -122,10 +155,13 @@ public class DContrato extends BaseDAO<DContrato> {
         return new String[]{
                 String.valueOf(entity.getId()),
                 entity.getDescripcion(),
-                String.valueOf(entity.getPrecio_total()),
+                String.valueOf(entity.getCosto_total()),
                 entity.getEstado(),
                 entity.getFecha_inicio().toString(),
                 entity.getFecha_fin().toString(),
+                entity.getEstado_pago(),
+                String.valueOf(entity.getMonto_pagado()),
+                String.valueOf(entity.getMonto_saldo()),
                 createdAtStr,
                 updatedAtStr,
                 String.valueOf(entity.getCliente_id()),
@@ -138,14 +174,17 @@ public class DContrato extends BaseDAO<DContrato> {
         try {
             modelo.setId(Integer.parseInt(data[0]));
             modelo.setDescripcion(data[1]);
-            modelo.setPrecio_total(Double.parseDouble(data[2]));
+            modelo.setCosto_total(Double.parseDouble(data[2]));
             modelo.setEstado(data[3]);
             modelo.setFecha_inicio(Timestamp.valueOf(data[4]));
             modelo.setFecha_fin(Timestamp.valueOf(data[5]));
-            modelo.setCreated_at(toLocalDateTime(data[6]));
-            modelo.setUpdated_at(toLocalDateTime(data[7]));
-            modelo.setCliente_id(Integer.parseInt(data[8]));
-            modelo.setServicio_id(Integer.parseInt(data[9]));
+            modelo.setEstado_pago(data[6]);
+            modelo.setMonto_pagado(Double.parseDouble(data[7]));
+            modelo.setMonto_saldo(Double.parseDouble(data[8]));
+            modelo.setCreated_at(toLocalDateTime(data[9]));
+            modelo.setUpdated_at(toLocalDateTime(data[10]));
+            modelo.setCliente_id(Integer.parseInt(data[11]));
+            modelo.setServicio_id(Integer.parseInt(data[12]));
         } catch (NumberFormatException e) {
             System.err.println("Error al convertir datos del modelo: " + e.getMessage());
         }
@@ -178,20 +217,23 @@ public class DContrato extends BaseDAO<DContrato> {
         }
         // Para INSERT y UPDATE
         ps.setString(1, entity.getDescripcion());
-        ps.setString(2, String.valueOf(entity.getPrecio_total()));
+        ps.setDouble(2, entity.getCosto_total());
         ps.setString(3, entity.getEstado());
         ps.setTimestamp(4, entity.getFecha_inicio());
         ps.setTimestamp(5, entity.getFecha_fin());
+        ps.setString(6, entity.getEstado_pago());
+        ps.setDouble(7, entity.getMonto_pagado());
+        ps.setDouble(8, entity.getMonto_saldo());
         // Para UPDATE, el último parámetro es el ID
-        if (ps.getParameterMetaData().getParameterCount() == 7) {
+        if (ps.getParameterMetaData().getParameterCount() == 10) {
             entity.setUpdated_at(LocalDateTime.now());
-            ps.setTimestamp(6, toTimestamp(entity.getUpdated_at()));
-            ps.setInt(7, entity.getId());
+            ps.setTimestamp(9, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(10, entity.getId());
         } else {
             // Para INSERT, el último parámetro es created_at
-            ps.setTimestamp(6, toTimestamp(entity.getCreated_at()));
-            ps.setInt(7, entity.getCliente_id());
-            ps.setInt(8, entity.getServicio_id());
+            ps.setTimestamp(9, toTimestamp(entity.getCreated_at()));
+            ps.setInt(10, entity.getCliente_id());
+            ps.setInt(11, entity.getServicio_id());
         }
     }
     @Override

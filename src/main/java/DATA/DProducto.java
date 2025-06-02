@@ -323,4 +323,48 @@ public class DProducto extends BaseDAO<DProducto> {
 
         return result;
     }
+
+    public Object[] verStock() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                init_conexion();
+            }
+            ps = connection.prepareStatement("SELECT stock FROM productos WHERE id = ?");
+            ps.setInt(1, this.id);
+            resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                double stock = resultSet.getDouble("stock");
+                return new Object[]{true, "Stock del producto con ID " + this.id + ": " + stock};
+            } else {
+                return new Object[]{false, "Producto con ID " + this.id + " no encontrado"};
+            }
+        } catch (SQLException e) {
+            logSQLException("Error al obtener stock del producto", e);
+            return new Object[]{false, "Error al obtener stock del producto: " + e.getMessage()};
+        } finally {
+            closeResources(false);
+        }
+    }
+
+    public Object[] modificarStock(double v) {
+        try {
+            if (connection == null || connection.isClosed()) {
+                init_conexion();
+            }
+            ps = connection.prepareStatement("UPDATE productos SET stock = stock + ? WHERE id = ?");
+            ps.setDouble(1, v);
+            ps.setInt(2, this.id);
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                return new Object[]{true, "Stock del producto con ID " + this.id + " modificado correctamente."};
+            } else {
+                return new Object[]{false, "Producto con ID " + this.id + " no encontrado."};
+            }
+        } catch (SQLException e) {
+            logSQLException("Error al modificar stock del producto", e);
+            return new Object[]{false, "Error al modificar stock del producto: " + e.getMessage()};
+        } finally {
+            closeResources(false);
+        }
+    }
 }

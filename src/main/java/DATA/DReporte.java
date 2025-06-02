@@ -20,12 +20,12 @@ import java.util.List;
  * @author fpl
  */
 public class DReporte extends DataBaseHelper{
-
     public DReporte() {
     }
     public final String QUERY_CONTRATO = """
                                         SELECT 
                                             c.id AS id_contrato,
+                                            c.descripcion AS descripcion_contrato,
                                             c.fecha_inicio AS fecha_inicio,
                                             c.fecha_fin AS fecha_fin,
                                             c.precio_total AS contrato_monto,
@@ -39,20 +39,13 @@ public class DReporte extends DataBaseHelper{
                                             s.descripcion AS descripcion_servicio,
                                             s.precio AS precio_servicio,
                                             s.frecuencia AS frecuencia_servicio,
-                                            s.estado AS estado_servicio,
-                                            et.nombre AS nombre_equipo_trabajo,
-                                            e.ci AS ci_empleado,
-                                            e.nombre AS nombre_empleado
+                                            s.estado AS estado_servicio
                                         FROM
-                                            contratos    c
+                                            contratos c
                                         JOIN
                                             clientes cl ON c.cliente_id = cl.id
                                         JOIN
-                                            servicios s ON c.servicio_id = s.id
-                                        JOIN
-                                            equipo_trabajos et ON c.equipo_trabajo_id = et.id
-                                        JOIN
-                                            empleados e ON c.empleado_id = e.id    
+                                            servicios s ON c.servicio_id = s.id   
                                         WHERE
                                             c.id = ?;
                                         """;

@@ -106,4 +106,18 @@ public class NProducto {
             return producto.existe(nombre);
         }
     }
+
+    public Object[] verStock(int productoId) throws SQLException {
+    try (DProducto producto = new DProducto()) {
+            producto.setId(productoId);
+            return producto.verStock();
+        }
+    }
+
+    public Object[] modificarStock(int productoId, double v) {
+    try (DProducto producto = new DProducto()) {
+            producto.setId(productoId);
+            return producto.modificarStock(v);
+        }
+    }
 }
