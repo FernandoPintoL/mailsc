@@ -20,7 +20,7 @@ public class FooterPageEvent extends PdfPageEventHelper{
     @Override
     public void onEndPage(PdfWriter writer, Document document) {
         PdfContentByte canvas = writer.getDirectContent();
-        Phrase footer = new Phrase("TECNO WEB GURPO-02-SC Página " + document.getPageNumber(), footerFont);
+        Phrase footer = new Phrase("TECNO WEB GURPO-18-SC Página " + document.getPageNumber(), footerFont);
 
         // Coloca el pie de página centrado
         ColumnText.showTextAligned(

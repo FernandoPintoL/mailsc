@@ -3,6 +3,7 @@ package NEGOCIO;
 import DATA.DEquipoTrabajoServicio;
 import DATA.DProducto;
 import DATA.DProductoServicio;
+import UTILS.Help;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -72,12 +73,31 @@ public class NProductoServicio {
         // Verificar si el id existe en la base de datos
         Object[] productoServicioExists = ver(id);
         if (productoServicioExists == null || productoServicioExists.length == 0) {
-            return new Object[]{false, "El id no existe: " + id + ". Consulte la lista de productos y servicios."};
+            return new Object[]{false, "El id no existe: " + id + ". Consulte la lista de productos y servicios. "+ Help.PRODUCTO_SERVICIOS+"_LIS[]"};
+        }
+        // obtener el servicio_id y producto_id del objeto existente
+        int producto_id = Integer.parseInt(productoServicioExists[1].toString());
+        int servicio_id = Integer.parseInt(productoServicioExists[2].toString());
+        // obtener el stock del producto
+        Object[] productoStock = NProducto.verStock(producto_id);
+        if (productoStock == null || productoStock.length == 0) {
+            return new Object[]{false, "El producto_id no existe: " + producto_id + ". Consulte la lista de productos."};
+        }
+        // verificar que el stock del producto no sea menor a la cantidad
+        if (Double.parseDouble((String) productoStock[2]) < cantidad) {
+            return new Object[]{false, "El stock del producto_id " + producto_id + " es insuficiente para la cantidad solicitada."};
+        }
+        // actualizar el stock del producto
+        Object[] modificacionStock = NProducto.modificarStock(producto_id, -cantidad);
+        if (!(Boolean) modificacionStock[0]) {
+            return new Object[]{false, "Error al actualizar el stock del producto: " + modificacionStock[1]};
         }
         DATA = new DProductoServicio(0, 0, cantidad);
         DATA.setId(id);
         Object[] response = DATA.modificar();
         DATA.desconectar();
+        // unir el mensaje de respuesta de modificar y modificar stock
+        response[1] = response[1] + " | " + modificacionStock[1];
         return response;
     }
 

@@ -13,7 +13,7 @@ public class AddCommand extends BaseCommand {
     /**
      * Constructor
      * @param table The table name
-     * @param negocioObjects Map of business logic objects
+     * @param negocioObjects Mapa de objetos de lógica de negocio
      */
     public AddCommand(String table, Map<String, Object> negocioObjects) {
         super(table, negocioObjects);
@@ -29,10 +29,14 @@ public class AddCommand extends BaseCommand {
     public Object[] execute(Mensaje mensaje) throws Exception {
         List<String> params = mensaje.getParametros();
         Object negocioObject = getNegocioObject();
+        // quiero saber el nombre de la clase del objeto de negocio
+        System.out.println("Objeto de negocio: " + negocioObject.getClass().getName());
         // Find the guardar method with the right number of parameters
         Method[] methods = negocioObject.getClass().getMethods();
         for (Method method : methods) {
+            System.out.println("Método encontrado: " + method.getName() + " con " + method.getParameterCount() + " parámetros.");
             if (method.getName().equals("guardar") && method.getParameterCount() == params.size()) {
+                System.out.println("Método de almacenamiento encontrado: " + method.getName());
                 // Convert parameters to the right types
                 Object[] convertedParams = convertParameters(method, params);
                 // Invoke the method
@@ -40,34 +44,6 @@ public class AddCommand extends BaseCommand {
             }
         }
         
-        throw new NoSuchMethodException("No suitable guardar method found for " + table + " with " + params.size() + " parameters");
-    }
-    
-    /**
-     * Convert string parameters to the right types based on method parameter types
-     * @param method The method to invoke
-     * @param params The string parameters
-     * @return Converted parameters
-     */
-    private Object[] convertParameters(Method method, List<String> params) {
-        Class<?>[] paramTypes = method.getParameterTypes();
-        Object[] convertedParams = new Object[params.size()];
-        
-        for (int i = 0; i < params.size(); i++) {
-            String param = params.get(i).trim();
-            Class<?> type = paramTypes[i];
-            
-            if (type == int.class || type == Integer.class) {
-                convertedParams[i] = Integer.parseInt(param);
-            } else if (type == double.class || type == Double.class) {
-                convertedParams[i] = Double.parseDouble(param);
-            } else if (type == boolean.class || type == Boolean.class) {
-                convertedParams[i] = Boolean.parseBoolean(param);
-            } else {
-                convertedParams[i] = param;
-            }
-        }
-        
-        return convertedParams;
+        throw new NoSuchMethodException("No se encontró ningún método de almacenamiento adecuado para " + table + " con " + params.size() + " parametros.");
     }
 }

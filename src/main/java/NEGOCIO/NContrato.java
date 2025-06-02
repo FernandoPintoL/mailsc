@@ -6,6 +6,7 @@ import UTILS.Help;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,14 +21,14 @@ public class NContrato {
     private final NServicio NServicio = new NServicio();
     public NContrato() {}
 
-    public Object[] guardar(int cliente_id, int servicio_id, String descripcion, String estado, Timestamp fecha_inicio, Timestamp fecha_fin, double monto_pagado) throws SQLException, ParseException {
+    public Object[] guardar(int cliente_id, int servicio_id, String descripcion, String estado, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, double monto_pagado) throws SQLException, ParseException {
         if (cliente_id <= 0 || servicio_id <= 0 || descripcion == null || descripcion.isEmpty() || estado == null || estado.isEmpty()) {
             return new Object[]{false, "Los campos cliente_id, servicio_id, descripcion y estado no pueden ser nulos o vacíos."};
         }
         if (fecha_inicio == null || fecha_fin == null) {
             return new Object[]{false, "Las fechas de inicio y fin no pueden ser nulas."};
         }
-        if (fecha_inicio.after(fecha_fin)) {
+        if (fecha_inicio.isAfter(fecha_fin)) {
             return new Object[]{false, "La fecha de inicio no puede ser posterior a la fecha de fin."};
         }
         // Verificar si el cliente_id existe en la base de datos
@@ -61,7 +62,7 @@ public class NContrato {
         return response;
     }
 
-    public Object[] modificar(int id, String descripcion, double costo_total, String estado, Timestamp fecha_inicio, Timestamp fecha_fin, String estado_pago, double monto_pagado, double monto_saldo) throws SQLException, ParseException {
+    public Object[] modificar(int id, String descripcion, double costo_total, String estado, LocalDateTime fecha_inicio, LocalDateTime fecha_fin, String estado_pago, double monto_pagado, double monto_saldo) throws SQLException, ParseException {
         if (id <= 0 || descripcion == null || descripcion.isEmpty() || costo_total < 0 || estado == null || estado.isEmpty()) {
             return new Object[]{false, "Los campos id, descripcion, costo_total y estado no pueden ser nulos o vacíos."};
         }

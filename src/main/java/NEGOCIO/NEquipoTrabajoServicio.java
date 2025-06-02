@@ -46,6 +46,14 @@ public class NEquipoTrabajoServicio {
     }
 
     public Object[] modificar(int id, String estado) throws SQLException, ParseException {
+        if (id <= 0 || estado == null || estado.isEmpty()) {
+            return new Object[]{false, "El id debe ser mayor a cero y el campo estado no puede ser nulo o vacío."};
+        }
+        // Verificar si el id existe en la base de datos
+        String[] equipoTrabajoServicioExists = ver(id);
+        if (equipoTrabajoServicioExists == null || equipoTrabajoServicioExists.length == 0) {
+            return new Object[]{false, "El id no existe: " + id + ". Consulte la lista de equipos de trabajo y servicios."+ Help.EQUIPO_TRABAJO_SERVICIO+"_LIS[]"};
+        }
         DATA = new DEquipoTrabajoServicio(0, 0, estado);
         DATA.setId(id);
         Object[] response = DATA.modificar();

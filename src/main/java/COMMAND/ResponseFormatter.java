@@ -8,7 +8,7 @@ import java.util.List;
  * Class for formatting responses in a centralized way
  */
 public class ResponseFormatter {
-    
+
     /**
      * Format a list response
      * @param header The header array
@@ -19,7 +19,7 @@ public class ResponseFormatter {
     public static String formatList(String[] header, List<String[]> lista, Mensaje mensaje) {
         return Help.listMensaje(mensaje.tableAction(), header, lista);
     }
-    
+
     /**
      * Format a list response with PDF
      * @param header The header array
@@ -31,7 +31,7 @@ public class ResponseFormatter {
     public static String formatListWithPdf(String[] header, List<String[]> lista, Mensaje mensaje, String pdfFile) {
         return Help.listMensajeToPdf(mensaje.tableAction(), header, lista);
     }
-    
+
     /**
      * Format a view response
      * @param header The header array
@@ -42,9 +42,9 @@ public class ResponseFormatter {
     public static String formatView(String[] header, String[] data, Mensaje mensaje) {
         return Help.ver(mensaje.tableAction(), header, data);
     }
-    
+
     /**
-     * Format a view response with report
+     * Format a view response with report for String[] data
      * @param data The data array
      * @param mensaje The message being processed
      * @return Formatted response
@@ -52,7 +52,17 @@ public class ResponseFormatter {
     public static String formatViewWithReport(String[] data, Mensaje mensaje) {
         return Help.verWithReport(mensaje.tableAction(), data);
     }
-    
+
+    /**
+     * Format a view response with report for ArrayList<String[]> data
+     * @param data The list of data arrays
+     * @param mensaje The message being processed
+     * @return Formatted response
+     */
+    public static String formatListWithReport(List<String[]> data, Mensaje mensaje) {
+        return Help.listMensajeToPdf(mensaje.tableAction(), data.get(0), data);
+    }
+
     /**
      * Get the appropriate header for a table
      * @param table The table name

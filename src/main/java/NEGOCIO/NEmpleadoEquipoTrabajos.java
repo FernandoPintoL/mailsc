@@ -52,7 +52,7 @@ public class NEmpleadoEquipoTrabajos {
         // Verificar si el id existe en la base de datos
         String[] empleadoEquipoTrabajoExists = ver(id);
         if (empleadoEquipoTrabajoExists == null || empleadoEquipoTrabajoExists.length == 0) {
-            return new Object[]{false, "El id no existe: " + id + ". Consulte la lista de empleados y equipos de trabajo."};
+            return new Object[]{false, "El id no existe: " + id + ". Consulte la lista de empleados y equipos de trabajo."+ Help.EMPLEADO_EQUIPO_TRABAJO+"_LIS[]"};
         }
         DATA = new DEmpleadoEquipoTrabajos(0, 0, estado, ocupacion);
         DATA.setId(id);

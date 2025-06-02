@@ -2,6 +2,8 @@ package NEGOCIO;
 
 import DATA.DEmpleado;
 import DATA.DEquipoTrabajos;
+import UTILS.Help;
+
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -27,6 +29,14 @@ public class NEquipoTrabajos {
     }
 
     public Object[] modificar(int id, String nombre, String descripcion, String estado) throws SQLException, ParseException {
+        if (id <= 0 || nombre == null || nombre.isEmpty() || descripcion == null || descripcion.isEmpty() || estado == null || estado.isEmpty()) {
+            return new Object[]{false, "Los campos id, nombre, descripcion y estado no pueden ser nulos o vacíos."};
+        }
+        // Verificar si el ID existe en la base de datos
+        String[] equipoTrabajoExists = ver(id);
+        if (equipoTrabajoExists == null || equipoTrabajoExists.length == 0) {
+            return new Object[]{false, "El ID no existe: " + id + ". Consulte la lista de equipos de trabajo."+ Help.EQUIPO_TRABAJO+"_LIS[]"};
+        }
         DATA = new DEquipoTrabajos(nombre, descripcion, estado);
         DATA.setId(id);
         Object[] response = DATA.modificar();

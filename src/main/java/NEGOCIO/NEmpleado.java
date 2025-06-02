@@ -2,6 +2,7 @@ package NEGOCIO;
 
 import DATA.DEmpleado;
 import DATA.DIncidencia;
+import UTILS.Help;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -28,6 +29,14 @@ public class NEmpleado {
     }
 
     public Object[] modificar(int id, String ci, String nombre, String telefono, String puesto, String estado) throws SQLException, ParseException {
+        if (id <= 0 || ci == null || ci.isEmpty() || nombre == null || nombre.isEmpty() || telefono == null || telefono.isEmpty() || puesto == null || puesto.isEmpty() || estado == null || estado.isEmpty()) {
+            return new Object[]{false, "Los campos id, ci, nombre, telefono, puesto y estado no pueden ser nulos o vacíos."};
+        }
+        // Verificar si el ID existe en la base de datos
+        String[] empleadoExists = ver(id);
+        if (empleadoExists == null || empleadoExists.length == 0) {
+            return new Object[]{false, "El ID no existe: " + id + ". Consulte la lista de empleados."+ Help.EMPLEADO+"_LIS[]"};
+        }
         DATA = new DEmpleado(ci, nombre, telefono, puesto, estado);
         DATA.setId(id);
         Object[] response = DATA.modificar();

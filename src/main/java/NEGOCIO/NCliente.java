@@ -1,6 +1,8 @@
 package NEGOCIO;
 
 import DATA.DCliente;
+import UTILS.Help;
+
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
@@ -31,7 +33,7 @@ public class NCliente {
         // Verificar si el ID existe en la base de datos
         String[] clienteExists = ver(id);
         if (clienteExists == null || clienteExists.length == 0) {
-            return new Object[]{false, "El ID no existe: " + id + ". Consulte la lista de clientes."};
+            return new Object[]{false, "El ID no existe: " + id + ". Consulte la lista de clientes. "+ Help.CLIENTE+"_LIS[]"};
         }
         try (DCliente cliente = new DCliente(ci, nombre, telefono, direccion, tipo_cliente)) {
             cliente.setId(id);

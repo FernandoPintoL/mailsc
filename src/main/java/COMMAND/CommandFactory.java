@@ -3,6 +3,9 @@ package COMMAND;
 import NEGOCIO.*;
 import OBJECT.Mensaje;
 import UTILS.Help;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ public class CommandFactory {
         registerTableCommands(Help.EMPLEADO_EQUIPO_TRABAJO, NEmpleadoEquipoTrabajos.class);
         registerTableCommands(Help.INCIDENCIAS, NIncidencia.class);
         registerTableCommands(Help.CONTRATO_INCIDENCIA, NContratoIncidencia.class);
+
     }
     /**
      * Registrar comandos para una tabla con su clase de lógica empresarial
@@ -40,10 +44,16 @@ public class CommandFactory {
         registerCommand(table + "_" + Help.DEL, (negocioObjects) -> new DelCommand(table, negocioObjects));
         registerCommand(table + "_" + Help.VER, (negocioObjects) -> new VerCommand(table, negocioObjects));
         registerCommand(table + "_" + Help.LIS, (negocioObjects) -> new LisCommand(table, negocioObjects));
-        // Caso especial para informes.
+        // Registrar comando de reporte para todas las tablas que lo soportan
         if (table.equals(Help.CONTRATOS)) {
             registerCommand(table + "_" + Help.REP, (negocioObjects) -> new ReportCommand(table, negocioObjects));
         }
+        // Registrar comandos para los nuevos tipos de reportes
+        registerCommand("CONTRATO_"+Help.REP, (negocioObjects) -> new ReportCommand(table, negocioObjects));
+        registerCommand("INVENTARIO_"+Help.REP, (negocioObjects) -> new ReportCommand(table, negocioObjects));
+        registerCommand("SERVICIOS_"+Help.REP, (negocioObjects) -> new ReportCommand(table, negocioObjects));
+        registerCommand("INCIDENCIAS_"+Help.REP, (negocioObjects) -> new ReportCommand(table, negocioObjects));
+        registerCommand("EMPLEADOS_"+Help.REP, (negocioObjects) -> new ReportCommand(table, negocioObjects));
     }
     /**
      * Registrar un creador de comandos con su clave
@@ -61,10 +71,22 @@ public class CommandFactory {
      */
     public static Command getCommand(Mensaje mensaje, Map<String, Object> negocioObjects) {
         String key = mensaje.tableAction();
+        // como saber si el mensaje tiene parametros correctos y devolver el comando correcto y parametros correctos
+        if (key == null || key.isEmpty()) {
+            System.out.println("Mensaje no contiene una clave válida: " + mensaje);
+            return null; // No se encontró la clave
+        }
+        // Buscar el creador de comandos correspondiente
+        if (!commandCreators.containsKey(key)) {
+            System.out.println("No se encontró el comando para la clave: " + key);
+            return null; // No se encontró el comando
+        }
         CommandCreator creator = commandCreators.get(key);
-        System.out.println("CommandFactory.getCommand() key: " + key);
-        System.out.println("CommandFactory.getCommand() negocioObjects: " + negocioObjects);
-        return creator != null ? creator.createCommand(negocioObjects) : null;
+        if (creator == null) {
+            System.out.println("No se encontró el creador de comandos para la clave: " + key);
+            return null; // No se encontró el creador de comandos
+        }
+        return creator.createCommand(negocioObjects);
     }
     /**
      * Interfaz funcional para crear comandos

@@ -10,6 +10,7 @@ import CONNECTION.Smtp;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,10 +32,12 @@ public class Consulta {
     private final NServicio NEGOCIO_SERVICIO;
     private final NReporte NEGOCIO_REPORTE;
     private Pop3 pop3;
+    private Object response;
+
     public Consulta() throws IOException {
         // negocio o bussinness
         NEGOCIO_CLIENTE = new NCliente();
-        NEGOCIO_CONTRATO= new NContrato();
+        NEGOCIO_CONTRATO = new NContrato();
         NEGOCIO_EMPLEADO = new NEmpleado();
         NEGOCIO_EMPLEADO_EQUIPO_TRABAJO = new NEmpleadoEquipoTrabajos();
         NEGOCIO_EQUIPO_TRABAJO = new NEquipoTrabajos();
@@ -46,6 +49,7 @@ public class Consulta {
         NEGOCIO_SERVICIO = new NServicio();
         NEGOCIO_REPORTE = new NReporte();
     }
+
     public int getCantidadMails() throws IOException {
         pop3 = new Pop3(ConstGlobal.SERVIDOR, ConstGlobal.PORT_POP3);
         pop3.login(ConstGlobal.USER, ConstGlobal.PASS);
@@ -57,26 +61,30 @@ public class Consulta {
         pop3.close();
         return Integer.parseInt(number);
     }
+
     /**
      * Process a new message
+     *
      * @throws IOException If an error occurs during processing
      */
     public void newMensaje() throws IOException {
         String token = pop3.Token();
-        System.out.println("TOKEN: " + token);
         String email = pop3.getEmail();
         // Check if the message is a help request
         if (token.toUpperCase().contains(Help.HELP)) {
+            System.out.println("Mensaje de ayuda recibido: " + token);
             sendMail(email, "AYUDA", Help.ContenidoHelp());
             return;
         }
         // Parse the message
         Mensaje msj = Subject.subject(token, email);
         if (msj == null) {
+            System.out.println("Error al parsear el mensaje: " + token);
             sendMail(email, "Error de comandos", ErrorHandler.handleCommandFormatError(token));
             return;
         }
         try {
+            System.out.println("Mensaje recibido: " + msj);
             // Process the message
             negocioAction(msj);
         } catch (Exception e) {
@@ -85,8 +93,10 @@ public class Consulta {
             e.printStackTrace();
         }
     }
+
     /**
      * Initialize the map of business logic objects
+     *
      * @return Map of business logic objects
      */
     private Map<String, Object> initializeNegocioObjects() {
@@ -105,8 +115,10 @@ public class Consulta {
         negocioObjects.put("NEGOCIO_REPORTE", NEGOCIO_REPORTE);
         return negocioObjects;
     }
+
     /**
      * Process the message and execute the appropriate command
+     *
      * @param msj The message to process
      * @throws Exception If an error occurs during processing
      */
@@ -117,8 +129,9 @@ public class Consulta {
             // Get the command from the factory
             Command command = CommandFactory.getCommand(msj, negocioObjects);
             if (command == null) {
+                System.out.println("No se encontró el comando para la acción: " + msj.getAction() + " en la tabla: " + msj.getTable());
                 // Command not found
-                sendMail(msj.getEmisor(), "PARAMETROS INCORRECTOS | " + msj.getParametros(), 
+                sendMail(msj.getEmisor(), "PARAMETROS INCORRECTOS | " + msj.getParametros(),
                         ErrorHandler.handleTableOrActionNotFound(msj));
                 return;
             }
@@ -128,26 +141,28 @@ public class Consulta {
             processCommandResult(msj, result);
         } catch (NumberFormatException e) {
             // Error converting parameters
-            sendMail(msj.getEmisor(), "Error al convertir un parametros".toUpperCase(), 
+            sendMail(msj.getEmisor(), "Error al convertir un parametros".toUpperCase(),
                     ErrorHandler.handleNumberFormatException(msj));
         } catch (SQLException | IOException ex) {
             // Error connecting to the database
-            sendMail(msj.getEmisor(), "Error de conexion".toUpperCase(), 
+            sendMail(msj.getEmisor(), "Error de conexion".toUpperCase(),
                     ErrorHandler.handleGenericException(ex.toString(), msj));
         } catch (Exception e) {
             // Generic error
-            sendMail(msj.getEmisor(), "Error".toUpperCase(), 
+            sendMail(msj.getEmisor(), "Error".toUpperCase(),
                     ErrorHandler.handleException(e, msj));
         }
     }
 
     /**
      * Process the result of a command execution
-     * @param msj The message that was processed
+     *
+     * @param msj    The message that was processed
      * @param result The result of the command execution
      * @throws IOException If an error occurs during processing
      */
     private void processCommandResult(Mensaje msj, Object[] result) throws IOException {
+        System.out.println("Procesando resultado del comando: " + msj);
         if (result == null || result.length == 0) {
             return;
         }
@@ -176,14 +191,43 @@ public class Consulta {
             String response = ResponseFormatter.formatList(header, lista, msj);
             sendMail(msj.getEmisor(), msj.evento(), response);
         } else if (action.equals(Help.REP)) {
+            System.out.println("Generando reporte");
             // Generate a report
-            String[] data = (String[]) result[0];
+            Object reportData = result[0];
+            System.out.println("DATA TYPE: " + (reportData != null ? reportData.getClass().getName() : "null"));
             String pdfFile = (String) result[1];
-            if (data == null) {
+            System.out.println("PDF FILE: " + pdfFile);
+
+            if (reportData == null) {
                 sendMail(msj.getEmisor(), msj.evento(), "NO SE ENCUENTRAN DATOS REGISTRADOS PARA ESTA CONSULTA".toUpperCase());
             } else {
-                String response = ResponseFormatter.formatViewWithReport(data, msj);
-                sendMailPdf(msj.getEmisor(), msj.evento(), response, pdfFile);
+                System.out.println("Enviando reporte por correo: " + msj.getEmisor());
+                String response;
+
+                // Determinar el tipo de reporte y formatear adecuadamente
+                if (reportData instanceof String[]) {
+                    // Reporte de tipo CONTRATO
+                    System.out.println("Formateando reporte de tipo String[]");
+                    response = ResponseFormatter.formatViewWithReport((String[]) reportData, msj);
+                } else if (reportData instanceof List<?> || reportData instanceof ArrayList<?>) {
+                    // Reportes de tipo INVENTARIO, SERVICIOS, INCIDENCIAS, EMPLEADOS
+                    System.out.println("Formateando reporte de tipo List<String[]>");
+                    @SuppressWarnings("unchecked")
+                    List<String[]> listData = (List<String[]>) reportData;
+                    response = ResponseFormatter.formatListWithReport(listData, msj);
+                } else {
+                    // Tipo de reporte desconocido
+                    System.err.println("Tipo de reporte desconocido: " + reportData.getClass().getName());
+                    response = "Tipo de reporte no soportado: " + reportData.getClass().getName();
+                }
+
+                System.out.println("RESPONSE: " + response);
+                try {
+                    sendMailPdf(msj.getEmisor(), msj.evento(), response, pdfFile);
+                } catch (Exception e) {
+                    System.err.println("Error al enviar el correo con PDF: " + e.getMessage());
+                    sendMail(msj.getEmisor(), msj.evento(), "ERROR AL ENVIAR EL PDF: " + e.getMessage());
+                }
             }
         } else {
             // ADD, MOD, DEL
@@ -191,16 +235,18 @@ public class Consulta {
             String message = (String) result[1];
             // si no es exitoso, enviar mensaje de error con tables
             if (!success && (action.equals(Help.DEL) || action.equals(Help.MOD))) {
-                message += "<h3>"+message.toUpperCase() + " | VERIFIQUE DATOS REALES CON: "+table+"_LIS[]</h3>";
+                message += "<h3>" + message.toUpperCase() + " | VERIFIQUE DATOS REALES CON: " + table + "_LIS[]</h3>";
             }
 
             sendMail(msj.getEmisor(), msj.evento(), message.toUpperCase());
         }
     }
+
     /**
      * Send an email
-     * @param rcpt The recipient
-     * @param titulo The subject
+     *
+     * @param rcpt    The recipient
+     * @param titulo  The subject
      * @param mensaje The message body
      * @throws IOException If an error occurs during sending
      */
@@ -212,9 +258,10 @@ public class Consulta {
 
     /**
      * Send an email with a PDF attachment
-     * @param rcpt The recipient
-     * @param titulo The subject
-     * @param mensaje The message body
+     *
+     * @param rcpt         The recipient
+     * @param titulo       The subject
+     * @param mensaje      The message body
      * @param name_pdfFile The PDF file path
      * @throws IOException If an error occurs during sending
      */
