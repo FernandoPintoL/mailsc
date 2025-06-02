@@ -49,16 +49,11 @@ public class DataBaseHelper implements AutoCloseable {
      */
     public String[] arrayData(ResultSet set) throws SQLException {
         ResultSetMetaData metaData = set.getMetaData();
-        System.out.println("Datos de ResultSet: " + metaData.toString());
         int columnCount = metaData.getColumnCount();
-        System.out.println("Número de columnas: " + columnCount);
         String[] data = new String[columnCount];
         for (int i = 1; i <= columnCount; i++) {
             data[i - 1] = set.getString(i) == null ? "" : set.getString(i);
-            System.out.println("Name " + i + ": " + metaData.getColumnName(i));
-            System.out.println("Columna " + i + ": " + data[i - 1]);
         }
-        System.out.println("Datos obtenidos: " + Arrays.toString(data));
         return data;
     }
 

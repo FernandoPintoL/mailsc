@@ -3,15 +3,7 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.53">
     <root id="1">
       <DateStyle>mdy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>142862</IntrospectionStateNumber>
+      <IntrospectionStateNumber>143093</IntrospectionStateNumber>
       <ServerVersion>16.8</ServerVersion>
       <StartupTime>1747746953</StartupTime>
       <TimeZones>true ACDT
@@ -1582,7 +1574,7 @@ true posixrules
 13307||10|C|G
 13307||-9223372036854775808|U|G
 13307||10|U|G</Grants>
-      <IntrospectionStateNumber>142862</IntrospectionStateNumber>
+      <IntrospectionStateNumber>143093</IntrospectionStateNumber>
       <ObjectId>16498</ObjectId>
       <OwnerName>grupo18sc</OwnerName>
     </database>
@@ -5387,97 +5379,97 @@ true posixrules
     <schema id="403" parent="46" name="public">
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <IntrospectionStateNumber>142862</IntrospectionStateNumber>
-      <LastIntrospectionLocalTimestamp>2025-05-30.17:06:43</LastIntrospectionLocalTimestamp>
+      <IntrospectionStateNumber>143093</IntrospectionStateNumber>
+      <LastIntrospectionLocalTimestamp>2025-05-31.23:58:10</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>523</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
     <sequence id="404" parent="403" name="clientes_id_seq">
-      <ObjectId>100873</ObjectId>
+      <ObjectId>101237</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="405" parent="403" name="contrato_incidencias_id_seq">
-      <ObjectId>101084</ObjectId>
+      <ObjectId>101451</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="406" parent="403" name="contratos_id_seq">
-      <ObjectId>101043</ObjectId>
+      <ObjectId>101408</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="407" parent="403" name="empleado_equipo_trabajos_id_seq">
-      <ObjectId>100950</ObjectId>
+      <ObjectId>101313</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142802</StateNumber>
+      <StateNumber>143065</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="408" parent="403" name="empleados_id_seq">
-      <ObjectId>100887</ObjectId>
+      <ObjectId>101251</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142787</StateNumber>
+      <StateNumber>143055</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="409" parent="403" name="equipo_trabajo_servicios_id_seq">
-      <ObjectId>101026</ObjectId>
+      <ObjectId>101391</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142806</StateNumber>
+      <StateNumber>143069</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="410" parent="403" name="equipo_trabajos_id_seq">
-      <ObjectId>100911</ObjectId>
+      <ObjectId>101275</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142791</StateNumber>
+      <StateNumber>143059</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="411" parent="403" name="facturas_id_seq">
-      <ObjectId>101062</ObjectId>
+      <ObjectId>101429</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142810</StateNumber>
+      <StateNumber>143073</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="412" parent="403" name="failed_jobs_id_seq">
-      <ObjectId>100849</ObjectId>
+      <ObjectId>101213</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="413" parent="403" name="incidencias_id_seq">
-      <ObjectId>101075</ObjectId>
+      <ObjectId>101442</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="414" parent="403" name="jobs_id_seq">
-      <ObjectId>100832</ObjectId>
+      <ObjectId>101196</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
@@ -5490,34 +5482,34 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="416" parent="403" name="permissions_id_seq">
-      <ObjectId>100967</ObjectId>
+      <ObjectId>101332</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="417" parent="403" name="personal_access_tokens_id_seq">
-      <ObjectId>100861</ObjectId>
+      <ObjectId>101225</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="418" parent="403" name="producto_servicios_id_seq">
-      <ObjectId>100932</ObjectId>
+      <ObjectId>101295</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="419" parent="403" name="productos_id_seq">
-      <ObjectId>100920</ObjectId>
+      <ObjectId>101284</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
@@ -5530,26 +5522,26 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="421" parent="403" name="roles_id_seq">
-      <ObjectId>100978</ObjectId>
+      <ObjectId>101343</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="422" parent="403" name="servicios_id_seq">
-      <ObjectId>100901</ObjectId>
+      <ObjectId>101265</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <sequence id="423" parent="403" name="users_id_seq">
-      <ObjectId>100791</ObjectId>
+      <ObjectId>101155</ObjectId>
       <SequenceIdentity>1</SequenceIdentity>
       <StartValue>1</StartValue>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
@@ -5562,68 +5554,68 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </sequence>
     <table id="425" parent="403" name="cache">
-      <ObjectId>100818</ObjectId>
-      <StateNumber>142777</StateNumber>
+      <ObjectId>101182</ObjectId>
+      <StateNumber>143045</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="426" parent="403" name="cache_locks">
-      <ObjectId>100825</ObjectId>
-      <StateNumber>142777</StateNumber>
+      <ObjectId>101189</ObjectId>
+      <StateNumber>143045</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="427" parent="403" name="clientes">
-      <ObjectId>100874</ObjectId>
-      <StateNumber>142785</StateNumber>
+      <ObjectId>101238</ObjectId>
+      <StateNumber>143053</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="428" parent="403" name="contrato_incidencias">
-      <ObjectId>101085</ObjectId>
-      <StateNumber>142814</StateNumber>
+      <ObjectId>101452</ObjectId>
+      <StateNumber>143077</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="429" parent="403" name="contratos">
-      <ObjectId>101044</ObjectId>
-      <StateNumber>142808</StateNumber>
+      <ObjectId>101409</ObjectId>
+      <StateNumber>143071</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="430" parent="403" name="empleado_equipo_trabajos">
-      <ObjectId>100951</ObjectId>
-      <StateNumber>142802</StateNumber>
+      <ObjectId>101314</ObjectId>
+      <StateNumber>143065</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="431" parent="403" name="empleados">
-      <ObjectId>100888</ObjectId>
-      <StateNumber>142787</StateNumber>
+      <ObjectId>101252</ObjectId>
+      <StateNumber>143055</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="432" parent="403" name="equipo_trabajo_servicios">
-      <ObjectId>101027</ObjectId>
-      <StateNumber>142806</StateNumber>
+      <ObjectId>101392</ObjectId>
+      <StateNumber>143069</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="433" parent="403" name="equipo_trabajos">
-      <ObjectId>100912</ObjectId>
-      <StateNumber>142802</StateNumber>
+      <ObjectId>101276</ObjectId>
+      <StateNumber>143065</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="434" parent="403" name="facturas">
-      <ObjectId>101063</ObjectId>
-      <StateNumber>142810</StateNumber>
+      <ObjectId>101430</ObjectId>
+      <StateNumber>143073</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="435" parent="403" name="failed_jobs">
-      <ObjectId>100850</ObjectId>
-      <StateNumber>142779</StateNumber>
+      <ObjectId>101214</ObjectId>
+      <StateNumber>143047</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
@@ -5634,20 +5626,20 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="437" parent="403" name="incidencias">
-      <ObjectId>101076</ObjectId>
-      <StateNumber>142814</StateNumber>
+      <ObjectId>101443</ObjectId>
+      <StateNumber>143077</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="438" parent="403" name="job_batches">
-      <ObjectId>100842</ObjectId>
-      <StateNumber>142779</StateNumber>
+      <ObjectId>101206</ObjectId>
+      <StateNumber>143047</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="439" parent="403" name="jobs">
-      <ObjectId>100833</ObjectId>
-      <StateNumber>142779</StateNumber>
+      <ObjectId>101197</ObjectId>
+      <StateNumber>143047</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
@@ -5658,20 +5650,20 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="441" parent="403" name="model_has_permissions">
-      <ObjectId>100989</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101354</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="442" parent="403" name="model_has_roles">
-      <ObjectId>101000</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101365</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="443" parent="403" name="password_reset_tokens">
-      <ObjectId>100802</ObjectId>
-      <StateNumber>142775</StateNumber>
+      <ObjectId>101166</ObjectId>
+      <StateNumber>143043</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
@@ -5682,8 +5674,8 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="445" parent="403" name="permissions">
-      <ObjectId>100968</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101333</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
@@ -5694,20 +5686,20 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="447" parent="403" name="personal_access_tokens">
-      <ObjectId>100862</ObjectId>
-      <StateNumber>142783</StateNumber>
+      <ObjectId>101226</ObjectId>
+      <StateNumber>143051</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="448" parent="403" name="producto_servicios">
-      <ObjectId>100933</ObjectId>
-      <StateNumber>142800</StateNumber>
+      <ObjectId>101296</ObjectId>
+      <StateNumber>143063</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="449" parent="403" name="productos">
-      <ObjectId>100921</ObjectId>
-      <StateNumber>142800</StateNumber>
+      <ObjectId>101285</ObjectId>
+      <StateNumber>143063</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
@@ -5718,32 +5710,32 @@ true posixrules
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="451" parent="403" name="role_has_permissions">
-      <ObjectId>101011</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101376</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="452" parent="403" name="roles">
-      <ObjectId>100979</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101344</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="453" parent="403" name="servicios">
-      <ObjectId>100902</ObjectId>
-      <StateNumber>142800</StateNumber>
+      <ObjectId>101266</ObjectId>
+      <StateNumber>143063</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="454" parent="403" name="sessions">
-      <ObjectId>100809</ObjectId>
-      <StateNumber>142775</StateNumber>
+      <ObjectId>101173</ObjectId>
+      <StateNumber>143043</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
     <table id="455" parent="403" name="users">
-      <ObjectId>100792</ObjectId>
-      <StateNumber>142785</StateNumber>
+      <ObjectId>101156</ObjectId>
+      <StateNumber>143053</StateNumber>
       <AccessMethodId>2</AccessMethodId>
       <OwnerName>grupo18sc</OwnerName>
     </table>
@@ -5756,30 +5748,30 @@ true posixrules
     <column id="457" parent="425" name="key">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="458" parent="425" name="value">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
     <column id="459" parent="425" name="expiration">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <index id="460" parent="425" name="cache_pkey">
       <ColNames>key</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100823</ObjectId>
+      <ObjectId>101187</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -5788,38 +5780,38 @@ true posixrules
     </index>
     <key id="461" parent="425" name="cache_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100824</ObjectId>
+      <ObjectId>101188</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142777</StateNumber>
-      <UnderlyingIndexId>100823</UnderlyingIndexId>
+      <StateNumber>143045</StateNumber>
+      <UnderlyingIndexId>101187</UnderlyingIndexId>
     </key>
     <column id="462" parent="426" name="key">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="463" parent="426" name="owner">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="464" parent="426" name="expiration">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
     <index id="465" parent="426" name="cache_locks_pkey">
       <ColNames>key</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100830</ObjectId>
+      <ObjectId>101194</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142777</StateNumber>
+      <StateNumber>143045</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
@@ -5828,743 +5820,763 @@ true posixrules
     </index>
     <key id="466" parent="426" name="cache_locks_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100831</ObjectId>
+      <ObjectId>101195</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142777</StateNumber>
-      <UnderlyingIndexId>100830</UnderlyingIndexId>
+      <StateNumber>143045</StateNumber>
+      <UnderlyingIndexId>101194</UnderlyingIndexId>
     </key>
     <column id="467" parent="427" name="id">
       <DefaultExpression>nextval(&apos;clientes_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100873</SequenceId>
+      <SequenceId>101237</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="468" parent="427" name="ci">
       <Position>2</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="469" parent="427" name="nombre">
       <Position>3</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="470" parent="427" name="telefono">
       <Position>4</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="471" parent="427" name="direccion">
       <Position>5</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="472" parent="427" name="tipo_cliente">
       <Position>6</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="473" parent="427" name="user_id">
       <Position>7</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="474" parent="427" name="created_at">
       <Position>8</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="475" parent="427" name="updated_at">
       <Position>9</Position>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <foreign-key id="476" parent="427" name="clientes_user_id_foreign">
       <ColNames>user_id</ColNames>
-      <ObjectId>100882</ObjectId>
+      <ObjectId>101246</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100792</RefTableId>
+      <RefTableId>101156</RefTableId>
     </foreign-key>
     <index id="477" parent="427" name="clientes_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100880</ObjectId>
+      <ObjectId>101244</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142785</StateNumber>
+      <StateNumber>143053</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="478" parent="427" name="clientes_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100881</ObjectId>
+      <ObjectId>101245</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142785</StateNumber>
-      <UnderlyingIndexId>100880</UnderlyingIndexId>
+      <StateNumber>143053</StateNumber>
+      <UnderlyingIndexId>101244</UnderlyingIndexId>
     </key>
     <column id="479" parent="428" name="id">
       <DefaultExpression>nextval(&apos;contrato_incidencias_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>101084</SequenceId>
+      <SequenceId>101451</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="480" parent="428" name="estado">
       <Position>2</Position>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="481" parent="428" name="fecha_solucion">
       <Position>3</Position>
-      <StateNumber>142814</StateNumber>
-      <StoredType>date|0s</StoredType>
-      <TypeId>1082</TypeId>
+      <StateNumber>143077</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
     </column>
     <column id="482" parent="428" name="contrato_id">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="483" parent="428" name="incidencia_id">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
     <column id="484" parent="428" name="created_at">
       <Position>6</Position>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="485" parent="428" name="updated_at">
       <Position>7</Position>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <foreign-key id="486" parent="428" name="contrato_incidencias_contrato_id_foreign">
       <ColNames>contrato_id</ColNames>
-      <ObjectId>101091</ObjectId>
+      <ObjectId>101458</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>101044</RefTableId>
+      <RefTableId>101409</RefTableId>
     </foreign-key>
     <foreign-key id="487" parent="428" name="contrato_incidencias_incidencia_id_foreign">
       <ColNames>incidencia_id</ColNames>
-      <ObjectId>101096</ObjectId>
+      <ObjectId>101463</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>101076</RefTableId>
+      <RefTableId>101443</RefTableId>
     </foreign-key>
     <index id="488" parent="428" name="contrato_incidencias_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101089</ObjectId>
+      <ObjectId>101456</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142814</StateNumber>
+      <StateNumber>143077</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
     <key id="489" parent="428" name="contrato_incidencias_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101090</ObjectId>
+      <ObjectId>101457</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142814</StateNumber>
-      <UnderlyingIndexId>101089</UnderlyingIndexId>
+      <StateNumber>143077</StateNumber>
+      <UnderlyingIndexId>101456</UnderlyingIndexId>
     </key>
     <column id="490" parent="429" name="id">
       <DefaultExpression>nextval(&apos;contratos_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>101043</SequenceId>
+      <SequenceId>101408</SequenceId>
       <TypeId>20</TypeId>
     </column>
     <column id="491" parent="429" name="descripcion">
       <Position>2</Position>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="492" parent="429" name="precio_total">
       <Position>3</Position>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
     <column id="493" parent="429" name="estado">
       <Position>4</Position>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
     <column id="494" parent="429" name="fecha_inicio">
       <Position>5</Position>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
     <column id="495" parent="429" name="fecha_fin">
       <Position>6</Position>
-      <StateNumber>142808</StateNumber>
+      <StateNumber>143071</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="496" parent="429" name="created_at">
-      <Position>7</Position>
-      <StateNumber>142808</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="497" parent="429" name="updated_at">
-      <Position>8</Position>
-      <StateNumber>142808</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="498" parent="429" name="cliente_id">
-      <Position>9</Position>
-      <StateNumber>142808</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="499" parent="429" name="servicio_id">
-      <Position>10</Position>
-      <StateNumber>142808</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <foreign-key id="500" parent="429" name="contratos_cliente_id_foreign">
-      <ColNames>cliente_id</ColNames>
-      <ObjectId>101052</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142808</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100874</RefTableId>
-    </foreign-key>
-    <foreign-key id="501" parent="429" name="contratos_servicio_id_foreign">
-      <ColNames>servicio_id</ColNames>
-      <ObjectId>101057</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142808</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100902</RefTableId>
-    </foreign-key>
-    <index id="502" parent="429" name="contratos_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101050</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142808</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="503" parent="429" name="contratos_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101051</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142808</StateNumber>
-      <UnderlyingIndexId>101050</UnderlyingIndexId>
-    </key>
-    <column id="504" parent="430" name="id">
-      <DefaultExpression>nextval(&apos;empleado_equipo_trabajos_id_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>142802</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <SequenceId>100950</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="505" parent="430" name="empleado_id">
-      <Position>2</Position>
-      <StateNumber>142802</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="506" parent="430" name="equipo_trabajo_id">
-      <Position>3</Position>
-      <StateNumber>142802</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="507" parent="430" name="estado">
-      <Position>4</Position>
-      <StateNumber>142802</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="508" parent="430" name="created_at">
-      <Position>5</Position>
-      <StateNumber>142802</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="509" parent="430" name="updated_at">
-      <Position>6</Position>
-      <StateNumber>142802</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <foreign-key id="510" parent="430" name="empleado_equipo_trabajos_empleado_id_foreign">
-      <ColNames>empleado_id</ColNames>
-      <ObjectId>100957</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142802</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100888</RefTableId>
-    </foreign-key>
-    <foreign-key id="511" parent="430" name="empleado_equipo_trabajos_equipo_trabajo_id_foreign">
-      <ColNames>equipo_trabajo_id</ColNames>
-      <ObjectId>100962</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142802</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100912</RefTableId>
-    </foreign-key>
-    <index id="512" parent="430" name="empleado_equipo_trabajos_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100955</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142802</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="513" parent="430" name="empleado_equipo_trabajos_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100956</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142802</StateNumber>
-      <UnderlyingIndexId>100955</UnderlyingIndexId>
-    </key>
-    <column id="514" parent="431" name="id">
-      <DefaultExpression>nextval(&apos;empleados_id_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <SequenceId>100887</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="515" parent="431" name="ci">
-      <Position>2</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="516" parent="431" name="nombre">
-      <Position>3</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="517" parent="431" name="telefono">
-      <Position>4</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="518" parent="431" name="puesto">
-      <Position>5</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="519" parent="431" name="estado">
-      <Position>6</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="520" parent="431" name="user_id">
-      <Position>7</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="521" parent="431" name="created_at">
-      <Position>8</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="522" parent="431" name="updated_at">
-      <Position>9</Position>
-      <StateNumber>142787</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <foreign-key id="523" parent="431" name="empleados_user_id_foreign">
-      <ColNames>user_id</ColNames>
-      <ObjectId>100896</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142787</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100792</RefTableId>
-    </foreign-key>
-    <index id="524" parent="431" name="empleados_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100894</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142787</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="525" parent="431" name="empleados_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100895</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142787</StateNumber>
-      <UnderlyingIndexId>100894</UnderlyingIndexId>
-    </key>
-    <column id="526" parent="432" name="id">
-      <DefaultExpression>nextval(&apos;equipo_trabajo_servicios_id_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>142806</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <SequenceId>101026</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="527" parent="432" name="equipo_trabajo_id">
-      <Position>2</Position>
-      <StateNumber>142806</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="528" parent="432" name="servicio_id">
-      <Position>3</Position>
-      <StateNumber>142806</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="529" parent="432" name="estado">
-      <Position>4</Position>
-      <StateNumber>142806</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="530" parent="432" name="created_at">
-      <Position>5</Position>
-      <StateNumber>142806</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="531" parent="432" name="updated_at">
-      <Position>6</Position>
-      <StateNumber>142806</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <foreign-key id="532" parent="432" name="equipo_trabajo_servicios_equipo_trabajo_id_foreign">
-      <ColNames>equipo_trabajo_id</ColNames>
-      <ObjectId>101033</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142806</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100912</RefTableId>
-    </foreign-key>
-    <foreign-key id="533" parent="432" name="equipo_trabajo_servicios_servicio_id_foreign">
-      <ColNames>servicio_id</ColNames>
-      <ObjectId>101038</ObjectId>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142806</StateNumber>
-      <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100902</RefTableId>
-    </foreign-key>
-    <index id="534" parent="432" name="equipo_trabajo_servicios_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101031</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142806</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="535" parent="432" name="equipo_trabajo_servicios_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101032</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142806</StateNumber>
-      <UnderlyingIndexId>101031</UnderlyingIndexId>
-    </key>
-    <column id="536" parent="433" name="id">
-      <DefaultExpression>nextval(&apos;equipo_trabajos_id_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>142791</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <SequenceId>100911</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="537" parent="433" name="nombre">
-      <Position>2</Position>
-      <StateNumber>142791</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="538" parent="433" name="descripcion">
-      <Position>3</Position>
-      <StateNumber>142791</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="539" parent="433" name="estado">
-      <Position>4</Position>
-      <StateNumber>142791</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="540" parent="433" name="created_at">
-      <Position>5</Position>
-      <StateNumber>142791</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <column id="541" parent="433" name="updated_at">
-      <Position>6</Position>
-      <StateNumber>142791</StateNumber>
-      <StoredType>timestamp(0)|0s</StoredType>
-      <TypeId>1114</TypeId>
-    </column>
-    <index id="542" parent="433" name="equipo_trabajos_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100918</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142791</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="543" parent="433" name="equipo_trabajos_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100919</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>142791</StateNumber>
-      <UnderlyingIndexId>100918</UnderlyingIndexId>
-    </key>
-    <column id="544" parent="434" name="id">
-      <DefaultExpression>nextval(&apos;facturas_id_seq&apos;::regclass)</DefaultExpression>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>142810</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <SequenceId>101062</SequenceId>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="545" parent="434" name="contrato_id">
-      <Position>2</Position>
-      <StateNumber>142810</StateNumber>
-      <StoredType>bigint|0s</StoredType>
-      <TypeId>20</TypeId>
-    </column>
-    <column id="546" parent="434" name="precio_total">
+    <column id="496" parent="429" name="costo_saldo">
       <DefaultExpression>&apos;0&apos;::double precision</DefaultExpression>
-      <Position>3</Position>
-      <StateNumber>142810</StateNumber>
+      <Position>7</Position>
+      <StateNumber>143071</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="547" parent="434" name="estado">
-      <Position>4</Position>
-      <StateNumber>142810</StateNumber>
+    <column id="497" parent="429" name="estado_pago">
+      <DefaultExpression>&apos;PENDIENTE&apos;::character varying</DefaultExpression>
+      <Position>8</Position>
+      <StateNumber>143071</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="548" parent="434" name="created_at">
-      <Position>5</Position>
-      <StateNumber>142810</StateNumber>
+    <column id="498" parent="429" name="created_at">
+      <Position>9</Position>
+      <StateNumber>143071</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="549" parent="434" name="updated_at">
-      <Position>6</Position>
-      <StateNumber>142810</StateNumber>
+    <column id="499" parent="429" name="updated_at">
+      <Position>10</Position>
+      <StateNumber>143071</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="550" parent="434" name="facturas_contrato_id_foreign">
-      <ColNames>contrato_id</ColNames>
-      <ObjectId>101070</ObjectId>
+    <column id="500" parent="429" name="cliente_id">
+      <Position>11</Position>
+      <StateNumber>143071</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="501" parent="429" name="servicio_id">
+      <Position>12</Position>
+      <StateNumber>143071</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="502" parent="429" name="contratos_cliente_id_foreign">
+      <ColNames>cliente_id</ColNames>
+      <ObjectId>101419</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142810</StateNumber>
+      <StateNumber>143071</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>101044</RefTableId>
+      <RefTableId>101238</RefTableId>
     </foreign-key>
-    <index id="551" parent="434" name="facturas_pkey">
+    <foreign-key id="503" parent="429" name="contratos_servicio_id_foreign">
+      <ColNames>servicio_id</ColNames>
+      <ObjectId>101424</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143071</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101266</RefTableId>
+    </foreign-key>
+    <index id="504" parent="429" name="contratos_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101068</ObjectId>
+      <ObjectId>101417</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142810</StateNumber>
+      <StateNumber>143071</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="552" parent="434" name="facturas_pkey">
+    <key id="505" parent="429" name="contratos_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101069</ObjectId>
+      <ObjectId>101418</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142810</StateNumber>
-      <UnderlyingIndexId>101068</UnderlyingIndexId>
+      <StateNumber>143071</StateNumber>
+      <UnderlyingIndexId>101417</UnderlyingIndexId>
     </key>
-    <column id="553" parent="435" name="id">
+    <column id="506" parent="430" name="id">
+      <DefaultExpression>nextval(&apos;empleado_equipo_trabajos_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>101313</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="507" parent="430" name="empleado_id">
+      <Position>2</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="508" parent="430" name="equipo_trabajo_id">
+      <Position>3</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="509" parent="430" name="estado">
+      <Position>4</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="510" parent="430" name="ocupacion">
+      <Position>5</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="511" parent="430" name="created_at">
+      <Position>6</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="512" parent="430" name="updated_at">
+      <Position>7</Position>
+      <StateNumber>143065</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="513" parent="430" name="empleado_equipo_trabajos_empleado_id_foreign">
+      <ColNames>empleado_id</ColNames>
+      <ObjectId>101322</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143065</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101252</RefTableId>
+    </foreign-key>
+    <foreign-key id="514" parent="430" name="empleado_equipo_trabajos_equipo_trabajo_id_foreign">
+      <ColNames>equipo_trabajo_id</ColNames>
+      <ObjectId>101327</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143065</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101276</RefTableId>
+    </foreign-key>
+    <index id="515" parent="430" name="empleado_equipo_trabajos_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101320</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143065</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="516" parent="430" name="empleado_equipo_trabajos_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101321</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143065</StateNumber>
+      <UnderlyingIndexId>101320</UnderlyingIndexId>
+    </key>
+    <column id="517" parent="431" name="id">
+      <DefaultExpression>nextval(&apos;empleados_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>101251</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="518" parent="431" name="ci">
+      <Position>2</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="519" parent="431" name="nombre">
+      <Position>3</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="520" parent="431" name="telefono">
+      <Position>4</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="521" parent="431" name="puesto">
+      <Position>5</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="522" parent="431" name="estado">
+      <Position>6</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="523" parent="431" name="user_id">
+      <Position>7</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="524" parent="431" name="created_at">
+      <Position>8</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="525" parent="431" name="updated_at">
+      <Position>9</Position>
+      <StateNumber>143055</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="526" parent="431" name="empleados_user_id_foreign">
+      <ColNames>user_id</ColNames>
+      <ObjectId>101260</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143055</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101156</RefTableId>
+    </foreign-key>
+    <index id="527" parent="431" name="empleados_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101258</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143055</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="528" parent="431" name="empleados_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101259</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143055</StateNumber>
+      <UnderlyingIndexId>101258</UnderlyingIndexId>
+    </key>
+    <column id="529" parent="432" name="id">
+      <DefaultExpression>nextval(&apos;equipo_trabajo_servicios_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>143069</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>101391</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="530" parent="432" name="equipo_trabajo_id">
+      <Position>2</Position>
+      <StateNumber>143069</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="531" parent="432" name="servicio_id">
+      <Position>3</Position>
+      <StateNumber>143069</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="532" parent="432" name="estado">
+      <Position>4</Position>
+      <StateNumber>143069</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="533" parent="432" name="created_at">
+      <Position>5</Position>
+      <StateNumber>143069</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="534" parent="432" name="updated_at">
+      <Position>6</Position>
+      <StateNumber>143069</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="535" parent="432" name="equipo_trabajo_servicios_equipo_trabajo_id_foreign">
+      <ColNames>equipo_trabajo_id</ColNames>
+      <ObjectId>101398</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143069</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101276</RefTableId>
+    </foreign-key>
+    <foreign-key id="536" parent="432" name="equipo_trabajo_servicios_servicio_id_foreign">
+      <ColNames>servicio_id</ColNames>
+      <ObjectId>101403</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143069</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101266</RefTableId>
+    </foreign-key>
+    <index id="537" parent="432" name="equipo_trabajo_servicios_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101396</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143069</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="538" parent="432" name="equipo_trabajo_servicios_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101397</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143069</StateNumber>
+      <UnderlyingIndexId>101396</UnderlyingIndexId>
+    </key>
+    <column id="539" parent="433" name="id">
+      <DefaultExpression>nextval(&apos;equipo_trabajos_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>143059</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>101275</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="540" parent="433" name="nombre">
+      <Position>2</Position>
+      <StateNumber>143059</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="541" parent="433" name="descripcion">
+      <Position>3</Position>
+      <StateNumber>143059</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="542" parent="433" name="estado">
+      <Position>4</Position>
+      <StateNumber>143059</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="543" parent="433" name="created_at">
+      <Position>5</Position>
+      <StateNumber>143059</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="544" parent="433" name="updated_at">
+      <Position>6</Position>
+      <StateNumber>143059</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <index id="545" parent="433" name="equipo_trabajos_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101282</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143059</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="546" parent="433" name="equipo_trabajos_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101283</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143059</StateNumber>
+      <UnderlyingIndexId>101282</UnderlyingIndexId>
+    </key>
+    <column id="547" parent="434" name="id">
+      <DefaultExpression>nextval(&apos;facturas_id_seq&apos;::regclass)</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>143073</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>101429</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="548" parent="434" name="contrato_id">
+      <Position>2</Position>
+      <StateNumber>143073</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="549" parent="434" name="precio_total">
+      <DefaultExpression>&apos;0&apos;::double precision</DefaultExpression>
+      <Position>3</Position>
+      <StateNumber>143073</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="550" parent="434" name="estado">
+      <Position>4</Position>
+      <StateNumber>143073</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="551" parent="434" name="created_at">
+      <Position>5</Position>
+      <StateNumber>143073</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="552" parent="434" name="updated_at">
+      <Position>6</Position>
+      <StateNumber>143073</StateNumber>
+      <StoredType>timestamp(0)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <foreign-key id="553" parent="434" name="facturas_contrato_id_foreign">
+      <ColNames>contrato_id</ColNames>
+      <ObjectId>101437</ObjectId>
+      <OnDelete>cascade</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <StateNumber>143073</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>101409</RefTableId>
+    </foreign-key>
+    <index id="554" parent="434" name="facturas_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101435</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143073</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="555" parent="434" name="facturas_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>101436</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>143073</StateNumber>
+      <UnderlyingIndexId>101435</UnderlyingIndexId>
+    </key>
+    <column id="556" parent="435" name="id">
       <DefaultExpression>nextval(&apos;failed_jobs_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100849</SequenceId>
+      <SequenceId>101213</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="554" parent="435" name="uuid">
+    <column id="557" parent="435" name="uuid">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="555" parent="435" name="connection">
+    <column id="558" parent="435" name="connection">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="556" parent="435" name="queue">
+    <column id="559" parent="435" name="queue">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="557" parent="435" name="payload">
+    <column id="560" parent="435" name="payload">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="558" parent="435" name="exception">
+    <column id="561" parent="435" name="exception">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="559" parent="435" name="failed_at">
+    <column id="562" parent="435" name="failed_at">
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="560" parent="435" name="failed_jobs_pkey">
+    <index id="563" parent="435" name="failed_jobs_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100857</ObjectId>
+      <ObjectId>101221</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="561" parent="435" name="failed_jobs_uuid_unique">
+    <index id="564" parent="435" name="failed_jobs_uuid_unique">
       <ColNames>uuid</ColNames>
-      <ObjectId>100859</ObjectId>
-      <StateNumber>142779</StateNumber>
+      <ObjectId>101223</ObjectId>
+      <StateNumber>143047</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="562" parent="435" name="failed_jobs_pkey">
+    <key id="565" parent="435" name="failed_jobs_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100858</ObjectId>
+      <ObjectId>101222</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142779</StateNumber>
-      <UnderlyingIndexId>100857</UnderlyingIndexId>
+      <StateNumber>143047</StateNumber>
+      <UnderlyingIndexId>101221</UnderlyingIndexId>
     </key>
-    <key id="563" parent="435" name="failed_jobs_uuid_unique">
-      <ObjectId>100860</ObjectId>
-      <StateNumber>142779</StateNumber>
-      <UnderlyingIndexId>100859</UnderlyingIndexId>
+    <key id="566" parent="435" name="failed_jobs_uuid_unique">
+      <ObjectId>101224</ObjectId>
+      <StateNumber>143047</StateNumber>
+      <UnderlyingIndexId>101223</UnderlyingIndexId>
     </key>
-    <column id="564" parent="436" name="grup_cod">
+    <column id="567" parent="436" name="grup_cod">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>4225</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="565" parent="436" name="grup_name">
+    <column id="568" parent="436" name="grup_name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>4225</StateNumber>
       <StoredType>char(50)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="566" parent="436" name="grup_descrip">
+    <column id="569" parent="436" name="grup_descrip">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>4225</StateNumber>
       <StoredType>char(150)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="567" parent="436" name="grup_est">
+    <column id="570" parent="436" name="grup_est">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>4225</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
-    <column id="568" parent="436" name="grup_create">
+    <column id="571" parent="436" name="grup_create">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>4225</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="569" parent="436" name="grup_update">
+    <column id="572" parent="436" name="grup_update">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>4225</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="570" parent="436" name="grupo_pkey">
+    <index id="573" parent="436" name="grupo_pkey">
       <ColNames>grup_cod</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24059</ObjectId>
@@ -6573,7 +6585,7 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="571" parent="436" name="grupo_grup_name_key">
+    <index id="574" parent="436" name="grupo_grup_name_key">
       <ColNames>grup_name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24061</ObjectId>
@@ -6584,230 +6596,230 @@ true posixrules
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="572" parent="436" name="grupo_pkey">
+    <key id="575" parent="436" name="grupo_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24060</ObjectId>
       <Primary>1</Primary>
       <StateNumber>4225</StateNumber>
       <UnderlyingIndexId>24059</UnderlyingIndexId>
     </key>
-    <key id="573" parent="436" name="grupo_grup_name_key">
+    <key id="576" parent="436" name="grupo_grup_name_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24062</ObjectId>
       <StateNumber>4225</StateNumber>
       <UnderlyingIndexId>24061</UnderlyingIndexId>
     </key>
-    <column id="574" parent="437" name="id">
+    <column id="577" parent="437" name="id">
       <DefaultExpression>nextval(&apos;incidencias_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>101075</SequenceId>
+      <SequenceId>101442</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="575" parent="437" name="nombre">
+    <column id="578" parent="437" name="nombre">
       <Position>2</Position>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="576" parent="437" name="descripcion">
+    <column id="579" parent="437" name="descripcion">
       <Position>3</Position>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="577" parent="437" name="created_at">
+    <column id="580" parent="437" name="created_at">
       <Position>4</Position>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="578" parent="437" name="updated_at">
+    <column id="581" parent="437" name="updated_at">
       <Position>5</Position>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="579" parent="437" name="incidencias_pkey">
+    <index id="582" parent="437" name="incidencias_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101082</ObjectId>
+      <ObjectId>101449</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142812</StateNumber>
+      <StateNumber>143075</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="580" parent="437" name="incidencias_pkey">
+    <key id="583" parent="437" name="incidencias_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101083</ObjectId>
+      <ObjectId>101450</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142812</StateNumber>
-      <UnderlyingIndexId>101082</UnderlyingIndexId>
+      <StateNumber>143075</StateNumber>
+      <UnderlyingIndexId>101449</UnderlyingIndexId>
     </key>
-    <column id="581" parent="438" name="id">
+    <column id="584" parent="438" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="582" parent="438" name="name">
+    <column id="585" parent="438" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="583" parent="438" name="total_jobs">
+    <column id="586" parent="438" name="total_jobs">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="584" parent="438" name="pending_jobs">
+    <column id="587" parent="438" name="pending_jobs">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="585" parent="438" name="failed_jobs">
+    <column id="588" parent="438" name="failed_jobs">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="586" parent="438" name="failed_job_ids">
+    <column id="589" parent="438" name="failed_job_ids">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="587" parent="438" name="options">
+    <column id="590" parent="438" name="options">
       <Position>7</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="588" parent="438" name="cancelled_at">
+    <column id="591" parent="438" name="cancelled_at">
       <Position>8</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="589" parent="438" name="created_at">
+    <column id="592" parent="438" name="created_at">
       <NotNull>1</NotNull>
       <Position>9</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="590" parent="438" name="finished_at">
+    <column id="593" parent="438" name="finished_at">
       <Position>10</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="591" parent="438" name="job_batches_pkey">
+    <index id="594" parent="438" name="job_batches_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100847</ObjectId>
+      <ObjectId>101211</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="592" parent="438" name="job_batches_pkey">
+    <key id="595" parent="438" name="job_batches_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100848</ObjectId>
+      <ObjectId>101212</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142779</StateNumber>
-      <UnderlyingIndexId>100847</UnderlyingIndexId>
+      <StateNumber>143047</StateNumber>
+      <UnderlyingIndexId>101211</UnderlyingIndexId>
     </key>
-    <column id="593" parent="439" name="id">
+    <column id="596" parent="439" name="id">
       <DefaultExpression>nextval(&apos;jobs_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100832</SequenceId>
+      <SequenceId>101196</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="594" parent="439" name="queue">
+    <column id="597" parent="439" name="queue">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="595" parent="439" name="payload">
+    <column id="598" parent="439" name="payload">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="596" parent="439" name="attempts">
+    <column id="599" parent="439" name="attempts">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>smallint|0s</StoredType>
       <TypeId>21</TypeId>
     </column>
-    <column id="597" parent="439" name="reserved_at">
+    <column id="600" parent="439" name="reserved_at">
       <Position>5</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="598" parent="439" name="available_at">
+    <column id="601" parent="439" name="available_at">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="599" parent="439" name="created_at">
+    <column id="602" parent="439" name="created_at">
       <NotNull>1</NotNull>
       <Position>7</Position>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="600" parent="439" name="jobs_pkey">
+    <index id="603" parent="439" name="jobs_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100839</ObjectId>
+      <ObjectId>101203</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142779</StateNumber>
+      <StateNumber>143047</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="601" parent="439" name="jobs_queue_index">
+    <index id="604" parent="439" name="jobs_queue_index">
       <ColNames>queue</ColNames>
-      <ObjectId>100841</ObjectId>
-      <StateNumber>142779</StateNumber>
+      <ObjectId>101205</ObjectId>
+      <StateNumber>143047</StateNumber>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="602" parent="439" name="jobs_pkey">
+    <key id="605" parent="439" name="jobs_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100840</ObjectId>
+      <ObjectId>101204</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142779</StateNumber>
-      <UnderlyingIndexId>100839</UnderlyingIndexId>
+      <StateNumber>143047</StateNumber>
+      <UnderlyingIndexId>101203</UnderlyingIndexId>
     </key>
-    <column id="603" parent="440" name="id">
+    <column id="606" parent="440" name="id">
       <DefaultExpression>nextval(&apos;migrations_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -6816,21 +6828,21 @@ true posixrules
       <SequenceId>100784</SequenceId>
       <TypeId>23</TypeId>
     </column>
-    <column id="604" parent="440" name="migration">
+    <column id="607" parent="440" name="migration">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>142774</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="605" parent="440" name="batch">
+    <column id="608" parent="440" name="batch">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>142774</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="606" parent="440" name="migrations_pkey">
+    <index id="609" parent="440" name="migrations_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>100789</ObjectId>
@@ -6839,50 +6851,50 @@ true posixrules
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="607" parent="440" name="migrations_pkey">
+    <key id="610" parent="440" name="migrations_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>100790</ObjectId>
       <Primary>1</Primary>
       <StateNumber>142774</StateNumber>
       <UnderlyingIndexId>100789</UnderlyingIndexId>
     </key>
-    <column id="608" parent="441" name="permission_id">
+    <column id="611" parent="441" name="permission_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="609" parent="441" name="model_type">
+    <column id="612" parent="441" name="model_type">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="610" parent="441" name="model_id">
+    <column id="613" parent="441" name="model_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="611" parent="441" name="model_has_permissions_permission_id_foreign">
+    <foreign-key id="614" parent="441" name="model_has_permissions_permission_id_foreign">
       <ColNames>permission_id</ColNames>
-      <ObjectId>100993</ObjectId>
+      <ObjectId>101358</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100968</RefTableId>
+      <RefTableId>101333</RefTableId>
     </foreign-key>
-    <index id="612" parent="441" name="model_has_permissions_pkey">
+    <index id="615" parent="441" name="model_has_permissions_pkey">
       <ColNames>permission_id
 model_id
 model_type</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100998</ObjectId>
+      <ObjectId>101363</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>
@@ -6895,11 +6907,11 @@ pg_catalog</CollationParentNames>
 
 100</CollationIds>
     </index>
-    <index id="613" parent="441" name="model_has_permissions_model_id_model_type_index">
+    <index id="616" parent="441" name="model_has_permissions_model_id_model_type_index">
       <ColNames>model_id
 model_type</ColNames>
-      <ObjectId>100992</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101357</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>403</AccessMethodId>
       <CollationIds>
 100</CollationIds>
@@ -6908,50 +6920,50 @@ pg_catalog</CollationParentNames>
       <CollationNames>
 default</CollationNames>
     </index>
-    <key id="614" parent="441" name="model_has_permissions_pkey">
+    <key id="617" parent="441" name="model_has_permissions_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100999</ObjectId>
+      <ObjectId>101364</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>100998</UnderlyingIndexId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101363</UnderlyingIndexId>
     </key>
-    <column id="615" parent="442" name="role_id">
+    <column id="618" parent="442" name="role_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="616" parent="442" name="model_type">
+    <column id="619" parent="442" name="model_type">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="617" parent="442" name="model_id">
+    <column id="620" parent="442" name="model_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="618" parent="442" name="model_has_roles_role_id_foreign">
+    <foreign-key id="621" parent="442" name="model_has_roles_role_id_foreign">
       <ColNames>role_id</ColNames>
-      <ObjectId>101004</ObjectId>
+      <ObjectId>101369</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100979</RefTableId>
+      <RefTableId>101344</RefTableId>
     </foreign-key>
-    <index id="619" parent="442" name="model_has_roles_pkey">
+    <index id="622" parent="442" name="model_has_roles_pkey">
       <ColNames>role_id
 model_id
 model_type</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101009</ObjectId>
+      <ObjectId>101374</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>
@@ -6964,11 +6976,11 @@ pg_catalog</CollationParentNames>
 
 100</CollationIds>
     </index>
-    <index id="620" parent="442" name="model_has_roles_model_id_model_type_index">
+    <index id="623" parent="442" name="model_has_roles_model_id_model_type_index">
       <ColNames>model_id
 model_type</ColNames>
-      <ObjectId>101003</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101368</ObjectId>
+      <StateNumber>143067</StateNumber>
       <AccessMethodId>403</AccessMethodId>
       <CollationIds>
 100</CollationIds>
@@ -6977,109 +6989,109 @@ pg_catalog</CollationParentNames>
       <CollationNames>
 default</CollationNames>
     </index>
-    <key id="621" parent="442" name="model_has_roles_pkey">
+    <key id="624" parent="442" name="model_has_roles_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101010</ObjectId>
+      <ObjectId>101375</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>101009</UnderlyingIndexId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101374</UnderlyingIndexId>
     </key>
-    <column id="622" parent="443" name="email">
+    <column id="625" parent="443" name="email">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="623" parent="443" name="token">
+    <column id="626" parent="443" name="token">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="624" parent="443" name="created_at">
+    <column id="627" parent="443" name="created_at">
       <Position>3</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="625" parent="443" name="password_reset_tokens_pkey">
+    <index id="628" parent="443" name="password_reset_tokens_pkey">
       <ColNames>email</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100807</ObjectId>
+      <ObjectId>101171</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="626" parent="443" name="password_reset_tokens_pkey">
+    <key id="629" parent="443" name="password_reset_tokens_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100808</ObjectId>
+      <ObjectId>101172</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142775</StateNumber>
-      <UnderlyingIndexId>100807</UnderlyingIndexId>
+      <StateNumber>143043</StateNumber>
+      <UnderlyingIndexId>101171</UnderlyingIndexId>
     </key>
-    <column id="627" parent="444" name="per_cod">
+    <column id="630" parent="444" name="per_cod">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>char(14)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="628" parent="444" name="grup_cod">
+    <column id="631" parent="444" name="grup_cod">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <column id="629" parent="444" name="perm_pass">
+    <column id="632" parent="444" name="perm_pass">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>char(14)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="630" parent="444" name="perm_fini">
+    <column id="633" parent="444" name="perm_fini">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
-    <column id="631" parent="444" name="perm_ffin">
+    <column id="634" parent="444" name="perm_ffin">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
-    <column id="632" parent="444" name="perm_est">
+    <column id="635" parent="444" name="perm_est">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
-    <column id="633" parent="444" name="perm_create">
+    <column id="636" parent="444" name="perm_create">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="634" parent="444" name="perm_update">
+    <column id="637" parent="444" name="perm_update">
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>4226</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="635" parent="444" name="permiso_per_cod_fkey">
+    <foreign-key id="638" parent="444" name="permiso_per_cod_fkey">
       <ColNames>per_cod</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24066</ObjectId>
@@ -7087,7 +7099,7 @@ default</CollationNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>24047</RefTableId>
     </foreign-key>
-    <foreign-key id="636" parent="444" name="permiso_grup_cod_fkey">
+    <foreign-key id="639" parent="444" name="permiso_grup_cod_fkey">
       <ColNames>grup_cod</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24071</ObjectId>
@@ -7095,55 +7107,55 @@ default</CollationNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>24056</RefTableId>
     </foreign-key>
-    <column id="637" parent="445" name="id">
+    <column id="640" parent="445" name="id">
       <DefaultExpression>nextval(&apos;permissions_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100967</SequenceId>
+      <SequenceId>101332</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="638" parent="445" name="name">
+    <column id="641" parent="445" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="639" parent="445" name="guard_name">
+    <column id="642" parent="445" name="guard_name">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="640" parent="445" name="created_at">
+    <column id="643" parent="445" name="created_at">
       <Position>4</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="641" parent="445" name="updated_at">
+    <column id="644" parent="445" name="updated_at">
       <Position>5</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="642" parent="445" name="permissions_pkey">
+    <index id="645" parent="445" name="permissions_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100974</ObjectId>
+      <ObjectId>101339</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="643" parent="445" name="permissions_name_guard_name_unique">
+    <index id="646" parent="445" name="permissions_name_guard_name_unique">
       <ColNames>name
 guard_name</ColNames>
-      <ObjectId>100976</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101341</ObjectId>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationIds>100
@@ -7153,110 +7165,110 @@ default</CollationNames>
       <CollationParentNames>pg_catalog
 pg_catalog</CollationParentNames>
     </index>
-    <key id="644" parent="445" name="permissions_pkey">
+    <key id="647" parent="445" name="permissions_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100975</ObjectId>
+      <ObjectId>101340</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>100974</UnderlyingIndexId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101339</UnderlyingIndexId>
     </key>
-    <key id="645" parent="445" name="permissions_name_guard_name_unique">
-      <ObjectId>100977</ObjectId>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>100976</UnderlyingIndexId>
+    <key id="648" parent="445" name="permissions_name_guard_name_unique">
+      <ObjectId>101342</ObjectId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101341</UnderlyingIndexId>
     </key>
-    <column id="646" parent="446" name="per_cod">
+    <column id="649" parent="446" name="per_cod">
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(14)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="647" parent="446" name="per_nom">
+    <column id="650" parent="446" name="per_nom">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(150)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="648" parent="446" name="per_appm">
+    <column id="651" parent="446" name="per_appm">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(150)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="649" parent="446" name="per_prof">
+    <column id="652" parent="446" name="per_prof">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(100)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="650" parent="446" name="per_telf">
+    <column id="653" parent="446" name="per_telf">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(17)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="651" parent="446" name="per_cel">
+    <column id="654" parent="446" name="per_cel">
       <NotNull>1</NotNull>
       <Position>6</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(17)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="652" parent="446" name="per_email">
+    <column id="655" parent="446" name="per_email">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(50)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="653" parent="446" name="per_dir">
+    <column id="656" parent="446" name="per_dir">
       <NotNull>1</NotNull>
       <Position>8</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(150)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="654" parent="446" name="per_fnac">
+    <column id="657" parent="446" name="per_fnac">
       <NotNull>1</NotNull>
       <Position>9</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>date|0s</StoredType>
       <TypeId>1082</TypeId>
     </column>
-    <column id="655" parent="446" name="per_lnac">
+    <column id="658" parent="446" name="per_lnac">
       <NotNull>1</NotNull>
       <Position>10</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>char(150)|0s</StoredType>
       <TypeId>1042</TypeId>
     </column>
-    <column id="656" parent="446" name="per_est">
+    <column id="659" parent="446" name="per_est">
       <NotNull>1</NotNull>
       <Position>11</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>boolean|0s</StoredType>
       <TypeId>16</TypeId>
     </column>
-    <column id="657" parent="446" name="per_create">
+    <column id="660" parent="446" name="per_create">
       <NotNull>1</NotNull>
       <Position>12</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="658" parent="446" name="per_update">
+    <column id="661" parent="446" name="per_update">
       <NotNull>1</NotNull>
       <Position>13</Position>
       <StateNumber>4221</StateNumber>
       <StoredType>timestamp|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="659" parent="446" name="persona_pkey">
+    <index id="662" parent="446" name="persona_pkey">
       <ColNames>per_cod</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24052</ObjectId>
@@ -7268,7 +7280,7 @@ pg_catalog</CollationParentNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="660" parent="446" name="persona_per_email_key">
+    <index id="663" parent="446" name="persona_per_email_key">
       <ColNames>per_email</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24054</ObjectId>
@@ -7279,265 +7291,265 @@ pg_catalog</CollationParentNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="661" parent="446" name="persona_pkey">
+    <key id="664" parent="446" name="persona_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24053</ObjectId>
       <Primary>1</Primary>
       <StateNumber>4221</StateNumber>
       <UnderlyingIndexId>24052</UnderlyingIndexId>
     </key>
-    <key id="662" parent="446" name="persona_per_email_key">
+    <key id="665" parent="446" name="persona_per_email_key">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>24055</ObjectId>
       <StateNumber>4221</StateNumber>
       <UnderlyingIndexId>24054</UnderlyingIndexId>
     </key>
-    <column id="663" parent="447" name="id">
+    <column id="666" parent="447" name="id">
       <DefaultExpression>nextval(&apos;personal_access_tokens_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100861</SequenceId>
+      <SequenceId>101225</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="664" parent="447" name="tokenable_type">
+    <column id="667" parent="447" name="tokenable_type">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="665" parent="447" name="tokenable_id">
+    <column id="668" parent="447" name="tokenable_id">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="666" parent="447" name="name">
+    <column id="669" parent="447" name="name">
       <NotNull>1</NotNull>
       <Position>4</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="667" parent="447" name="token">
+    <column id="670" parent="447" name="token">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>varchar(64)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="668" parent="447" name="abilities">
+    <column id="671" parent="447" name="abilities">
       <Position>6</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="669" parent="447" name="last_used_at">
+    <column id="672" parent="447" name="last_used_at">
       <Position>7</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="670" parent="447" name="expires_at">
+    <column id="673" parent="447" name="expires_at">
       <Position>8</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="671" parent="447" name="created_at">
+    <column id="674" parent="447" name="created_at">
       <Position>9</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="672" parent="447" name="updated_at">
+    <column id="675" parent="447" name="updated_at">
       <Position>10</Position>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="673" parent="447" name="personal_access_tokens_pkey">
+    <index id="676" parent="447" name="personal_access_tokens_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100868</ObjectId>
+      <ObjectId>101232</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142783</StateNumber>
+      <StateNumber>143051</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="674" parent="447" name="personal_access_tokens_token_unique">
+    <index id="677" parent="447" name="personal_access_tokens_token_unique">
       <ColNames>token</ColNames>
-      <ObjectId>100871</ObjectId>
-      <StateNumber>142783</StateNumber>
+      <ObjectId>101235</ObjectId>
+      <StateNumber>143051</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="675" parent="447" name="personal_access_tokens_tokenable_type_tokenable_id_index">
+    <index id="678" parent="447" name="personal_access_tokens_tokenable_type_tokenable_id_index">
       <ColNames>tokenable_type
 tokenable_id</ColNames>
-      <ObjectId>100870</ObjectId>
-      <StateNumber>142783</StateNumber>
+      <ObjectId>101234</ObjectId>
+      <StateNumber>143051</StateNumber>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="676" parent="447" name="personal_access_tokens_pkey">
+    <key id="679" parent="447" name="personal_access_tokens_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100869</ObjectId>
+      <ObjectId>101233</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142783</StateNumber>
-      <UnderlyingIndexId>100868</UnderlyingIndexId>
+      <StateNumber>143051</StateNumber>
+      <UnderlyingIndexId>101232</UnderlyingIndexId>
     </key>
-    <key id="677" parent="447" name="personal_access_tokens_token_unique">
-      <ObjectId>100872</ObjectId>
-      <StateNumber>142783</StateNumber>
-      <UnderlyingIndexId>100871</UnderlyingIndexId>
+    <key id="680" parent="447" name="personal_access_tokens_token_unique">
+      <ObjectId>101236</ObjectId>
+      <StateNumber>143051</StateNumber>
+      <UnderlyingIndexId>101235</UnderlyingIndexId>
     </key>
-    <column id="678" parent="448" name="id">
+    <column id="681" parent="448" name="id">
       <DefaultExpression>nextval(&apos;producto_servicios_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100932</SequenceId>
+      <SequenceId>101295</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="679" parent="448" name="producto_id">
+    <column id="682" parent="448" name="producto_id">
       <Position>2</Position>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="680" parent="448" name="servicio_id">
+    <column id="683" parent="448" name="servicio_id">
       <Position>3</Position>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="681" parent="448" name="cantidad">
+    <column id="684" parent="448" name="cantidad">
       <DefaultExpression>&apos;0&apos;::double precision</DefaultExpression>
       <Position>4</Position>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="682" parent="448" name="created_at">
+    <column id="685" parent="448" name="created_at">
       <Position>5</Position>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="683" parent="448" name="updated_at">
+    <column id="686" parent="448" name="updated_at">
       <Position>6</Position>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="684" parent="448" name="producto_servicios_producto_id_foreign">
+    <foreign-key id="687" parent="448" name="producto_servicios_producto_id_foreign">
       <ColNames>producto_id</ColNames>
-      <ObjectId>100940</ObjectId>
+      <ObjectId>101303</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100921</RefTableId>
+      <RefTableId>101285</RefTableId>
     </foreign-key>
-    <foreign-key id="685" parent="448" name="producto_servicios_servicio_id_foreign">
+    <foreign-key id="688" parent="448" name="producto_servicios_servicio_id_foreign">
       <ColNames>servicio_id</ColNames>
-      <ObjectId>100945</ObjectId>
+      <ObjectId>101308</ObjectId>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100902</RefTableId>
+      <RefTableId>101266</RefTableId>
     </foreign-key>
-    <index id="686" parent="448" name="producto_servicios_pkey">
+    <index id="689" parent="448" name="producto_servicios_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100938</ObjectId>
+      <ObjectId>101301</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142800</StateNumber>
+      <StateNumber>143063</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="687" parent="448" name="producto_servicios_pkey">
+    <key id="690" parent="448" name="producto_servicios_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100939</ObjectId>
+      <ObjectId>101302</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142800</StateNumber>
-      <UnderlyingIndexId>100938</UnderlyingIndexId>
+      <StateNumber>143063</StateNumber>
+      <UnderlyingIndexId>101301</UnderlyingIndexId>
     </key>
-    <column id="688" parent="449" name="id">
+    <column id="691" parent="449" name="id">
       <DefaultExpression>nextval(&apos;productos_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100920</SequenceId>
+      <SequenceId>101284</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="689" parent="449" name="nombre">
+    <column id="692" parent="449" name="nombre">
       <Position>2</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="690" parent="449" name="descripcion">
+    <column id="693" parent="449" name="descripcion">
       <Position>3</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="691" parent="449" name="precio">
+    <column id="694" parent="449" name="precio">
       <DefaultExpression>&apos;0&apos;::double precision</DefaultExpression>
       <Position>4</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="692" parent="449" name="stock">
+    <column id="695" parent="449" name="stock">
       <DefaultExpression>&apos;0&apos;::double precision</DefaultExpression>
       <Position>5</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="693" parent="449" name="created_at">
+    <column id="696" parent="449" name="created_at">
       <Position>6</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="694" parent="449" name="updated_at">
+    <column id="697" parent="449" name="updated_at">
       <Position>7</Position>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="695" parent="449" name="productos_pkey">
+    <index id="698" parent="449" name="productos_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100929</ObjectId>
+      <ObjectId>101293</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142793</StateNumber>
+      <StateNumber>143061</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="696" parent="449" name="productos_pkey">
+    <key id="699" parent="449" name="productos_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100930</ObjectId>
+      <ObjectId>101294</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142793</StateNumber>
-      <UnderlyingIndexId>100929</UnderlyingIndexId>
+      <StateNumber>143061</StateNumber>
+      <UnderlyingIndexId>101293</UnderlyingIndexId>
     </key>
-    <column id="697" parent="450" name="id_rol">
+    <column id="700" parent="450" name="id_rol">
       <DefaultExpression>nextval(&apos;rol_id_rol_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -7546,32 +7558,32 @@ tokenable_id</ColNames>
       <SequenceId>66962</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="698" parent="450" name="nombre_rol">
+    <column id="701" parent="450" name="nombre_rol">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>52355</StateNumber>
       <StoredType>varchar(50)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="699" parent="450" name="descripcion">
+    <column id="702" parent="450" name="descripcion">
       <Position>3</Position>
       <StateNumber>52355</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="700" parent="450" name="created_at">
+    <column id="703" parent="450" name="created_at">
       <Position>4</Position>
       <StateNumber>52355</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="701" parent="450" name="updated_at">
+    <column id="704" parent="450" name="updated_at">
       <Position>5</Position>
       <StateNumber>52355</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="702" parent="450" name="rol_pkey">
+    <index id="705" parent="450" name="rol_pkey">
       <ColNames>id_rol</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>66969</ObjectId>
@@ -7580,109 +7592,109 @@ tokenable_id</ColNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="703" parent="450" name="rol_pkey">
+    <key id="706" parent="450" name="rol_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>66970</ObjectId>
       <Primary>1</Primary>
       <StateNumber>52355</StateNumber>
       <UnderlyingIndexId>66969</UnderlyingIndexId>
     </key>
-    <column id="704" parent="451" name="permission_id">
+    <column id="707" parent="451" name="permission_id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="705" parent="451" name="role_id">
+    <column id="708" parent="451" name="role_id">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <foreign-key id="706" parent="451" name="role_has_permissions_permission_id_foreign">
+    <foreign-key id="709" parent="451" name="role_has_permissions_permission_id_foreign">
       <ColNames>permission_id</ColNames>
-      <ObjectId>101014</ObjectId>
+      <ObjectId>101379</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100968</RefTableId>
+      <RefTableId>101333</RefTableId>
     </foreign-key>
-    <foreign-key id="707" parent="451" name="role_has_permissions_role_id_foreign">
+    <foreign-key id="710" parent="451" name="role_has_permissions_role_id_foreign">
       <ColNames>role_id</ColNames>
-      <ObjectId>101019</ObjectId>
+      <ObjectId>101384</ObjectId>
       <OnDelete>cascade</OnDelete>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <RefKeyColPositions>1</RefKeyColPositions>
-      <RefTableId>100979</RefTableId>
+      <RefTableId>101344</RefTableId>
     </foreign-key>
-    <index id="708" parent="451" name="role_has_permissions_pkey">
+    <index id="711" parent="451" name="role_has_permissions_pkey">
       <ColNames>permission_id
 role_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101024</ObjectId>
+      <ObjectId>101389</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="709" parent="451" name="role_has_permissions_pkey">
+    <key id="712" parent="451" name="role_has_permissions_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>101025</ObjectId>
+      <ObjectId>101390</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>101024</UnderlyingIndexId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101389</UnderlyingIndexId>
     </key>
-    <column id="710" parent="452" name="id">
+    <column id="713" parent="452" name="id">
       <DefaultExpression>nextval(&apos;roles_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100978</SequenceId>
+      <SequenceId>101343</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="711" parent="452" name="name">
+    <column id="714" parent="452" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="712" parent="452" name="guard_name">
+    <column id="715" parent="452" name="guard_name">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="713" parent="452" name="created_at">
+    <column id="716" parent="452" name="created_at">
       <Position>4</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="714" parent="452" name="updated_at">
+    <column id="717" parent="452" name="updated_at">
       <Position>5</Position>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="715" parent="452" name="roles_pkey">
+    <index id="718" parent="452" name="roles_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100985</ObjectId>
+      <ObjectId>101350</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="716" parent="452" name="roles_name_guard_name_unique">
+    <index id="719" parent="452" name="roles_name_guard_name_unique">
       <ColNames>name
 guard_name</ColNames>
-      <ObjectId>100987</ObjectId>
-      <StateNumber>142804</StateNumber>
+      <ObjectId>101352</ObjectId>
+      <StateNumber>143067</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationIds>100
@@ -7692,272 +7704,272 @@ default</CollationNames>
       <CollationParentNames>pg_catalog
 pg_catalog</CollationParentNames>
     </index>
-    <key id="717" parent="452" name="roles_pkey">
+    <key id="720" parent="452" name="roles_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100986</ObjectId>
+      <ObjectId>101351</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>100985</UnderlyingIndexId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101350</UnderlyingIndexId>
     </key>
-    <key id="718" parent="452" name="roles_name_guard_name_unique">
-      <ObjectId>100988</ObjectId>
-      <StateNumber>142804</StateNumber>
-      <UnderlyingIndexId>100987</UnderlyingIndexId>
+    <key id="721" parent="452" name="roles_name_guard_name_unique">
+      <ObjectId>101353</ObjectId>
+      <StateNumber>143067</StateNumber>
+      <UnderlyingIndexId>101352</UnderlyingIndexId>
     </key>
-    <column id="719" parent="453" name="id">
+    <column id="722" parent="453" name="id">
       <DefaultExpression>nextval(&apos;servicios_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100901</SequenceId>
+      <SequenceId>101265</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="720" parent="453" name="nombre">
+    <column id="723" parent="453" name="nombre">
       <Position>2</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="721" parent="453" name="descripcion">
+    <column id="724" parent="453" name="descripcion">
       <Position>3</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="722" parent="453" name="precio">
+    <column id="725" parent="453" name="precio">
       <Position>4</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>double precision|0s</StoredType>
       <TypeId>701</TypeId>
     </column>
-    <column id="723" parent="453" name="frecuencia">
+    <column id="726" parent="453" name="frecuencia">
       <DefaultExpression>&apos;DIARIA&apos;::character varying</DefaultExpression>
       <Position>5</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="724" parent="453" name="estado">
+    <column id="727" parent="453" name="estado">
       <Position>6</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="725" parent="453" name="created_at">
+    <column id="728" parent="453" name="created_at">
       <Position>7</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="726" parent="453" name="updated_at">
+    <column id="729" parent="453" name="updated_at">
       <Position>8</Position>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="727" parent="453" name="servicios_pkey">
+    <index id="730" parent="453" name="servicios_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100909</ObjectId>
+      <ObjectId>101273</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142789</StateNumber>
+      <StateNumber>143057</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="728" parent="453" name="servicios_pkey">
+    <key id="731" parent="453" name="servicios_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100910</ObjectId>
+      <ObjectId>101274</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142789</StateNumber>
-      <UnderlyingIndexId>100909</UnderlyingIndexId>
+      <StateNumber>143057</StateNumber>
+      <UnderlyingIndexId>101273</UnderlyingIndexId>
     </key>
-    <column id="729" parent="454" name="id">
+    <column id="732" parent="454" name="id">
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="730" parent="454" name="user_id">
+    <column id="733" parent="454" name="user_id">
       <Position>2</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="731" parent="454" name="ip_address">
+    <column id="734" parent="454" name="ip_address">
       <Position>3</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(45)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="732" parent="454" name="user_agent">
+    <column id="735" parent="454" name="user_agent">
       <Position>4</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="733" parent="454" name="payload">
+    <column id="736" parent="454" name="payload">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="734" parent="454" name="last_activity">
+    <column id="737" parent="454" name="last_activity">
       <NotNull>1</NotNull>
       <Position>6</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>integer|0s</StoredType>
       <TypeId>23</TypeId>
     </column>
-    <index id="735" parent="454" name="sessions_pkey">
+    <index id="738" parent="454" name="sessions_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100814</ObjectId>
+      <ObjectId>101178</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <index id="736" parent="454" name="sessions_user_id_index">
+    <index id="739" parent="454" name="sessions_user_id_index">
       <ColNames>user_id</ColNames>
-      <ObjectId>100816</ObjectId>
-      <StateNumber>142775</StateNumber>
+      <ObjectId>101180</ObjectId>
+      <StateNumber>143043</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="737" parent="454" name="sessions_last_activity_index">
+    <index id="740" parent="454" name="sessions_last_activity_index">
       <ColNames>last_activity</ColNames>
-      <ObjectId>100817</ObjectId>
-      <StateNumber>142775</StateNumber>
+      <ObjectId>101181</ObjectId>
+      <StateNumber>143043</StateNumber>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <key id="738" parent="454" name="sessions_pkey">
+    <key id="741" parent="454" name="sessions_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100815</ObjectId>
+      <ObjectId>101179</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142775</StateNumber>
-      <UnderlyingIndexId>100814</UnderlyingIndexId>
+      <StateNumber>143043</StateNumber>
+      <UnderlyingIndexId>101178</UnderlyingIndexId>
     </key>
-    <column id="739" parent="455" name="id">
+    <column id="742" parent="455" name="id">
       <DefaultExpression>nextval(&apos;users_id_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>bigint|0s</StoredType>
-      <SequenceId>100791</SequenceId>
+      <SequenceId>101155</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="740" parent="455" name="name">
+    <column id="743" parent="455" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="741" parent="455" name="email">
+    <column id="744" parent="455" name="email">
       <NotNull>1</NotNull>
       <Position>3</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="742" parent="455" name="email_verified_at">
+    <column id="745" parent="455" name="email_verified_at">
       <Position>4</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="743" parent="455" name="password">
+    <column id="746" parent="455" name="password">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="744" parent="455" name="remember_token">
+    <column id="747" parent="455" name="remember_token">
       <Position>6</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="745" parent="455" name="current_team_id">
+    <column id="748" parent="455" name="current_team_id">
       <Position>7</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="746" parent="455" name="profile_photo_path">
+    <column id="749" parent="455" name="profile_photo_path">
       <Position>8</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>varchar(2048)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="747" parent="455" name="created_at">
+    <column id="750" parent="455" name="created_at">
       <Position>9</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="748" parent="455" name="updated_at">
+    <column id="751" parent="455" name="updated_at">
       <Position>10</Position>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="749" parent="455" name="two_factor_secret">
+    <column id="752" parent="455" name="two_factor_secret">
       <Position>11</Position>
-      <StateNumber>142781</StateNumber>
+      <StateNumber>143049</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="750" parent="455" name="two_factor_recovery_codes">
+    <column id="753" parent="455" name="two_factor_recovery_codes">
       <Position>12</Position>
-      <StateNumber>142781</StateNumber>
+      <StateNumber>143049</StateNumber>
       <StoredType>text|0s</StoredType>
       <TypeId>25</TypeId>
     </column>
-    <column id="751" parent="455" name="two_factor_confirmed_at">
+    <column id="754" parent="455" name="two_factor_confirmed_at">
       <Position>13</Position>
-      <StateNumber>142781</StateNumber>
+      <StateNumber>143049</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <index id="752" parent="455" name="users_pkey">
+    <index id="755" parent="455" name="users_pkey">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100798</ObjectId>
+      <ObjectId>101162</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142775</StateNumber>
+      <StateNumber>143043</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="753" parent="455" name="users_email_unique">
+    <index id="756" parent="455" name="users_email_unique">
       <ColNames>email</ColNames>
-      <ObjectId>100800</ObjectId>
-      <StateNumber>142775</StateNumber>
+      <ObjectId>101164</ObjectId>
+      <StateNumber>143043</StateNumber>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
       <CollationNames>default</CollationNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="754" parent="455" name="users_pkey">
+    <key id="757" parent="455" name="users_pkey">
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>100799</ObjectId>
+      <ObjectId>101163</ObjectId>
       <Primary>1</Primary>
-      <StateNumber>142775</StateNumber>
-      <UnderlyingIndexId>100798</UnderlyingIndexId>
+      <StateNumber>143043</StateNumber>
+      <UnderlyingIndexId>101162</UnderlyingIndexId>
     </key>
-    <key id="755" parent="455" name="users_email_unique">
-      <ObjectId>100801</ObjectId>
-      <StateNumber>142775</StateNumber>
-      <UnderlyingIndexId>100800</UnderlyingIndexId>
+    <key id="758" parent="455" name="users_email_unique">
+      <ObjectId>101165</ObjectId>
+      <StateNumber>143043</StateNumber>
+      <UnderlyingIndexId>101164</UnderlyingIndexId>
     </key>
-    <column id="756" parent="456" name="id_usuario">
+    <column id="759" parent="456" name="id_usuario">
       <DefaultExpression>nextval(&apos;usuarios_id_usuario_seq&apos;::regclass)</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -7966,46 +7978,46 @@ pg_catalog</CollationParentNames>
       <SequenceId>67042</SequenceId>
       <TypeId>20</TypeId>
     </column>
-    <column id="757" parent="456" name="nombre">
+    <column id="760" parent="456" name="nombre">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StateNumber>52367</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="758" parent="456" name="correo">
+    <column id="761" parent="456" name="correo">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StateNumber>52367</StateNumber>
       <StoredType>varchar(100)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="759" parent="456" name="contraseña">
+    <column id="762" parent="456" name="contraseña">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StateNumber>52367</StateNumber>
       <StoredType>varchar(255)|0s</StoredType>
       <TypeId>1043</TypeId>
     </column>
-    <column id="760" parent="456" name="id_rol">
+    <column id="763" parent="456" name="id_rol">
       <Position>5</Position>
       <StateNumber>52367</StateNumber>
       <StoredType>bigint|0s</StoredType>
       <TypeId>20</TypeId>
     </column>
-    <column id="761" parent="456" name="created_at">
+    <column id="764" parent="456" name="created_at">
       <Position>6</Position>
       <StateNumber>52367</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <column id="762" parent="456" name="updated_at">
+    <column id="765" parent="456" name="updated_at">
       <Position>7</Position>
       <StateNumber>52367</StateNumber>
       <StoredType>timestamp(0)|0s</StoredType>
       <TypeId>1114</TypeId>
     </column>
-    <foreign-key id="763" parent="456" name="usuarios_id_rol_foreign">
+    <foreign-key id="766" parent="456" name="usuarios_id_rol_foreign">
       <ColNames>id_rol</ColNames>
       <ObjectId>67049</ObjectId>
       <OnDelete>set-null</OnDelete>
@@ -8013,7 +8025,7 @@ pg_catalog</CollationParentNames>
       <RefKeyColPositions>1</RefKeyColPositions>
       <RefTableId>66963</RefTableId>
     </foreign-key>
-    <index id="764" parent="456" name="usuarios_pkey">
+    <index id="767" parent="456" name="usuarios_pkey">
       <ColNames>id_usuario</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>67047</ObjectId>
@@ -8022,7 +8034,7 @@ pg_catalog</CollationParentNames>
       <Unique>1</Unique>
       <AccessMethodId>403</AccessMethodId>
     </index>
-    <index id="765" parent="456" name="usuarios_correo_unique">
+    <index id="768" parent="456" name="usuarios_correo_unique">
       <ColNames>correo</ColNames>
       <ObjectId>67054</ObjectId>
       <StateNumber>52367</StateNumber>
@@ -8032,14 +8044,14 @@ pg_catalog</CollationParentNames>
       <CollationIds>100</CollationIds>
       <CollationParentNames>pg_catalog</CollationParentNames>
     </index>
-    <key id="766" parent="456" name="usuarios_pkey">
+    <key id="769" parent="456" name="usuarios_pkey">
       <NameSurrogate>1</NameSurrogate>
       <ObjectId>67048</ObjectId>
       <Primary>1</Primary>
       <StateNumber>52367</StateNumber>
       <UnderlyingIndexId>67047</UnderlyingIndexId>
     </key>
-    <key id="767" parent="456" name="usuarios_correo_unique">
+    <key id="770" parent="456" name="usuarios_correo_unique">
       <ObjectId>67055</ObjectId>
       <StateNumber>52367</StateNumber>
       <UnderlyingIndexId>67054</UnderlyingIndexId>

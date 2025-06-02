@@ -11,6 +11,7 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
     private int contrato_id;
     private int incidencia_id;
     private String estado;
+    private String descripcion;
     private LocalDateTime fecha_solucion;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
@@ -18,9 +19,9 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
     private static final String QUERY_ID = "id";
     //private final String Q_CI = "ci";
     private static final String QUERY_INSERT = String.format(
-            "INSERT INTO %s (estado, fecha_solucion, created_at, contrato_id, incidencia_id) VALUES (?,?,?,?,?)", TABLE);
+            "INSERT INTO %s (estado, descripcion, fecha_solucion, created_at, contrato_id, incidencia_id) VALUES (?,?,?,?,?,?)", TABLE);
     private static final String QUERY_UPDATE = String.format(
-            "UPDATE %s SET estado=?, fecha_solucion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
+            "UPDATE %s SET estado=?, descripcion=?, fecha_solucion=?, updated_at=? WHERE %s=?", TABLE, QUERY_ID);
     private static final String QUERY_DELETE = String.format("DELETE FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private static final String QUERY_FIND_BY_ID = String.format("SELECT * FROM %s WHERE %s=?", TABLE, QUERY_ID);
     private static final String QUERY_LIST_ALL = "SELECT * FROM " + TABLE;
@@ -57,6 +58,14 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
         this.estado = estado;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public LocalDateTime getFecha_solucion() {
         return fecha_solucion;
     }
@@ -85,11 +94,12 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
         super(TABLE);
         this.created_at = LocalDateTime.now();
     }
-    public DContratoIncidencias(int contrato_id, int incidencia_id, String estado, LocalDateTime fecha_solucion) {
+    public DContratoIncidencias(int contrato_id, int incidencia_id, String estado, String descripcion,LocalDateTime fecha_solucion) {
         super(TABLE);
         this.contrato_id = contrato_id;
         this.incidencia_id = incidencia_id;
         this.estado = estado;
+        this.descripcion = descripcion;
         this.fecha_solucion = fecha_solucion;
         this.created_at = LocalDateTime.now();
     }
@@ -101,6 +111,7 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
         return new String[]{
                 String.valueOf(entity.getId()),
                 entity.getEstado(),
+                entity.getDescripcion(),
                 (entity.getFecha_solucion() != null) ? entity.getFecha_solucion().toString() : "",
                 createdAtStr,
                 updatedAtStr,
@@ -114,6 +125,7 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
         try {
             modelo.setId(Integer.parseInt(data[0]));
             modelo.setEstado(data[1]);
+            modelo.setDescripcion(data[2]);
             modelo.setFecha_solucion(toLocalDateTime(data[2]));
             modelo.setCreated_at(toLocalDateTime(data[3]));
             modelo.setUpdated_at(toLocalDateTime(data[4]));
@@ -151,17 +163,18 @@ public class DContratoIncidencias extends BaseDAO<DContratoIncidencias> {
         }
         // Para INSERT y UPDATE
         ps.setString(1, entity.getEstado());
-        ps.setTimestamp(2, toTimestamp(entity.getFecha_solucion()));
+        ps.setString(2, entity.getDescripcion());
+        ps.setTimestamp(3, toTimestamp(entity.getFecha_solucion()));
         // Para UPDATE, el último parámetro es el ID
-        if (ps.getParameterMetaData().getParameterCount() == 4) {
+        if (ps.getParameterMetaData().getParameterCount() == 5) {
             entity.setUpdated_at(LocalDateTime.now());
-            ps.setTimestamp(3, toTimestamp(entity.getUpdated_at()));
-            ps.setInt(4, entity.getId());
+            ps.setTimestamp(4, toTimestamp(entity.getUpdated_at()));
+            ps.setInt(5, entity.getId());
         } else {
             // Para INSERT, el último parámetro es created_at
-            ps.setTimestamp(3, toTimestamp(entity.getCreated_at()));
-            ps.setString(4, String.valueOf(entity.getContrato_id()));
-            ps.setString(5, String.valueOf(entity.getIncidencia_id()));
+            ps.setTimestamp(4, toTimestamp(entity.getCreated_at()));
+            ps.setString(5, String.valueOf(entity.getContrato_id()));
+            ps.setString(6, String.valueOf(entity.getIncidencia_id()));
         }
     }
     @Override

@@ -24,27 +24,6 @@ public class NReporte {
         reporte = new ReportGenerator();
         String[] data = DATA.contrato(id);
         if(data != null){
-            /*String[] encabezado = {
-                    "ID CONTRATO",
-                    "FECHA INICIO",
-                    "FECHA FIN",
-                    "CONTRATO MONTO",
-                    "CONTRATO ESTADO",
-                    "NOMBRE CLIENTE",
-                    "CI CLIENTE",
-                    "TELEFONO CLIENTE",
-                    "DIRECCION CLIENTE",
-                    "TIPO CLIENTE",
-                    "NOMBRE SERVICIO",
-                    "DESCRIPCION SERVICIO",
-                    "PRECIO SERVICIO",
-                    "FRECUENCIA SERVICIO",
-                    "ESTADO SERVICIO",
-                    "NOMBRE EQUIPO DE TRABAJO",
-                    "CI EMPLEADO",
-                    "NOMBRE DEL EMPLEADO"
-            };
-            query_contrato.addFirst(encabezado);*/
             reporte.generarDocumento("DOCUMENTO DE CONTRATO",data ,path);
         }
         //return contrato;

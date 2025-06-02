@@ -292,11 +292,11 @@ public class Help {
 
         //CONTRATOS INCIDENCIAS #7
         CasosUso contratos_incidencias = new CasosUso("CU7. GESTIONAR CONTRATOS INCIDENCIAS");
-        contratos_incidencias.addCaso(new Option("<b>GUARDAR CONTRATOS INCIDENCIAS</b> ", "CNTR_INC_ADD[contrato_id, incidencia_id, estado]; | <b>Ej.: CNTR_INC_ADD[1,1,(PENDIENTE, RESUELTA)]</b>"));
-        contratos_incidencias.addCaso(new Option("MODIFICAR CONTRATOS INCIDENCIAS", "CNTR_INC_MOD[id, estado]; | <b>Ej.: CNTR_INC_MOD[1,(PENDIENTE, RESUELTA)]</b>"));
-        contratos_incidencias.addCaso(new Option("ELIMINAR CONTRATOS INCIDENCIAS", "CNTR_INC_DEL[id];"));
-        contratos_incidencias.addCaso(new Option("VER CONTRATOS INCIDENCIAS", "CNTR_INC_VER[id];"));
-        contratos_incidencias.addCaso(new Option("LISTAR CONTRATOS INCIDENCIAS", "CNTR_INC_LIS[];"));
+        contratos_incidencias.addCaso(new Option("<b>GUARDAR CONTRATOS INCIDENCIAS</b> ", CONTRATO_INCIDENCIA+"_ADD[contrato_id, incidencia_id, estado]; | <b>Ej.: CNTR_INC_ADD[1,1,(PENDIENTE, RESUELTA)]</b>"));
+        contratos_incidencias.addCaso(new Option("MODIFICAR CONTRATOS INCIDENCIAS", CONTRATO_INCIDENCIA+"_MOD[id, estado]; | <b>Ej.: CNTR_INC_MOD[1,(PENDIENTE, RESUELTA)]</b>"));
+        contratos_incidencias.addCaso(new Option("ELIMINAR CONTRATOS INCIDENCIAS", CONTRATO_INCIDENCIA+"_DEL[id];"));
+        contratos_incidencias.addCaso(new Option("VER CONTRATOS INCIDENCIAS", CONTRATO_INCIDENCIA+"_VER[id];"));
+        contratos_incidencias.addCaso(new Option("LISTAR CONTRATOS INCIDENCIAS", CONTRATO_INCIDENCIA+"_LIS[];"));
 
         //REPORTES #8
         CasosUso reporte = new CasosUso("CU8. GESTIONAR REPORTES ");
@@ -316,6 +316,4 @@ public class Help {
         casos.add(reporte);
         return casos;
     }
-
-
 }

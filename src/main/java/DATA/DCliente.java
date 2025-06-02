@@ -236,7 +236,7 @@ public class DCliente extends BaseDAO<DCliente> {
         // Verificar si ya existe un cliente con la misma CI
         DCliente existente = findByCi(this.ci);
         if (existente != null) {
-            return new Object[]{false, "El cliente ya está registrado con ID: " + existente.getId()};
+            return new Object[]{false, "El cliente ya está registrado con ID: ".toUpperCase()+ existente.getId()};
         }
 
         return save(this);

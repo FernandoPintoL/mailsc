@@ -172,9 +172,9 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
             success[0] = rowsAffected > 0;
 
             if (success[0]) {
-                message[0] = tableName + " - Registro insertado exitosamente.";
+                message[0] = tableName + " - Registro insertado exitosamente.".toUpperCase();
             } else {
-                message[0] = "Error al intentar guardar los datos en " + tableName;
+                message[0] = "Error al intentar guardar los datos en ".toUpperCase() + tableName;
             }
         });
 
@@ -197,9 +197,9 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
             success[0] = rowsAffected > 0;
 
             if (success[0]) {
-                message[0] = tableName + " - Registro actualizado exitosamente.";
+                message[0] = tableName + " - Registro actualizado exitosamente.".toUpperCase();
             } else {
-                message[0] = "Error al intentar actualizar los datos en " + tableName;
+                message[0] = "Error al intentar actualizar los datos en ".toUpperCase() + tableName;
             }
         });
 
@@ -217,7 +217,7 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
 
         T existingEntity = findById(id);
         if (existingEntity == null) {
-            message[0] = "La entidad con ID " + id + " no existe en " + tableName;
+            message[0] = "La entidad con ID: ".toUpperCase() + id + " no existe en ".toUpperCase() + tableName;
             return new Object[]{false, message[0]};
         }
 
@@ -229,9 +229,9 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
             success[0] = rowsAffected > 0;
 
             if (success[0]) {
-                message[0] = tableName + " - Registro eliminado exitosamente.";
+                message[0] = tableName + " - Registro eliminado exitosamente.".toUpperCase();
             } else {
-                message[0] = "Error al intentar eliminar el registro en " + tableName;
+                message[0] = "Error al intentar eliminar el registro en ".toUpperCase() + tableName;
             }
         };
 
@@ -247,8 +247,6 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
      */
     public T findById(int id) {
         T entity = null;
-        System.out.println("Buscando entidad por ID: " + id + " en " + tableName);
-
         int attempts = 0;
         while (attempts < MAX_RETRY_ATTEMPTS) {
             try {
@@ -264,7 +262,7 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
                 if (resultSet.next()) {
                     String[] data = arrayData(resultSet);
                     entity = stringArrayToEntity(data);
-                    System.out.println("Entidad encontrada: " + entity);
+                    System.out.println("Entidad encontrada: ".toUpperCase() + entity);
                     return entity;
                 }
                 break; // Si llegamos aquí, la consulta fue exitosa aunque no encontró resultados
@@ -272,7 +270,7 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
             } catch (SQLException e) {
                 attempts++;
                 if (attempts == MAX_RETRY_ATTEMPTS) {
-                    logSQLException("Error después de " + MAX_RETRY_ATTEMPTS + " intentos al buscar entidad por ID en " + tableName, e);
+                    logSQLException("Error después de ".toUpperCase() + MAX_RETRY_ATTEMPTS + " intentos al buscar entidad por ID en ".toUpperCase() + tableName, e);
                     break;
                 }
                 try {
@@ -281,7 +279,8 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
                     Thread.currentThread().interrupt();
                     break;
                 }
-            } finally {
+            }
+            finally {
                 closeResources(false);
             }
         }
@@ -331,7 +330,7 @@ public abstract class BaseDAO<T> extends DataBaseHelper {
         try {
             return Timestamp.valueOf(dateTimeStr).toLocalDateTime();
         } catch (IllegalArgumentException e) {
-            System.err.println("Error al convertir fecha: " + dateTimeStr);
+            System.err.println("Error al convertir fecha: ".toUpperCase() + dateTimeStr);
             return null;
         }
     }
