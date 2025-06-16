@@ -1,10 +1,8 @@
 package NEGOCIO;
 
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -12,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 /**
  * Clase para comprimir archivos PDF
@@ -59,16 +56,17 @@ public class PdfCompressor {
         if (success) {
             // Verificar el tamaño del archivo comprimido
             long compressedSize = Files.size(Paths.get(compressedPath));
-            System.out.println("Archivo PDF comprimido: " + compressedSize + " bytes (reducción: " + 
-                    String.format("%.2f", (1 - (double)compressedSize/fileSize) * 100) + "%)");
-            
+            double reductionPercentage = (1 - (double) compressedSize / fileSize) * 100;
+            /*System.out.println("Archivo PDF comprimido: " + compressedSize + " bytes (reducción: " +
+                    String.format("%.2f", reductionPercentage) + "%)");*/
+
             // Si aún es demasiado grande, intentar con un nivel de compresión más alto
             if (compressedSize > maxSizeBytes && compressionLevel < 9) {
                 System.out.println("El archivo sigue siendo demasiado grande, intentando con mayor compresión");
                 Files.delete(Paths.get(compressedPath)); // Eliminar el archivo comprimido anterior
                 return compressIfNeeded(pdfPath, maxSizeBytes); // Intentar de nuevo con mayor compresión
             }
-            
+
             return compressedPath;
         } else {
             System.out.println("No se pudo comprimir el archivo PDF, devolviendo el original");
