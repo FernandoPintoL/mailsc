@@ -21,9 +21,8 @@ import java.util.ArrayList;
 public class ReportGenerator {
 
     private Document document;
-    private PdfPTable table;
     private PdfWriter writer;
-    private FooterPageEvent footerPageEvent;
+    private final FooterPageEvent footerPageEvent;
     private Font headerFont;
     private Font titleFont;
     private Font subTitleFont;
@@ -172,7 +171,7 @@ public class ReportGenerator {
 
         // Determinar el número de columnas a partir del primer elemento
         int numColumns = data.get(0).length;
-        table = new PdfPTable(numColumns);
+        PdfPTable table = new PdfPTable(numColumns);
         table.setWidthPercentage(100);
         table.setSpacingBefore(10);
         table.setSpacingAfter(10);
@@ -184,8 +183,10 @@ public class ReportGenerator {
         table.getDefaultCell().setBackgroundColor(BaseColor.LIGHT_GRAY);
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
-        // Agregar encabezados
-        for (String header : data.get(0)) {
+        // Los encabezados ya están incluidos en la primera fila de data
+        // No es necesario agregarlos de nuevo, solo formatearlos como encabezados
+        String[] headers = data.get(0);
+        for (String header : headers) {
             PdfPCell headerCell = new PdfPCell(new Phrase(header, headerFont));
             headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             headerCell.setBackgroundColor(BaseColor.BLUE);
@@ -193,7 +194,7 @@ public class ReportGenerator {
             table.addCell(headerCell);
         }
 
-        // Agregar filas de datos
+        // Agregar filas de datos (empezando desde la segunda fila)
         for (int i = 1; i < data.size(); i++) {
             String[] row = data.get(i);
             for (String cellData : row) {
@@ -207,8 +208,6 @@ public class ReportGenerator {
         // Agregar la tabla al documento
         document.add(table);
     }
-
-
     /**
      * Genera un documento PDF simple con un título y una lista de datos
      * 
@@ -283,8 +282,6 @@ public class ReportGenerator {
         return false;
     }
 
-
-
     /**
      * Genera un reporte PDF con datos tabulares y opcionalmente un gráfico
      * 
@@ -294,8 +291,7 @@ public class ReportGenerator {
      * @param reportTitle Título del reporte (si es null, se usa un título por defecto)
      * @return true si el PDF se generó correctamente, false en caso contrario
      */
-    public boolean generatePdfReport(ArrayList<String[]> data, String pdfFilePath, 
-                                    String chartFilePath, String reportTitle) {
+    public boolean generatePdfReport(ArrayList<String[]> data, String pdfFilePath, String chartFilePath, String reportTitle) {
         // Validar parámetros
         if (pdfFilePath == null || pdfFilePath.isEmpty()) {
             System.err.println("Error: Ruta de archivo inválida");

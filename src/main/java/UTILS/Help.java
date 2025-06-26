@@ -304,11 +304,11 @@ public class Help {
 
         //REPORTES #8
         CasosUso reporte = new CasosUso("CU8. GESTIONAR REPORTES ");
-        reporte.addCaso(new Option("<b>GENERAR REPORTE DE CONTRATO</b>", "CONTRATO_REP[id_contrato]; | <b>Ej.: REP_CONTRATO[1]</b>"));
-        reporte.addCaso(new Option("<b>GENERAR REPORTE DE INVENTARIO</b>", "INVENTARIO_REP[]; | <b>Ej.: REP_INVENTARIO[]</b>"));
-        reporte.addCaso(new Option("<b>GENERAR REPORTE DE SERVICIOS</b>", "SERVICIOS_REP[]; | <b>Ej.: REP_SERVICIOS[]</b>"));
-        reporte.addCaso(new Option("<b>GENERAR REPORTE DE INCIDENCIAS</b>", "INCIDENCIAS_REP[id_contrato]; | <b>Ej.: REP_INCIDENCIAS[1]</b>"));
-        reporte.addCaso(new Option("<b>GENERAR REPORTE DE EMPLEADOS</b>", "EMPLEADOS_REP[id_equipo]; | <b>Ej.: REP_EMPLEADOS[1]</b>"));
+        reporte.addCaso(new Option("<b>GENERAR REPORTE DE CONTRATO</b>", "CONTRATO_REP[id_contrato]; | <b>Ej.: CONTRATO_REP[1]</b>"));
+        reporte.addCaso(new Option("<b>GENERAR REPORTE DE INVENTARIO</b>", "INVENTARIO_REP[]; | <b>Ej.: INVENTARIO_REP[]</b>"));
+        reporte.addCaso(new Option("<b>GENERAR REPORTE DE SERVICIOS</b>", "SERVICIOS_REP[]; | <b>Ej.: SERVICIOS_REP[]</b>"));
+        reporte.addCaso(new Option("<b>GENERAR REPORTE DE INCIDENCIAS</b>", "INCIDENCIAS_REP[id_contrato]; | <b>Ej.: INCIDENCIAS_REP[1]</b>"));
+        reporte.addCaso(new Option("<b>GENERAR REPORTE DE EMPLEADOS</b>", "EMPLEADOS_REP[id_equipo]; | <b>Ej.: EMPLEADOS_REP[1]</b>"));
 
         casos.add(cliente);        
         casos.add(empleado);

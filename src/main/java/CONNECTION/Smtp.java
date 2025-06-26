@@ -310,6 +310,205 @@ public class Smtp extends Conexion {
 
                 System.err.println("Error al enviar el correo (intento " + attempt + "/" + maxRetries + "): " + e.getMessage());
 
+                // Verificar si el error es "Relaying denied. IP name lookup failed" y detener los reintentos
+                if (lastErrorMessage != null && lastErrorMessage.contains("Relaying denied. IP name lookup failed")) {
+                    System.err.println("Error específico detectado: Relaying denied. IP name lookup failed. Deteniendo reintentos.");
+                    throw new IOException("No se reintentará el envío debido a error específico: " + lastErrorMessage, lastException);
+                }
+
+                if (attempt == maxRetries) {
+                    System.err.println("Se agotaron los reintentos. No se pudo enviar el correo.");
+                    throw new IOException("No se pudo enviar el correo después de " + maxRetries + " intentos: " + lastErrorMessage, lastException);
+                }
+
+                System.out.println("Reintentando en " + retryDelayMs + " ms...");
+                try {
+                    Thread.sleep(retryDelayMs); // Esperar antes de reintentar
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
+                    throw new IOException("Interrupción durante el reintento", ie);
+                }
+            }
+        }
+    }
+
+    /**
+     * Envía un correo electrónico con un archivo de imagen adjunto
+     * 
+     * @param emisor Dirección de correo del emisor
+     * @param receptor Dirección de correo del receptor
+     * @param subject Asunto del correo
+     * @param mensaje Cuerpo del mensaje en formato HTML
+     * @param rutaImagen Ruta del archivo de imagen a adjuntar
+     * @throws IOException Si ocurre un error durante el envío
+     */
+    public void sendMailWithImage(String emisor, String receptor, String subject, String mensaje, String rutaImagen) throws IOException {
+        final int maxRetries = 3;
+        final int retryDelayMs = 2000;
+        final long maxImageSizeBytes = 8_000_000; // 8MB límite (dejando margen para codificación Base64)
+        final int maxChunkSize = 2048; // 2KB máximo por chunk para Base64 (más pequeño para evitar problemas de socket)
+
+        // Variables para seguimiento de errores
+        String lastErrorMessage = null;
+        Exception lastException = null;
+        Socket originalSocket = null;
+
+        for (int attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                // Si estamos reintentando, necesitamos restablecer la conexión
+                if (attempt > 1) {
+                    try {
+                        // Cerrar la conexión anterior si existe
+                        if (socket != null && !socket.isClosed()) {
+                            try {
+                                socket.close();
+                            } catch (Exception e) {
+                                // Ignorar errores al cerrar
+                            }
+                        }
+
+                        // Crear una nueva conexión
+                        socket = new Socket(this.servidor, this.port);
+                        socket.setSoTimeout(60000);
+                        socket.setKeepAlive(true);
+                        socket.setTcpNoDelay(true);
+                        socket.setSendBufferSize(8192);
+
+                        // Reinicializar los streams
+                        entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                        salida = new DataOutputStream(socket.getOutputStream());
+
+                        // Leer la respuesta inicial del servidor
+                        entrada.readLine();
+
+                        System.out.println("Conexión restablecida para reintento " + attempt);
+                    } catch (IOException e) {
+                        System.err.println("Error al restablecer la conexión: " + e.getMessage());
+                        throw new IOException("No se pudo restablecer la conexión para reintento", e);
+                    }
+                }
+
+                // Verificar si el archivo de imagen existe
+                if (!Files.exists(Paths.get(rutaImagen))) {
+                    System.out.println("El archivo de imagen no existe en la ruta especificada, se enviará el correo sin adjunto.");
+                    sendMail(emisor, receptor, subject, mensaje);
+                    return;
+                }
+
+                // Verificar tamaño del archivo
+                Path imagePath = Paths.get(rutaImagen);
+                long fileSize = Files.size(imagePath);
+
+                // Verificar si el archivo es demasiado pequeño (menos de 100 bytes)
+                if (fileSize < 100) {
+                    System.err.println("Advertencia: El archivo de imagen es muy pequeño (" + fileSize + " bytes), podría estar corrupto.");
+                }
+
+                if (fileSize > maxImageSizeBytes) {
+                    System.out.println("Advertencia: El archivo de imagen es grande (" + fileSize + " bytes). El correo podría no enviarse correctamente.");
+                }
+
+                // Iniciar el envío del correo
+                mailFrom(emisor);
+                rcptTo(receptor);
+                data();
+
+                // Determinar el tipo MIME según la extensión
+                String extension = rutaImagen.substring(rutaImagen.lastIndexOf(".") + 1).toLowerCase();
+                String contentType = "image/png"; // Por defecto
+
+                if (extension.equals("jpg") || extension.equals("jpeg")) {
+                    contentType = "image/jpeg";
+                } else if (extension.equals("gif")) {
+                    contentType = "image/gif";
+                } else if (extension.equals("bmp")) {
+                    contentType = "image/bmp";
+                }
+
+                // Encabezados del correo
+                String boundary = "==MyBoundary==" + System.currentTimeMillis();
+                writeWithFlush("MIME-Version: 1.0" + ConstSMPT.FINLINE);
+                writeWithFlush("Content-Type: multipart/mixed; boundary=\"" + boundary + "\"" + ConstSMPT.FINLINE);
+                writeWithFlush(ConstSMPT.SUBJECT + subject + ConstSMPT.FINLINE);
+
+                // Cuerpo del mensaje
+                writeWithFlush("--" + boundary + ConstSMPT.FINLINE);
+                writeWithFlush("Content-Type: text/html; charset=\"UTF-8\"" + ConstSMPT.FINLINE);
+                writeWithFlush(ConstSMPT.FINLINE);
+                writeWithFlush(mensaje + ConstSMPT.FINLINE);
+
+                // Adjuntar el archivo de imagen
+                String nameImage = Paths.get(rutaImagen).getFileName().toString();
+                System.out.println("Adjuntando archivo: " + nameImage + " (" + fileSize + " bytes)");
+                writeWithFlush("--" + boundary + ConstSMPT.FINLINE);
+                writeWithFlush("Content-Type: " + contentType + "; name=\"" + nameImage + "\"" + ConstSMPT.FINLINE);
+                writeWithFlush("Content-Transfer-Encoding: base64" + ConstSMPT.FINLINE);
+                writeWithFlush("Content-Disposition: attachment; filename=\"" + nameImage + "\"" + ConstSMPT.FINLINE);
+                writeWithFlush(ConstSMPT.FINLINE);
+
+                // Leer y codificar el archivo de imagen en Base64 en chunks más pequeños
+                try (InputStream input = Files.newInputStream(imagePath)) {
+                    byte[] buffer = new byte[1536]; // Buffer más pequeño (1.5KB) para generar chunks de Base64 de aprox. 2KB
+                    Base64.Encoder encoder = Base64.getEncoder();
+                    int bytesRead;
+                    long totalBytesRead = 0;
+                    int lineLength = 76; // Longitud estándar para líneas Base64
+
+                    while ((bytesRead = input.read(buffer)) != -1) {
+                        byte[] actualBytes = bytesRead == buffer.length ? buffer : Arrays.copyOf(buffer, bytesRead);
+                        String encoded = encoder.encodeToString(actualBytes);
+
+                        // Dividir la cadena codificada en líneas de longitud fija para mejor manejo
+                        for (int i = 0; i < encoded.length(); i += lineLength) {
+                            int end = Math.min(encoded.length(), i + lineLength);
+                            writeWithFlush(encoded.substring(i, end) + ConstSMPT.FINLINE);
+
+                            // Pequeña pausa cada 20 líneas para evitar sobrecarga
+                            if (i > 0 && i % (lineLength * 20) == 0) {
+                                try {
+                                    Thread.sleep(10);
+                                } catch (InterruptedException e) {
+                                    Thread.currentThread().interrupt();
+                                }
+                            }
+                        }
+
+                        totalBytesRead += bytesRead;
+                        // Mostrar progreso para archivos grandes
+                        if (fileSize > 500_000 && totalBytesRead % 500_000 < buffer.length) {
+                            System.out.println("Progreso: " + (totalBytesRead * 100 / fileSize) + "% (" + 
+                                    totalBytesRead + "/" + fileSize + " bytes)");
+                        }
+                    }
+                    System.out.println("Archivo codificado completamente: " + totalBytesRead + " bytes");
+                } catch (IOException e) {
+                    System.err.println("Error al leer el archivo de imagen: " + e.getMessage());
+                    e.printStackTrace();
+                    throw new IOException("Error al leer el archivo de imagen: " + e.getMessage(), e);
+                }
+
+                // Final del multipart
+                writeWithFlush("--" + boundary + "--" + ConstSMPT.FINLINE);
+                writeWithFlush(ConstSMPT.FINSUBJECT);
+                salida.flush();
+
+                // Cerrar la conexión
+                quit();
+
+                System.out.println("Correo con imagen enviado exitosamente a: " + receptor);
+                return; // Salir del método si todo fue exitoso
+            } catch (IOException e) {
+                lastErrorMessage = e.getMessage();
+                lastException = e;
+
+                System.err.println("Error al enviar el correo (intento " + attempt + "/" + maxRetries + "): " + e.getMessage());
+
+                // Verificar si el error es "Relaying denied. IP name lookup failed" y detener los reintentos
+                if (lastErrorMessage != null && lastErrorMessage.contains("Relaying denied. IP name lookup failed")) {
+                    System.err.println("Error específico detectado: Relaying denied. IP name lookup failed. Deteniendo reintentos.");
+                    throw new IOException("No se reintentará el envío debido a error específico: " + lastErrorMessage, lastException);
+                }
+
                 if (attempt == maxRetries) {
                     System.err.println("Se agotaron los reintentos. No se pudo enviar el correo.");
                     throw new IOException("No se pudo enviar el correo después de " + maxRetries + " intentos: " + lastErrorMessage, lastException);
@@ -355,6 +554,12 @@ public class Smtp extends Conexion {
                         salida.flush();
                         success = true;
                     } catch (IOException e) {
+                        // Verificar si el error es "Relaying denied. IP name lookup failed" y detener los reintentos
+                        if (e.getMessage() != null && e.getMessage().contains("Relaying denied. IP name lookup failed")) {
+                            System.err.println("Error específico detectado en writeWithFlush: Relaying denied. IP name lookup failed. Deteniendo reintentos.");
+                            throw new IOException("No se reintentará la escritura debido a error específico: " + e.getMessage(), e);
+                        }
+
                         retryCount++;
                         if (retryCount >= maxRetries) {
                             throw e;
